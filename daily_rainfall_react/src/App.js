@@ -1,11 +1,12 @@
 import React from "react"
 import "./styles.css"
-import Map from "./components/Map"
+
+import Navbar from "./components/Navbar" 
 
 function App() {
     return (
         <div>
-            <Map/>
+            <Navbar/>
         </div>
     )
 }

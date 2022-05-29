@@ -2,3 +2,22 @@
     height: 100px;
     width: 100px;
 }
+
+#navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    background-color: rgb(0, 91, 165);
+    color: white;
+    height: 5vh;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+}
+
+#navbar-btn-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1vw;
+}
