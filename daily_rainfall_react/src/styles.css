@@ -21,3 +21,11 @@
     justify-content: space-between;
     gap: 1vw;
 }
+
+#datefilter-container {
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5vw;
+}
