@@ -1,8 +1,4 @@
-.leaflet-container {
-    height: 100px;
-    width: 100px;
-}
-
+/* Navbar styling */
 #navbar-container {
     display: flex;
     justify-content: space-between;
@@ -22,10 +18,16 @@
     gap: 1vw;
 }
 
+/* DateFilter styling */
 #datefilter-container {
     height: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5vw;
+}
+
+/* Map styling */
+.leaflet-container {
+    height: 85vh;
 }
