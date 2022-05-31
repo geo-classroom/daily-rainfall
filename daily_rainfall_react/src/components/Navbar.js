@@ -1,4 +1,5 @@
 import React from "react"
+import { Button, grommet } from "grommet"
 
 function Navbar() {
     return (
@@ -8,7 +9,7 @@ function Navbar() {
             <h2>Welcome</h2>
             <div id="navbar-btn-container">
                 <button>About Project</button>
-                <button>Login</button>
+                <Button primary label="Login"></Button>
                 <button>Upload Data</button>
             </div>
         </div>
