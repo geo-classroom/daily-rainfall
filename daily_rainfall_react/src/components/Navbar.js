@@ -1,7 +1,12 @@
 import React from "react"
-import { Button, grommet } from "grommet"
+import { Button } from "grommet"
 
-function Navbar() {
+/*
+    Props:
+        googleSignIn
+*/
+
+function Navbar(props) {
     return (
         <div id="navbar-container">
             <h1>UP Rainfall Project</h1>
@@ -9,7 +14,12 @@ function Navbar() {
             <h2>Welcome</h2>
             <div id="navbar-btn-container">
                 <button>About Project</button>
-                <Button primary label="Login"></Button>
+                <Button 
+                    primary 
+                    label="Login"
+                    onClick={props.googleSignIn}
+                >
+                </Button>
                 <button>Upload Data</button>
             </div>
         </div>

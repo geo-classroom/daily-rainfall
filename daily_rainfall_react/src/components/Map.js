@@ -11,7 +11,7 @@ function Map() {
             <LayersControl position="topright">
                 {/* 
                     Add the following basemaps to the layer controller:
-                        MapBox Streets
+                        MapBox Streetspm
                         Stamen Terrain
                         MapTiler Satellite 
                 */}
