@@ -14,10 +14,10 @@ initializeApp(config.firebaseConfig)
 
 function App() {
     const auth = getAuth()
-    const signInWithGoogle = async () => {
+    function signInWithGoogle() {
         signInWithPopup(auth, new GoogleAuthProvider())
-        .then(response => {
-            console.log(response.user.uid)
+        .then(result => {
+            console.log(result.user.uid)
         })
         .catch((error) => {
             console.log(error)
@@ -28,7 +28,7 @@ function App() {
     return (
         <div>
             <Navbar
-                googleSignIn={() => signInWithGoogle()}
+                signInWithGoogle={() => signInWithGoogle()}
             />
             <DateFilter/>
             <Map/>

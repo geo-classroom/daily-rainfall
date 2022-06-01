@@ -3,7 +3,7 @@ import { Button } from "grommet"
 
 /*
     Props:
-        googleSignIn
+        signInWithGoogle
 */
 
 function Navbar(props) {
@@ -17,7 +17,7 @@ function Navbar(props) {
                 <Button 
                     primary 
                     label="Login"
-                    onClick={props.googleSignIn}
+                    onClick={props.signInWithGoogle}
                 >
                 </Button>
                 <button>Upload Data</button>
