@@ -1,10 +1,10 @@
-import React, { useState } from "react"
+import React from "react"
 import "./styles.css"
 // Firebase 
 import { initializeApp } from "firebase/app"
 import { config } from "./config/config"
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"
-import { getDatabase, set, ref } from "firebase/database"
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { getDatabase, onValue, ref } from "firebase/database"
 // components
 import Navbar from "./components/Navbar" 
 import DateFilter from "./components/DateFilter"
@@ -13,40 +13,37 @@ import Map from "./components/Map"
 // Initialize the Firebase app
 initializeApp(config.firebaseConfig)
 const auth = getAuth()
+const db = getDatabase()
 
-function App() {
-    const [currentUser, setCurrentUser] = useState("")
-
-    // Sign the user in with Google gmail account
-    function signInWithGoogle() {
+const App = () => {
+    /*
+        Sign the user in with Google gmail account
+        Call the function getUser and pass in the signed in user
+    */
+    const signInWithGoogle = () => {
         signInWithPopup(auth, new GoogleAuthProvider())
         .then(result => {
-            // Calls function writeUserData
-            WriteUserData(result.user)
-            // Set the the currentUser to the signed in user 
-            setCurrentUser(auth.currentUser.displayName)
+            getUser(result.user)
         })
         .catch((error) => {
             console.log(error)
         })
     }
 
-    // Saves the data from the signed in user to the database
-    function WriteUserData(user) {
-        const db = getDatabase()
-        set(ref(db, `users/${user.uid}`), {
-            username: user.displayName,
-            email: user.email,
-            phoneNumber: user.phoneNumber,
-            isRegistered: false
-        })
-    }
-
-    function logout() {
-        signOut(auth).then(() => {
-            setCurrentUser("")
-        }).catch((error) => {
-            console.log(error)
+    /*
+        Function accepts a user as an input
+        Gets all of the users that have added to the database
+        If the signed in user exists then write the user to context
+        Else register the user then write the user to context
+    */
+    const getUser = (user) => {
+        const userRef = ref(db, `users/`)
+        onValue(userRef, (snapshot) => {
+            const existingUsers = snapshot.val()
+            console.log(existingUsers)
+            user.uid in existingUsers ?
+                console.log("user exists") :
+                console.log("register user")
         })
     }
 
@@ -54,8 +51,6 @@ function App() {
         <div>
             <Navbar
                 signInWithGoogle={() => signInWithGoogle()}
-                currentUser={currentUser}
-                logout={() => logout()}
             />
             <DateFilter/>
             <Map/>

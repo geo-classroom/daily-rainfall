@@ -4,7 +4,7 @@ import "../styles.css"
 // Import Leaflet CSS
 import "leaflet/dist/leaflet.css"
 
-function Map() {
+const Map = () => {
     return (
         <MapContainer center={[-28.7, 24.5]} zoom={6}>
             {/* Add a layer conroll to the to right of the map */}
