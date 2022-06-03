@@ -1,10 +1,10 @@
-import React from "react"
+import React, { createContext, useState } from "react"
 import "./styles.css"
 // Firebase 
 import { initializeApp } from "firebase/app"
 import { config } from "./config/config"
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
-import { getDatabase, onValue, ref } from "firebase/database"
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"
+import { getDatabase, onValue, ref, set } from "firebase/database"
 // components
 import Navbar from "./components/Navbar" 
 import DateFilter from "./components/DateFilter"
@@ -15,7 +15,13 @@ initializeApp(config.firebaseConfig)
 const auth = getAuth()
 const db = getDatabase()
 
+// Set the UserContext
+export const UserContext = createContext() 
+
 const App = () => {
+    // Set state to hold a user object
+    const [user, setUser] = useState({})
+
     /*
         Sign the user in with Google gmail account
         Call the function getUser and pass in the signed in user
@@ -40,20 +46,47 @@ const App = () => {
         const userRef = ref(db, `users/`)
         onValue(userRef, (snapshot) => {
             const existingUsers = snapshot.val()
-            console.log(existingUsers)
             user.uid in existingUsers ?
-                console.log("user exists") :
+                writeUserData(user) :
                 console.log("register user")
+        })
+    }
+
+    /*
+        Takes a user as an argument 
+        saves the users data to context
+    */
+    const writeUserData = (user) => {
+        setUser({
+            id: user.id,
+            username: user.displayName,
+            email: user.email,
+            phone: user.phoneNumber
+        })
+    }
+
+    /*
+        Logout the user
+    */
+    const logout = () => {
+        signOut(auth).then(() => {
+            // Set use state to empty object
+            setUser({})
+        }).catch((error) => {
+            console.log(error)
         })
     }
 
     return (
         <div>
-            <Navbar
-                signInWithGoogle={() => signInWithGoogle()}
-            />
-            <DateFilter/>
-            <Map/>
+            <UserContext.Provider value={user}>
+                <Navbar
+                    signInWithGoogle={() => signInWithGoogle()}
+                    logout={() => logout()}
+                />
+                <DateFilter/>
+                <Map/>
+            </UserContext.Provider>
         </div>
     )
 }
