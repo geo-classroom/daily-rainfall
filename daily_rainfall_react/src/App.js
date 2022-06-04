@@ -48,7 +48,7 @@ const App = () => {
             const existingUsers = snapshot.val()
             user.uid in existingUsers ?
                 writeUserData(user) :
-                console.log("register user")
+                saveUserData(user)
         })
     }
 
@@ -57,12 +57,28 @@ const App = () => {
         saves the users data to context
     */
     const writeUserData = (user) => {
-        setUser({
-            id: user.id,
+        // Get user from db
+        const userRef = ref(db, `users/${user.uid}`)
+        onValue(userRef, (snapshot) => {
+            const userObj = snapshot.val()
+            // Write user to context
+            setUser(userObj)
+        })
+    }
+
+    /*
+        Takes user as an argument
+        Save the user data to the db
+        Calls writeUserData fucntion
+    */
+    const saveUserData = (user) => {
+        set(ref(db, `users/${user.uid}`), {
             username: user.displayName,
             email: user.email,
-            phone: user.phoneNumber
+            phone: user.phoneNumber,
+            isRegistered: false
         })
+        writeUserData(user)
     }
 
     /*
@@ -84,9 +100,9 @@ const App = () => {
                     signInWithGoogle={() => signInWithGoogle()}
                     logout={() => logout()}
                 />
+            </UserContext.Provider>
                 <DateFilter/>
                 <Map/>
-            </UserContext.Provider>
         </div>
     )
 }

@@ -26,7 +26,10 @@ const Navbar = (props) => {
                         <button onClick={props.logout}>Logout</button> :
                         <button onClick={props.signInWithGoogle}>Login</button>     
                 }
-                <button>Upload Data</button>
+                {
+                    // If user signed in enable button
+                    user.username ? <button>Upload Data</button> : <button disabled>Upload Data</button>
+                }
             </div>
         </div>
     )
