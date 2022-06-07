@@ -105,10 +105,10 @@ const App = () => {
                     signInWithGoogle={() => signInWithGoogle()}
                     logout={() => logout()}
                 />
-            </UserContext.Provider>
             {/* <DateFilter/>
             <Map/> */}
-            <UserRegistrationForm/>
+                <UserRegistrationForm/>
+            </UserContext.Provider>
         </div>
     )
 }
