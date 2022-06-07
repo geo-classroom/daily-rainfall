@@ -31,3 +31,17 @@
 .leaflet-container {
     height: 85vh;
 }
+
+/* UserRegistrationForm styling */
+#user-registration-from-container {
+    border: 1px solid black;
+    width: 30vw;    
+    padding-bottom: 2vh;
+}
+
+#user-registration-from {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vh;
+    align-items: center;
+}

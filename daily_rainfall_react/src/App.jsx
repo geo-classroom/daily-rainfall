@@ -9,6 +9,7 @@ import { getDatabase, onValue, ref, set } from "firebase/database"
 import Navbar from "./components/Navbar" 
 import DateFilter from "./components/DateFilter"
 import Map from "./components/Map"
+import UserRegistrationForm from "./components/UserRegistrationForm"
 
 // Initialize the Firebase app
 initializeApp(config.firebaseConfig)
@@ -97,16 +98,22 @@ const App = () => {
         })
     }
 
+    const uploadData = () => {
+        return <UserRegistrationForm/>
+    }
+
     return (
         <div>
             <UserContext.Provider value={user}>
                 <Navbar
                     signInWithGoogle={() => signInWithGoogle()}
                     logout={() => logout()}
+                    uploadData={() => uploadData()}
                 />
             </UserContext.Provider>
-                <DateFilter/>
-                <Map/>
+            <UserRegistrationForm/>
+                {/* <DateFilter/>
+                <Map/> */}
         </div>
     )
 }
