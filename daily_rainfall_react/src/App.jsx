@@ -98,22 +98,17 @@ const App = () => {
         })
     }
 
-    const uploadData = () => {
-        return <UserRegistrationForm/>
-    }
-
     return (
         <div>
             <UserContext.Provider value={user}>
                 <Navbar
                     signInWithGoogle={() => signInWithGoogle()}
                     logout={() => logout()}
-                    uploadData={() => uploadData()}
                 />
             </UserContext.Provider>
+            {/* <DateFilter/>
+            <Map/> */}
             <UserRegistrationForm/>
-                {/* <DateFilter/>
-                <Map/> */}
         </div>
     )
 }
