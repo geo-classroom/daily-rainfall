@@ -78,6 +78,7 @@ const App = () => {
     */
     const saveUserData = (user) => {
         set(ref(db, `users/${user.uid}`), {
+            id: user.uid,
             username: user.displayName,
             email: user.email,
             phone: user.phoneNumber,

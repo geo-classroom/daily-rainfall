@@ -1,6 +1,13 @@
 import React, { useContext, useState } from "react"
+// Firebase
+import { getDatabase, ref, update, set } from "firebase/database"
+// Import USerContext
+import { UserContext } from "../App"
 
 const UserRegistrationForm = () => {
+    // User context
+    const user = useContext(UserContext)
+
     /*
         State to hold the data from the form
     */
@@ -36,6 +43,33 @@ const UserRegistrationForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         console.table(formData)
+        
+        // NOT WORKING
+        // const db = getDatabase()
+        // update(ref(db, `users/${user.id}`), {
+        //     ...user,
+        //     isRegistered: true,
+        //     reistration: formData
+        // })
+    }
+
+    /*
+        Gets the current location of the user 
+        Sets the latitude and longitude to the state of the form so that the form fields update
+    */
+    const getLocation = () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            const { latitude, longitude } = position.coords
+            setFormData((prevFormData) => {
+                return (
+                    {
+                        ...prevFormData,
+                        latitude: latitude,
+                        longitude: longitude
+                    }
+                )
+            })
+        })
     }
 
     return (
@@ -43,13 +77,16 @@ const UserRegistrationForm = () => {
             <form id="user-registration-from" onSubmit={handleSubmit}>
                 <h1>Register</h1>
                 <div>
-                    <input 
-                        type="checkbox"
-                        id="permissionToShowLocation"
-                        checked={formData.permissionToShowLocation}
-                        onChange={handleChange}
-                        name="permissionToShowLocation"
-                    /> Permission to show Location
+                    <label>
+                        <input 
+                            type="checkbox"
+                            id="permissionToShowLocation"
+                            checked={formData.permissionToShowLocation}
+                            onChange={handleChange}
+                            name="permissionToShowLocation"
+                        />
+                        Permission to show Location
+                    </label>
                 </div>
                 <input 
                     type="text" 
@@ -67,7 +104,7 @@ const UserRegistrationForm = () => {
                     value={formData.longitude}
                     disabled 
                 />
-                <button type="button">Get Location</button>
+                <button type="button" onClick={getLocation}>Get Location</button>
                 <select
                     id="typeOfRaingauge"
                     value={formData.typeOfRaingauge}
@@ -80,13 +117,17 @@ const UserRegistrationForm = () => {
                 </select>
                 <input type="image"/>
                 <div>
-                    <input 
-                        type="checkbox"
-                        id="addMoreData"
-                        checked={formData.addMoreData}
-                        onChange={handleChange}
-                        name="addMoreData"
-                    /> Add more Data
+                    <label>
+                        <input 
+                            type="checkbox"
+                            id="addMoreData"
+                            checked={formData.addMoreData}
+                            onChange={handleChange}
+                            name="addMoreData"
+                        /> 
+                        Add more Data
+                    </label>
+                    
                 </div>
                 <input type="submit" value="submit"/>
             </form>
