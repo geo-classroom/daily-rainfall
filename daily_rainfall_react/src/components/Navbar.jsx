@@ -28,7 +28,7 @@ const Navbar = (props) => {
                 }
                 {
                     // If user signed in enable button
-                    user.username ? <button>Upload Data</button> : <button disabled>Upload Data</button>
+                    <button disabled={!user.username}>Upload Data</button>
                 }
             </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 // Firebase
-import { getDatabase, ref, update, set } from "firebase/database"
-// Import USerContext
+import { getDatabase, ref, update } from "firebase/database"
+// Import UserContext
 import { UserContext } from "../App"
 
 const UserRegistrationForm = () => {
@@ -129,7 +129,8 @@ const UserRegistrationForm = () => {
                     </label>
                     
                 </div>
-                <input type="submit" value="submit"/>
+                {/* Wait for location coordinates to load before allowing user to submit */}
+                <input disabled={!formData.latitude} type="submit" value="submit"/>
             </form>
         </div>
     )
