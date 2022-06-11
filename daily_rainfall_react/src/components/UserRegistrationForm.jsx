@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react"
+import React, { createRef, useContext, useState } from "react"
 // Firebase
 import { getDatabase, ref, update } from "firebase/database"
 // Import UserContext
 import { UserContext } from "../App"
-import { createRef } from "react"
 
 const UserRegistrationForm = () => {
     // User context
@@ -18,7 +17,7 @@ const UserRegistrationForm = () => {
             latitude: "",
             longitude: "",
             raingaugeType: "",
-            raingaugePhoto: createRef(),
+            // raingaugePhoto: createRef(),
             addMoreData: false
         }
     )
@@ -41,6 +40,8 @@ const UserRegistrationForm = () => {
     /*
         TODO    
         Sends the data to the db
+        Hide the user registration form 
+        Show map
     */
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -48,10 +49,9 @@ const UserRegistrationForm = () => {
         
         // NOT WORKING
         // const db = getDatabase()
-        // update(ref(db, `users/${user.id}`), {
-        //     ...user,
+        // update(ref(db, `users/${user.id}`), 
         //     isRegistered: true,
-        //     reistration: formData
+        //     registration: formData
         // })
     }
 
@@ -117,11 +117,11 @@ const UserRegistrationForm = () => {
                     <option value="Option 2">Option 2</option>
                     <option value="Option 3">Option 3</option>
                 </select>
-                <input 
+                {/* <input 
                     type="file" 
                     ref={formData.raingaugePhoto}
                     onChange={handleChange}
-                />
+                /> */}
                 <div>
                     <label>
                         <input 

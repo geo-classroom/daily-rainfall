@@ -141,7 +141,7 @@ const App = () => {
                     }
                 )
             })
-   }
+    }
 
     return (
         <div>
@@ -152,8 +152,10 @@ const App = () => {
                     uploadData={() => uploadData()}
                 />
                 {mapFormToggle.showMap && <Map/>}
-                {mapFormToggle.showUserRegistrationForm && <UserRegistrationForm/>}
-                {mapFormToggle.showUploadDataForm && <UploadDataForm/>}
+                <div id="form-container">
+                    {mapFormToggle.showUserRegistrationForm && <UserRegistrationForm/>}
+                    {mapFormToggle.showUploadDataForm && <UploadDataForm/>}
+                </div>
             </UserContext.Provider>
         </div>
     )

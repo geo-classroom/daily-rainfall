@@ -45,3 +45,11 @@
     gap: 1.5vh;
     align-items: center;
 }
+
+/* Form container styling */
+#form-container {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}
