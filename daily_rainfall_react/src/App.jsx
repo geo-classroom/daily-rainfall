@@ -159,7 +159,7 @@ const App = () => {
                     uploadData={() => uploadData()}
                 />
                 {mapFormToggle.showMap && <Map/>}
-                <div style={mapFormToggle.showUserRegistrationForm || mapFormToggle.showUploadDataForm ? {formComponentStyle} : {}}>
+                <div style={mapFormToggle.showUserRegistrationForm || mapFormToggle.showUploadDataForm ? formComponentStyle : {}}>
                     {mapFormToggle.showUserRegistrationForm && <UserRegistrationForm/>}
                     {mapFormToggle.showUploadDataForm && <UploadDataForm/>}
                 </div>

@@ -3,19 +3,19 @@ import React, { useState } from "react"
 const UploadDataForm = () => {
     // State to hold data from the form
     const [formData, setFormData] = useState(
-            {
-                userId: "",
-                latitude: "",
-                longitude: "",
-                rainfallAmount: "",
-                isHail: false,
-                isSnow: false,
-                isFrost: false,
-                hailSize: "",
-                hailTime: "",
-                snowAmount: "",
-                snowTime: ""
-            }
+        {
+            userId: "",
+            latitude: "",
+            longitude: "",
+            rainfallAmount: "",
+            isHail: false,
+            isSnow: false,
+            isFrost: false,
+            hailSize: "",
+            hailTime: "",
+            snowAmount: "",
+            snowTime: ""
+        }
     )
 
     /*
