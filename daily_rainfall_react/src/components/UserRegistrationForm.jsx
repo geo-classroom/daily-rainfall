@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react"
 import { getDatabase, ref, update } from "firebase/database"
 // Import UserContext
 import { UserContext } from "../App"
+import { createRef } from "react"
 
 const UserRegistrationForm = () => {
     // User context
@@ -16,7 +17,8 @@ const UserRegistrationForm = () => {
             permissionToShowLocation: false,
             latitude: "",
             longitude: "",
-            typeOfRaingauge: "",
+            raingaugeType: "",
+            raingaugePhoto: createRef(),
             addMoreData: false
         }
     )
@@ -106,16 +108,20 @@ const UserRegistrationForm = () => {
                 />
                 <button type="button" onClick={getLocation}>Get Location</button>
                 <select
-                    id="typeOfRaingauge"
-                    value={formData.typeOfRaingauge}
+                    id="raingaugeType"
+                    value={formData.raingaugeType}
                     onChange={handleChange}
-                    name="typeOfRaingauge"
+                    name="raingaugeType"
                 >
                     <option value="Option 1">Option 1</option>
                     <option value="Option 2">Option 2</option>
                     <option value="Option 3">Option 3</option>
                 </select>
-                <input type="image"/>
+                <input 
+                    type="file" 
+                    ref={formData.raingaugePhoto}
+                    onChange={handleChange}
+                />
                 <div>
                     <label>
                         <input 

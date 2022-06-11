@@ -7,9 +7,9 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/
 import { getDatabase, onValue, ref, set } from "firebase/database"
 // components
 import Navbar from "./components/Navbar" 
-import DateFilter from "./components/DateFilter"
 import Map from "./components/Map"
 import UserRegistrationForm from "./components/UserRegistrationForm"
+import UploadDataForm from "./components/UploadDataForm"
 
 // Initialize the Firebase app
 initializeApp(config.firebaseConfig)
@@ -25,6 +25,14 @@ export const UserContext = createContext()
 const App = () => {
     // Set state to hold a user object
     const [user, setUser] = useState({})
+    // Set state for user registration form, upload data from and map
+    const [mapFormToggle, setMapFormToggle] = useState(
+        {
+            showMap: true,
+            showUploadDataForm: false,
+            showUserRegistrationForm: false
+        }
+    )
 
     /*
         Sign the user in with Google gmail account
@@ -94,10 +102,46 @@ const App = () => {
         signOut(auth).then(() => {
             // Set use state to empty object -> clears context
             setUser({})
+            // Show map
+            setMapFormToggle((prevMapFormToggle) => {
+                return (
+                    {
+                        showMap: true,
+                        showUploadDataForm: false,
+                        showUserRegistrationForm: false
+                    }
+                )
+            })
         }).catch((error) => {
             console.log(error)
         })
     }
+
+    /*
+        If user is registered show the upload data form and hide map
+        Else show user registration form and hide map
+    */
+   const uploadData = () => {
+        user.isRegistered ? 
+            setMapFormToggle((prevMapFormToggle) => {
+                return (
+                    {
+                        ...prevMapFormToggle,
+                        showMap: false,
+                        showUploadDataForm: true
+                    }
+                )
+            }) :
+            setMapFormToggle((prevMapFormToggle) => {
+                return (
+                    {
+                        ...prevMapFormToggle,
+                        showMap: false,
+                        showUserRegistrationForm: true
+                    }
+                )
+            })
+   }
 
     return (
         <div>
@@ -105,10 +149,11 @@ const App = () => {
                 <Navbar
                     signInWithGoogle={() => signInWithGoogle()}
                     logout={() => logout()}
+                    uploadData={() => uploadData()}
                 />
-            {/* <DateFilter/>
-            <Map/> */}
-                <UserRegistrationForm/>
+                {mapFormToggle.showMap && <Map/>}
+                {mapFormToggle.showUserRegistrationForm && <UserRegistrationForm/>}
+                {mapFormToggle.showUploadDataForm && <UploadDataForm/>}
             </UserContext.Provider>
         </div>
     )

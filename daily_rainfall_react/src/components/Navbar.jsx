@@ -5,6 +5,7 @@ import { UserContext } from "../App"
     Props:
         signInWithGoogle
         logout
+        uploadData
 */
 
 const Navbar = (props) => {
@@ -16,7 +17,7 @@ const Navbar = (props) => {
             <h1>UP Rainfall Project</h1>
             {
                 // If user signed in change Welcome to show username
-                user.username ? <h2>{user.username}</h2> : <h2>Welcome</h2>
+                <h2>{user.username ? user.username : "Welcome"}</h2>
             }
             <div id="navbar-btn-container">
                 <button>About Project</button>
@@ -28,7 +29,7 @@ const Navbar = (props) => {
                 }
                 {
                     // If user signed in enable button
-                    <button disabled={!user.username}>Upload Data</button>
+                    <button disabled={!user.username} onClick={props.uploadData}>Upload Data</button>
                 }
             </div>
         </div>
