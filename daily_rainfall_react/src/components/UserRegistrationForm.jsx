@@ -1,13 +1,6 @@
-import React, { createRef, useContext, useState } from "react"
-// Firebase
-import { getDatabase, ref, update } from "firebase/database"
-// Import UserContext
-import { UserContext } from "../App"
+import React, { createRef, useState } from "react"
 
-const UserRegistrationForm = () => {
-    // User context
-    const user = useContext(UserContext)
-
+const UserRegistrationForm = (props) => {
     /*
         State to hold the data from the form
     */
@@ -38,21 +31,11 @@ const UserRegistrationForm = () => {
     }
     
     /*
-        TODO    
-        Sends the data to the db
-        Hide the user registration form 
-        Show map
+        Submits the form data to the App component
     */
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.table(formData)
-        
-        // NOT WORKING
-        // const db = getDatabase()
-        // update(ref(db, `users/${user.id}`), 
-        //     isRegistered: true,
-        //     registration: formData
-        // })
+        props.handleUserRegistrationSubmit(formData)
     }
 
     /*

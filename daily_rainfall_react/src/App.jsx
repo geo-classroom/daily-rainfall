@@ -4,7 +4,7 @@ import "./styles.css"
 import { initializeApp } from "firebase/app"
 import { config } from "./config/config"
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"
-import { getDatabase, onValue, ref, set } from "firebase/database"
+import { getDatabase, onValue, ref, set, update } from "firebase/database"
 // components
 import Navbar from "./components/Navbar" 
 import Map from "./components/Map"
@@ -90,7 +90,7 @@ const App = () => {
             username: user.displayName,
             email: user.email,
             phone: user.phoneNumber,
-            isRegistered: true
+            isRegistered: false
         })
         writeUserData(user)
     }
@@ -142,6 +142,20 @@ const App = () => {
                 )
             })
     }
+
+    /*
+        Save data to db
+        Call write user function to save updated user information to context 
+    */
+    const handleUserRegistrationSubmit = (formData) => {
+        console.table(formData)
+        
+        const updates = {}
+        updates[`users/${user.id}/registration/`] = formData
+        updates[`users/${user.id}/isRegistered`] = true
+        update(ref(db), updates)
+    }
+
      // NOT WORKING
     const formComponentStyle = {
         height: "90vh",
@@ -160,7 +174,7 @@ const App = () => {
                 />
                 {mapFormToggle.showMap && <Map/>}
                 <div style={mapFormToggle.showUserRegistrationForm || mapFormToggle.showUploadDataForm ? formComponentStyle : {}}>
-                    {mapFormToggle.showUserRegistrationForm && <UserRegistrationForm/>}
+                    {mapFormToggle.showUserRegistrationForm && <UserRegistrationForm handleUserRegistrationSubmit={handleUserRegistrationSubmit}/>}
                     {mapFormToggle.showUploadDataForm && <UploadDataForm/>}
                 </div>
             </UserContext.Provider>
