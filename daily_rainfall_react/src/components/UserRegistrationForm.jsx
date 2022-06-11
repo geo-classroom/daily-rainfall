@@ -75,8 +75,8 @@ const UserRegistrationForm = () => {
     }
 
     return (
-        <div id="user-registration-from-container">
-            <form id="user-registration-from" onSubmit={handleSubmit}>
+        <div id="form-container">
+            <form id="form" onSubmit={handleSubmit}>
                 <h1>Register</h1>
                 <div>
                     <label>

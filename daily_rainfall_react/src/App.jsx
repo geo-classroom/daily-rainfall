@@ -90,7 +90,7 @@ const App = () => {
             username: user.displayName,
             email: user.email,
             phone: user.phoneNumber,
-            isRegistered: false
+            isRegistered: true
         })
         writeUserData(user)
     }
@@ -142,6 +142,13 @@ const App = () => {
                 )
             })
     }
+     // NOT WORKING
+    const formComponentStyle = {
+        height: "90vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+    }
 
     return (
         <div>
@@ -152,7 +159,7 @@ const App = () => {
                     uploadData={() => uploadData()}
                 />
                 {mapFormToggle.showMap && <Map/>}
-                <div id="form-container">
+                <div style={mapFormToggle.showUserRegistrationForm || mapFormToggle.showUploadDataForm ? {formComponentStyle} : {}}>
                     {mapFormToggle.showUserRegistrationForm && <UserRegistrationForm/>}
                     {mapFormToggle.showUploadDataForm && <UploadDataForm/>}
                 </div>

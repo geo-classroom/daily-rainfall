@@ -32,24 +32,16 @@
     height: 85vh;
 }
 
-/* UserRegistrationForm styling */
-#user-registration-from-container {
+/* Form components styling */
+#form-container {
     border: 1px solid black;
     width: 350px;    
     padding-bottom: 2vh;
 }
 
-#user-registration-from {
+#form {
     display: flex;
     flex-direction: column;
     gap: 1.5vh;
     align-items: center;
-}
-
-/* Form container styling */
-#form-container {
-    height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;  
 }
