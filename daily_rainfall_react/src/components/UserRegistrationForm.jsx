@@ -78,18 +78,16 @@ const UserRegistrationForm = () => {
         <div id="form-container">
             <form id="form" onSubmit={handleSubmit}>
                 <h1>Register</h1>
-                <div>
-                    <label>
-                        <input 
-                            type="checkbox"
-                            id="permissionToShowLocation"
-                            checked={formData.permissionToShowLocation}
-                            onChange={handleChange}
-                            name="permissionToShowLocation"
-                        />
-                        Permission to show Location
-                    </label>
-                </div>
+                <label>
+                    <input 
+                        type="checkbox"
+                        id="permissionToShowLocation"
+                        checked={formData.permissionToShowLocation}
+                        onChange={handleChange}
+                        name="permissionToShowLocation"
+                    />
+                    Permission to show Location
+                </label>
                 <input 
                     type="text" 
                     placeholder="Latitude"
@@ -122,19 +120,16 @@ const UserRegistrationForm = () => {
                     ref={formData.raingaugePhoto}
                     onChange={handleChange}
                 /> */}
-                <div>
-                    <label>
-                        <input 
-                            type="checkbox"
-                            id="addMoreData"
-                            checked={formData.addMoreData}
-                            onChange={handleChange}
-                            name="addMoreData"
-                        /> 
-                        Add more Data
-                    </label>
-                    
-                </div>
+                <label>
+                    <input 
+                        type="checkbox"
+                        id="addMoreData"
+                        checked={formData.addMoreData}
+                        onChange={handleChange}
+                        name="addMoreData"
+                    /> 
+                    Add more Data
+                </label>
                 {/* Wait for location coordinates to load before allowing user to submit */}
                 <input disabled={!formData.latitude} type="submit" value="submit"/>
             </form>
