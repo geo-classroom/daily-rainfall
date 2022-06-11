@@ -1,12 +1,16 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
+import { UserContext } from "../App"
 
 const UploadDataForm = () => {
+    // User context
+    const user = useContext(UserContext)
+
     // State to hold data from the form
     const [formData, setFormData] = useState(
         {
-            userId: "",
-            latitude: "",
-            longitude: "",
+            userId: user.id,
+            latitude: user.registration.latitude,
+            longitude: user.registration.longitude,
             rainfallAmount: "",
             isHail: false,
             isSnow: false,
@@ -46,12 +50,28 @@ const UploadDataForm = () => {
         <div id="form-container">
             <form id="form" onSubmit={handleSubmit}>
                 <h1>Upload Data</h1>
-                {/* 
                 Collect users id and location (latitude and longitude automatically and hide these inputs)
-                <input type="text"/>
-                <input type="text"/>
-                <input type="text"/> 
-                */}
+                <input 
+                    type="text"
+                    hidden
+                    onChange={handleChange}
+                    name="userId"
+                    value={formData.userId}
+                />
+                <input 
+                    type="text"
+                    hidden
+                    onChange={handleChange}
+                    name="latitude"
+                    value={formData.latitude}
+                />
+                <input
+                    type="text"
+                    hidden
+                    onChange={handleChange}
+                    name="longitude"
+                    value={formData.longitude}
+                /> 
                 <input 
                     type="text" 
                     placeholder="Amount of rainfall (ml)"

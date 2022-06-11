@@ -144,19 +144,19 @@ const App = () => {
     }
 
     /*
-        Save data to db
+        Update data in db
         Call write user function to save updated user information to context 
     */
     const handleUserRegistrationSubmit = (formData) => {
         console.table(formData)
         
-        const updates = {}
-        updates[`users/${user.id}/registration/`] = formData
-        updates[`users/${user.id}/isRegistered`] = true
-        update(ref(db), updates)
+        // NOT WORKING
+        // const updates = {}
+        // updates[`users/${user.id}/registration/`] = formData
+        // updates[`users/${user.id}/isRegistered`] = true
+        // return update(ref(db), updates)
     }
 
-     // NOT WORKING
     const formComponentStyle = {
         height: "90vh",
         display: "flex",
