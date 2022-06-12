@@ -43,18 +43,32 @@ const UserRegistrationForm = (props) => {
         Sets the latitude and longitude to the state of the form so that the form fields update
     */
     const getLocation = () => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            const { latitude, longitude } = position.coords
-            setFormData((prevFormData) => {
-                return (
-                    {
-                        ...prevFormData,
-                        latitude: latitude,
-                        longitude: longitude
-                    }
-                )
-            })
+        navigator.geolocation.getCurrentPosition(success, error)  
+    }
+
+    /* 
+        Succesful postion returned from getLocation 
+        Update the formData fields
+    */
+    const success = (position) => {
+        const { latitude, longitude } = position.coords
+        setFormData((prevFormData) => {
+            return (
+                {
+                    ...prevFormData,
+                    latitude: latitude,
+                    longitude: longitude
+                }
+            )
         })
+    }
+
+    /*
+        If an error is returned from getLocation 
+        Console log the error
+    */
+    const error = (error) => {
+        console.log(error)
     }
 
     return (

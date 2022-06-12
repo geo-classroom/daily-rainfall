@@ -90,7 +90,7 @@ const App = () => {
             username: user.displayName,
             email: user.email,
             phone: user.phoneNumber,
-            isRegistered: true
+            isRegistered: false
         })
         writeUserData(user)
     }
@@ -151,10 +151,9 @@ const App = () => {
         console.table(formData)
         
         // NOT WORKING
-        // const updates = {}
-        // updates[`users/${user.id}/registration] = formData
-        // updates[`users/${user.id}/isRegistered`] = true
-        // return update(ref(db), updates)
+        // update(ref(db, `users/${user.id}`), {
+        //     registration: formData
+        // })
     }
 
     const formComponentStyle = {

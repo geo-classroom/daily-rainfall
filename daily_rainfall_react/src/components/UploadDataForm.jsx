@@ -9,8 +9,8 @@ const UploadDataForm = () => {
     const [formData, setFormData] = useState(
         {
             userId: user.id,
-            //latitude: user.registration.latitude,
-            //longitude: user.registration.longitude,
+            latitude: user.latitude,
+            longitude: user.longitude,
             rainfallAmount: "",
             isHail: false,
             isSnow: false,
@@ -81,36 +81,42 @@ const UploadDataForm = () => {
                     name="rainfallAmount"
                     value={formData.rainfallAmount}
                 />
-                <label>
-                    <input 
-                        type="checkbox"
-                        id="isHail"
-                        checked={formData.isHail}
-                        onChange={handleChange}
-                        name="isHail"
-                    />
-                    Hail
-                </label>
-                <label>
-                    <input 
-                        type="checkbox"
-                        id="isSnow"
-                        checked={formData.isSnow}
-                        onChange={handleChange}
-                        name="isSnow"
-                    />
-                    Snow
-                </label>
-                <label>
-                    <input 
-                        type="checkbox"
-                        id="isFrost"
-                        checked={formData.isFrost}
-                        onChange={handleChange}
-                        name="isFrost"
-                    />
-                    Frost
-                </label>
+                {
+                    // Render additional form items if the addMoreData is selected
+                    user.addMoreData &&  
+                        <div>
+                            <label>
+                                <input 
+                                    type="checkbox"
+                                    id="isHail"
+                                    checked={formData.isHail}
+                                    onChange={handleChange}
+                                    name="isHail"
+                                />
+                                Hail
+                            </label>
+                            <label>
+                                <input 
+                                    type="checkbox"
+                                    id="isSnow"
+                                    checked={formData.isSnow}
+                                    onChange={handleChange}
+                                    name="isSnow"
+                                />
+                                Snow
+                            </label>
+                            <label>
+                                <input 
+                                    type="checkbox"
+                                    id="isFrost"
+                                    checked={formData.isFrost}
+                                    onChange={handleChange}
+                                    name="isFrost"
+                                />
+                                Frost
+                            </label>
+                        </div>
+                }
                 {
                     // If hail selected show rest of form for hail input
                     formData.isHail && 
