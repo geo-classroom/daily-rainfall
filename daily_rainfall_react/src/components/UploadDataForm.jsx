@@ -9,8 +9,8 @@ const UploadDataForm = () => {
     const [formData, setFormData] = useState(
         {
             userId: user.id,
-            latitude: user.registration.latitude,
-            longitude: user.registration.longitude,
+            //latitude: user.registration.latitude,
+            //longitude: user.registration.longitude,
             rainfallAmount: "",
             isHail: false,
             isSnow: false,
@@ -39,6 +39,8 @@ const UploadDataForm = () => {
 
     /*
         Console log the form when submitted
+        TODO
+        Send form to the App component
     */
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -50,7 +52,7 @@ const UploadDataForm = () => {
         <div id="form-container">
             <form id="form" onSubmit={handleSubmit}>
                 <h1>Upload Data</h1>
-                Collect users id and location (latitude and longitude automatically and hide these inputs)
+                {/* Collect users id and location (latitude and longitude automatically and hide these inputs) */}
                 <input 
                     type="text"
                     hidden
@@ -109,42 +111,58 @@ const UploadDataForm = () => {
                     />
                     Frost
                 </label>
-                <input 
-                    type="text" 
-                    placeholder="Hail size"
-                    onChange={handleChange}
-                    name="hailSize"
-                    value={formData.hailSize}
-                />
+                {
+                    // If hail selected show rest of form for hail input
+                    formData.isHail && 
+                        <input 
+                            type="text" 
+                            placeholder="Hail size"
+                            onChange={handleChange}
+                            name="hailSize"
+                            value={formData.hailSize}
+                        />
+                }  
                 {/* <input 
                     type="file" 
                     ref={formData.hailPhoto}
                     onChange={handleChange}
                 /> */}
-                <input 
-                    type="text" 
-                    placeholder="Time of hail"
-                    onChange={handleChange}
-                    name="hailTime"
-                    value={formData.hailTime}
-                />
-                <select
-                    id="snowAmount"
-                    value={formData.snowAmount}
-                    onChange={handleChange}
-                    name="snowAmount"
-                >
-                    <option value="Option 1">Option 1</option>
-                    <option value="Option 2">Option 2</option>
-                    <option value="Option 3">Option 3</option>
-                </select>
-                <input 
-                    type="text"
-                    placeholder="Time of snow"
-                    onChange={handleChange}
-                    name="snowTime"
-                    value={formData.snowTime}
-                />
+                {
+                    // If hail selected show rest of form for hail input
+                    formData.isHail && 
+                        <input 
+                            type="text" 
+                            placeholder="Time of hail"
+                            onChange={handleChange}
+                            name="hailTime"
+                            value={formData.hailTime}
+                        />
+                }
+                {
+                    // If snow selected show rest of form for snow input
+                    formData.isSnow && 
+                        <select
+                            id="snowAmount"
+                            value={formData.snowAmount}
+                            onChange={handleChange}
+                            name="snowAmount"
+                        >
+                            <option value="Option 1">Option 1</option>
+                            <option value="Option 2">Option 2</option>
+                            <option value="Option 3">Option 3</option>
+                        </select>
+                }
+                {
+                    // If snow selected show rest of form for snow input
+                    formData.isSnow && 
+                        <input 
+                            type="text"
+                            placeholder="Time of snow"
+                            onChange={handleChange}
+                            name="snowTime"
+                            value={formData.snowTime}
+                        />
+                }
                 <input type="submit" value="submit"/>
             </form>
         </div>

@@ -4,7 +4,7 @@ import "./styles.css"
 import { initializeApp } from "firebase/app"
 import { config } from "./config/config"
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"
-import { getDatabase, onValue, ref, set, update } from "firebase/database"
+import { getDatabase, onValue, ref, set, update, push, child } from "firebase/database"
 // components
 import Navbar from "./components/Navbar" 
 import Map from "./components/Map"
@@ -90,7 +90,7 @@ const App = () => {
             username: user.displayName,
             email: user.email,
             phone: user.phoneNumber,
-            isRegistered: false
+            isRegistered: true
         })
         writeUserData(user)
     }
@@ -152,7 +152,7 @@ const App = () => {
         
         // NOT WORKING
         // const updates = {}
-        // updates[`users/${user.id}/registration/`] = formData
+        // updates[`users/${user.id}/registration] = formData
         // updates[`users/${user.id}/isRegistered`] = true
         // return update(ref(db), updates)
     }
