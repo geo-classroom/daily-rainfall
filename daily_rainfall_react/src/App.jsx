@@ -57,7 +57,7 @@ const App = () => {
     const getUser = (user) => {
         const existingUsers = ref(db, `users/`)
         onValue(existingUsers, (snapshot) => {
-            user.uid in existingUsers ?
+            user.id in existingUsers ?
                 // Write user to context
                 writeUserData(user) :
                 // Save user in the db then write user to context
@@ -150,8 +150,9 @@ const App = () => {
     const handleUserRegistrationSubmit = (formData) => {
         console.table(formData)
         
-        // NOT WORKING
-        // update(ref(db, `users/${user.id}`), {
+        // NOT WORKING 
+        // Shows in red in firebase along the right route but doesnt update or persist
+        // update(ref(db, `users/${user.id}/`), {
         //     registration: formData
         // })
     }
