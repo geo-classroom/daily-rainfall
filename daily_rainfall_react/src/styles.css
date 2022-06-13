@@ -45,3 +45,10 @@
     gap: 1.5vh;
     align-items: center;
 }
+
+/* Hail Snow Frost checkbox div styling */
+#add-more-data-checkbox-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}

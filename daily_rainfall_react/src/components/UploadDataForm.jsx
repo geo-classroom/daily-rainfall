@@ -84,7 +84,7 @@ const UploadDataForm = () => {
                 {
                     // Render additional form items if the addMoreData is selected
                     user.registration.addMoreData &&  
-                        <div>
+                        <div id="add-more-data-checkbox-container">
                             <label>
                                 <input 
                                     type="checkbox"
