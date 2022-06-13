@@ -173,11 +173,14 @@ const App = () => {
 
         // TODO 
         // Fix update so that it can update the currently signed in users account
-        update(ref(db, `users/hMOw13ARo1en06esettvOXk4jMA3`), {
-            isRegistered: true,
-            registration: formData
-        })
+        // hMOw13ARo1en06esettvOXk4jMA3
+        // update(ref(db, `users/${user.id}`), {
+        //     isRegistered: true,
+        //     registration: formData
+        // })
     }
+
+    console.log(user)
 
     const formComponentStyle = {
         height: "90vh",

@@ -9,8 +9,8 @@ const UploadDataForm = () => {
     const [formData, setFormData] = useState(
         {
             userId: user.id,
-            latitude: user.latitude,
-            longitude: user.longitude,
+            latitude: user.registration.latitude,
+            longitude: user.registration.longitude,
             rainfallAmount: "",
             isHail: false,
             isSnow: false,
@@ -83,7 +83,7 @@ const UploadDataForm = () => {
                 />
                 {
                     // Render additional form items if the addMoreData is selected
-                    user.addMoreData &&  
+                    user.registration.addMoreData &&  
                         <div>
                             <label>
                                 <input 
