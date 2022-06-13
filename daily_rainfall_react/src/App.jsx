@@ -85,6 +85,7 @@ const App = () => {
         Wrtie use to context by calling WriteUserData
     */
     const saveUserData = (user) => {
+    
         set(ref(db, `users/${user.uid}`), {
             id: user.uid,
             username: user.displayName,
@@ -94,7 +95,7 @@ const App = () => {
         })
         writeUserData(user)
     }
-
+   
     /*
         Logout the user
     */
@@ -144,17 +145,38 @@ const App = () => {
     }
 
     /*
-        Update data in db
-        Call write user function to save updated user information to context 
+        User submits user registration form
+        Update user state  
+        hide user registration form show map
+        update the user in the database
     */
     const handleUserRegistrationSubmit = (formData) => {
-        console.table(formData)
-        
-        // NOT WORKING 
-        // Shows in red in firebase along the right route but doesnt update or persist
-        // update(ref(db, `users/${user.id}/`), {
-        //     registration: formData
-        // })
+        setUser((prevUser) => {
+            return (
+                {
+                    ...prevUser,
+                    isRegistered: true,
+                    registration: formData
+                }
+            )
+        })
+
+        setMapFormToggle((prevMapFormToggle) => {
+            return (
+                {
+                    ...prevMapFormToggle,
+                    showMap: true,
+                    showUserRegistrationForm: false
+                }
+            )
+        })
+
+        // TODO 
+        // Fix update so that it can update the currently signed in users account
+        update(ref(db, `users/hMOw13ARo1en06esettvOXk4jMA3`), {
+            isRegistered: true,
+            registration: formData
+        })
     }
 
     const formComponentStyle = {
