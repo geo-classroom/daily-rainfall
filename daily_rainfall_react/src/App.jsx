@@ -4,7 +4,7 @@ import "./styles.css"
 import { initializeApp } from "firebase/app"
 import { config } from "./config/config"
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"
-import { getDatabase, onValue, ref, set, update, push, child } from "firebase/database"
+import { getDatabase, onValue, ref, set, update } from "firebase/database"
 // components
 import Navbar from "./components/Navbar" 
 import Map from "./components/Map"
@@ -57,11 +57,12 @@ const App = () => {
     const getUser = (user) => {
         const existingUsers = ref(db, `users/`)
         onValue(existingUsers, (snapshot) => {
-            user.id in existingUsers ?
-                // Write user to context
-                writeUserData(user) :
+            const existingUsersObj = snapshot.val()
+            existingUsersObj === null || !(user.uid in existingUsersObj) ?
                 // Save user in the db then write user to context
-                saveUserData(user) 
+                saveUserData(user) :
+                // Write user to context
+                writeUserData(user)
         })
     }
 
@@ -174,10 +175,10 @@ const App = () => {
         // TODO 
         // Fix update so that it can update the currently signed in users account
         // hMOw13ARo1en06esettvOXk4jMA3
-        // update(ref(db, `users/${user.id}`), {
-        //     isRegistered: true,
-        //     registration: formData
-        // })
+        update(ref(db, `users/${user.id}`), {
+            isRegistered: true,
+            registration: formData
+        })
     }
 
     console.log(user)
