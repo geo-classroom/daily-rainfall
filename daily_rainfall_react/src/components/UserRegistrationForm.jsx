@@ -1,5 +1,10 @@
 import React, { createRef, useState } from "react"
 
+/*
+    Props
+    handleUserRegistrationSubmit
+*/
+
 const UserRegistrationForm = (props) => {
     /*
         State to hold the data from the form

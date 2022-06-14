@@ -1,7 +1,12 @@
 import React, { useState, useContext } from "react"
 import { UserContext } from "../App"
 
-const UploadDataForm = () => {
+/*
+    Props
+    handleUploadDataSubmit
+*/
+
+const UploadDataForm = (props) => {
     // User context
     const user = useContext(UserContext)
 
@@ -44,7 +49,7 @@ const UploadDataForm = () => {
     */
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.table(formData)
+        props.handleUploadDataSubmit(formData)
     }
 
 

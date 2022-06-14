@@ -4,7 +4,7 @@ import "./styles.css"
 import { initializeApp } from "firebase/app"
 import { config } from "./config/config"
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"
-import { getDatabase, onValue, ref, set, update } from "firebase/database"
+import { getDatabase, onValue, ref, set, update, push } from "firebase/database"
 // components
 import Navbar from "./components/Navbar" 
 import Map from "./components/Map"
@@ -25,6 +25,8 @@ export const UserContext = createContext()
 const App = () => {
     // Set state to hold a user object
     const [user, setUser] = useState({})
+    // Set state to hold the rainfall data
+    const [rainfallData, setRainfallData] = useState({})
     // Set state for user registration form, upload data from and map
     const [mapFormToggle, setMapFormToggle] = useState(
         {
@@ -172,16 +174,42 @@ const App = () => {
             )
         })
 
-        // TODO 
-        // Fix update so that it can update the currently signed in users account
-        // hMOw13ARo1en06esettvOXk4jMA3
         update(ref(db, `users/${user.id}`), {
             isRegistered: true,
             registration: formData
         })
     }
 
-    console.log(user)
+    /*
+        User submits rainfall data
+        Set the data to the rainfall state
+        Hide the upload data form and show the map
+        Send the rainfall data to the db
+    */
+    const handleUploadDataSubmit = (formData) => {
+        setRainfallData(formData)
+
+        setMapFormToggle((prevMapFormToggle) => {
+            return (
+                {
+                    ...prevMapFormToggle,
+                    showMap: true,
+                    showUploadDataForm: false
+                }
+            )
+        })
+
+        /* 
+            TODO
+            How to append the data to a user
+            Push works but creates a new key which is a problem
+        */
+        const today = new Date()
+        const date = `${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}` 
+        set(ref(db, `rainfallData/${user.id}`), {
+            [date]: formData
+        })
+    }
 
     const formComponentStyle = {
         height: "90vh",
@@ -201,7 +229,7 @@ const App = () => {
                 {mapFormToggle.showMap && <Map/>}
                 <div style={mapFormToggle.showUserRegistrationForm || mapFormToggle.showUploadDataForm ? formComponentStyle : {}}>
                     {mapFormToggle.showUserRegistrationForm && <UserRegistrationForm handleUserRegistrationSubmit={handleUserRegistrationSubmit}/>}
-                    {mapFormToggle.showUploadDataForm && <UploadDataForm/>}
+                    {mapFormToggle.showUploadDataForm && <UploadDataForm handleUploadDataSubmit={handleUploadDataSubmit}/>}
                 </div>
             </UserContext.Provider>
         </div>
