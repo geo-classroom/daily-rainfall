@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, createRef } from "react"
 import { UserContext } from "../App"
 
 /*
@@ -21,6 +21,7 @@ const UploadDataForm = (props) => {
             isSnow: false,
             isFrost: false,
             hailSize: "",
+            //hailPhoto: createRef(),
             hailTime: "",
             snowAmount: "",
             snowTime: ""
@@ -80,7 +81,7 @@ const UploadDataForm = (props) => {
                     value={formData.longitude}
                 /> 
                 <input 
-                    type="text" 
+                    type="number" 
                     placeholder="Amount of rainfall (ml)"
                     onChange={handleChange}
                     name="rainfallAmount"
@@ -133,16 +134,24 @@ const UploadDataForm = (props) => {
                             value={formData.hailSize}
                         />
                 }  
-                {/* <input 
-                    type="file" 
-                    ref={formData.hailPhoto}
-                    onChange={handleChange}
-                /> */}
+                {
+                /* 
+                    TODO 
+                    Allow users to upload files for pictures of hail 
+                */
+                }
+                {/* {
+                    formData.isHail &&
+                        <input 
+                            type="file" 
+                            ref={formData.hailPhoto}
+                        />
+                } */}
                 {
                     // If hail selected show rest of form for hail input
                     formData.isHail && 
                         <input 
-                            type="text" 
+                            type="datetime-local" 
                             placeholder="Time of hail"
                             onChange={handleChange}
                             name="hailTime"
@@ -167,7 +176,7 @@ const UploadDataForm = (props) => {
                     // If snow selected show rest of form for snow input
                     formData.isSnow && 
                         <input 
-                            type="text"
+                            type="datetime-local"
                             placeholder="Time of snow"
                             onChange={handleChange}
                             name="snowTime"

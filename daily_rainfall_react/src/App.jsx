@@ -25,8 +25,6 @@ export const UserContext = createContext()
 const App = () => {
     // Set state to hold a user object
     const [user, setUser] = useState({})
-    // Set state to hold the rainfall data
-    const [rainfallData, setRainfallData] = useState({})
     // Set state for user registration form, upload data from and map
     const [mapFormToggle, setMapFormToggle] = useState(
         {
@@ -35,6 +33,19 @@ const App = () => {
             showUserRegistrationForm: false
         }
     )
+
+    /*
+        Hides the forms and shows the map
+    */
+    const hideFormShowMap = () => {
+        setMapFormToggle(
+            {
+                showMap: true,
+                showUploadDataForm: false,
+                showUserRegistrationForm: false
+            }
+        )
+    }
 
     /*
         Sign the user in with Google gmail account
@@ -107,15 +118,7 @@ const App = () => {
             // Set use state to empty object -> clears context
             setUser({})
             // Show map
-            setMapFormToggle((prevMapFormToggle) => {
-                return (
-                    {
-                        showMap: true,
-                        showUploadDataForm: false,
-                        showUserRegistrationForm: false
-                    }
-                )
-            })
+            hideFormShowMap()
         }).catch((error) => {
             console.log(error)
         })
@@ -164,15 +167,7 @@ const App = () => {
             )
         })
 
-        setMapFormToggle((prevMapFormToggle) => {
-            return (
-                {
-                    ...prevMapFormToggle,
-                    showMap: true,
-                    showUserRegistrationForm: false
-                }
-            )
-        })
+        hideFormShowMap()
 
         update(ref(db, `users/${user.id}`), {
             isRegistered: true,
@@ -187,17 +182,7 @@ const App = () => {
         Send the rainfall data to the db
     */
     const handleUploadDataSubmit = (formData) => {
-        setRainfallData(formData)
-
-        setMapFormToggle((prevMapFormToggle) => {
-            return (
-                {
-                    ...prevMapFormToggle,
-                    showMap: true,
-                    showUploadDataForm: false
-                }
-            )
-        })
+        hideFormShowMap()
 
         /* 
             TODO

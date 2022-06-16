@@ -117,10 +117,15 @@ const UserRegistrationForm = (props) => {
                     <option value="Option 2">Option 2</option>
                     <option value="Option 3">Option 3</option>
                 </select>
+                {
+                /* 
+                    TODO 
+                    Allow users to upload files for pictures of hail 
+                */
+                }
                 {/* <input 
                     type="file" 
                     ref={formData.raingaugePhoto}
-                    onChange={handleChange}
                 /> */}
                 <label>
                     <input 
