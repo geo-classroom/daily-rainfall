@@ -1,4 +1,4 @@
-import React, { useState, useContext, createRef } from "react"
+import React, { useState, useContext, useId, createRef } from "react"
 import { UserContext } from "../App"
 
 /*
@@ -13,6 +13,7 @@ const UploadDataForm = (props) => {
     // State to hold data from the form
     const [formData, setFormData] = useState(
         {
+            formId: useId(),
             latitude: user.registration.latitude,
             longitude: user.registration.longitude,
             rainfallAmount: "",

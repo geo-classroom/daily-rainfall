@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react"
-import { LayersControl, MapContainer, TileLayer, Circle, CircleMarker, Popup } from "react-leaflet"
+import { LayersControl, MapContainer, TileLayer, CircleMarker } from "react-leaflet"
 import { getDatabase, ref, onChildAdded } from "firebase/database"
 import "../styles.css"
 // Import Leaflet CSS
 import "leaflet/dist/leaflet.css"
+import { circleMarker } from "leaflet"
 
 const Map = () => {
     // State to hold the users data forms
     const [rainfallData, setRainfallData] = useState([])
 
     /*
-        Listen for any changes to the rainfallData path and append the data to the state list
+        Listen for any changes to the rainfallData path and append the data to the rainfallData state list
     */
     useEffect(() => {
         const db = getDatabase()
@@ -32,15 +33,11 @@ const Map = () => {
         Loop through the rainfallData array and create a marker for each form submition
     */
     const rainMarker = rainfallData.map((data) => {
-        return (
-            <CircleMarker
-                center={[data.latitude, data.longitude]}
-            >
-                <Popup>
-                    {data.rainfallAmount}
-                </Popup>
-            </CircleMarker>
-        )
+        console.log(data)
+        /*
+            TODO
+            Make a component that renders the data and put component on map
+        */
     })
     
     return (
