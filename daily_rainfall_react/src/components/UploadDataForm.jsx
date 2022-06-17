@@ -13,7 +13,6 @@ const UploadDataForm = (props) => {
     // State to hold data from the form
     const [formData, setFormData] = useState(
         {
-            userId: user.id,
             latitude: user.registration.latitude,
             longitude: user.registration.longitude,
             rainfallAmount: "",

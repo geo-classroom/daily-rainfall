@@ -186,13 +186,12 @@ const App = () => {
 
         /* 
             TODO
-            How to append the data to a user
-            Push works but creates a new key which is a problem
+            Check if it is assumed that users can only upload data once daily
         */
         const today = new Date()
         const date = `${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}` 
-        set(ref(db, `rainfallData/${user.id}`), {
-            [date]: formData
+        update(ref(db, `rainfallData/${date}`), {
+            [user.id]: formData
         })
     }
 

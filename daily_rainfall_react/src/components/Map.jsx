@@ -1,17 +1,55 @@
-import React from "react"
-import { LayersControl, MapContainer, TileLayer } from "react-leaflet"
+import React, { useState, useEffect } from "react"
+import { LayersControl, MapContainer, TileLayer, Circle, CircleMarker, Popup } from "react-leaflet"
+import { getDatabase, ref, onChildAdded } from "firebase/database"
 import "../styles.css"
 // Import Leaflet CSS
 import "leaflet/dist/leaflet.css"
 
 const Map = () => {
+    // State to hold the users data forms
+    const [rainfallData, setRainfallData] = useState([])
+
+    /*
+        Listen for any changes to the rainfallData path and append the data to the state list
+    */
+    useEffect(() => {
+        const db = getDatabase()
+        const dbRef = ref(db, "rainfallData")
+        onChildAdded(dbRef, (childData) => {
+            const returnedData = childData.val()
+            Object.values(returnedData).map((data) => {
+                
+                setRainfallData((prevRainfallData) => {
+                    return (
+                        [...prevRainfallData, data]
+                    )
+                })
+            })
+        })
+    }, [])
+
+    /*
+        Loop through the rainfallData array and create a marker for each form submition
+    */
+    const rainMarker = rainfallData.map((data) => {
+        return (
+            <CircleMarker
+                center={[data.latitude, data.longitude]}
+            >
+                <Popup>
+                    {data.rainfallAmount}
+                </Popup>
+            </CircleMarker>
+        )
+    })
+    
     return (
         <MapContainer center={[-28.7, 24.5]} zoom={6}>
             {/* Add a layer conroll to the to right of the map */}
             <LayersControl position="topright">
                 {/* 
                     Add the following basemaps to the layer controller:
-                        MapBox Streetspm
+                        MapBox Streets
                         Stamen Terrain
                         MapTiler Satellite 
                 */}
@@ -34,6 +72,7 @@ const Map = () => {
                     />
                 </LayersControl.BaseLayer>
             </LayersControl>
+            {rainMarker}
         </MapContainer>
     )
 }

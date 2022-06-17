@@ -106,7 +106,7 @@ const UserRegistrationForm = (props) => {
                     value={formData.longitude}
                     disabled 
                 />
-                <button type="button" onClick={getLocation}>Get Location</button>
+                <button type="button" onClick={getLocation} disabled={!formData.permissionToShowLocation}>Get Location</button>
                 <select
                     id="raingaugeType"
                     value={formData.raingaugeType}
