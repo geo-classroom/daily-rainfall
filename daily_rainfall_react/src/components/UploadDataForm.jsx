@@ -151,7 +151,7 @@ const UploadDataForm = (props) => {
                     // If hail selected show rest of form for hail input
                     formData.isHail && 
                         <input 
-                            type="datetime-local" 
+                            type="time" 
                             placeholder="Time of hail"
                             onChange={handleChange}
                             name="hailTime"
@@ -176,7 +176,7 @@ const UploadDataForm = (props) => {
                     // If snow selected show rest of form for snow input
                     formData.isSnow && 
                         <input 
-                            type="datetime-local"
+                            type="time"
                             placeholder="Time of snow"
                             onChange={handleChange}
                             name="snowTime"
