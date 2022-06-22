@@ -9,13 +9,17 @@ import "leaflet/dist/leaflet.css"
 const Map = () => {
   // State to hold the users data forms
   const [rainfallData, setRainfallData] = useState([])
-
   /*
         Listen for any changes to the rainfallData path and append the data to the rainfallData state list
     */
   useEffect(() => {
     const db = getDatabase()
-    const dbRef = ref(db, "rainfallData")
+    const today = new Date()
+    const date = `${today.getDate()}-${
+      today.getMonth() + 1
+    }-${today.getFullYear()}`
+    // Get Data for the current day
+    const dbRef = ref(db, `rainfallData/${date}`)
     onChildAdded(dbRef, (childData) => {
       const returnedData = childData.val()
       Object.values(returnedData).map((data) => {

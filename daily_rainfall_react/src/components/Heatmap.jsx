@@ -4,7 +4,6 @@ import L from "leaflet"
 import data from "../data"
 
 const Heatmap = () => {
-  console.log(data)
   const map = useMap()
   const points = data.map((point) => {
     return [point.latitude, point.longitude, point.rainfallAmount]
