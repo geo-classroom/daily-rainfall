@@ -1,4 +1,5 @@
-import React, { createRef, useState } from "react"
+import React, { useState } from "react"
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 
 /*
     Props
@@ -14,7 +15,7 @@ const UserRegistrationForm = (props) => {
     latitude: "",
     longitude: "",
     raingaugeType: "",
-    // raingaugePhoto: createRef(),
+    raingaugePhoto: "",
     addMoreData: false
   })
 
@@ -36,6 +37,7 @@ const UserRegistrationForm = (props) => {
   */
   const handleSubmit = (event) => {
     event.preventDefault()
+    /* eslint-disable react/prop-types */
     props.handleUserRegistrationSubmit(formData)
   }
 
@@ -56,8 +58,8 @@ const UserRegistrationForm = (props) => {
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
-        latitude: latitude,
-        longitude: longitude
+        latitude,
+        longitude
       }
     })
   }
@@ -117,14 +119,27 @@ const UserRegistrationForm = (props) => {
           <option value="Option 2">Option 2</option>
           <option value="Option 3">Option 3</option>
         </select>
-        {/* 
-                    TODO 
-                    Allow users to upload files for pictures of hail 
-                */}
-        {/* <input 
-                    type="file" 
-                    ref={formData.raingaugePhoto}
-                /> */}
+        <input
+          type="file"
+          onChange={(event) => {
+            const { files } = event.target
+
+            // Uplaod the image to Firebase Storage
+            const storage = getStorage()
+            const storageRef = ref(storage, `${files[0].name}`)
+            uploadBytes(storageRef, files[0]).then((snapshot) => {
+              getDownloadURL(storageRef).then((url) => {
+                // Update the state to hold the file image name
+                setFormData((prevFormData) => {
+                  return {
+                    ...prevFormData,
+                    raingaugePhoto: url
+                  }
+                })
+              })
+            })
+          }}
+        />
         <label>
           <input
             type="checkbox"

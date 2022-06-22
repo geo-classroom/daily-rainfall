@@ -1,5 +1,6 @@
-import React, { useState, useContext, useId, createRef } from "react"
+import React, { useState, useContext, useId } from "react"
 import { UserContext } from "../App"
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 
 /*
     Props
@@ -20,7 +21,7 @@ const UploadDataForm = (props) => {
     isSnow: false,
     isFrost: false,
     hailSize: "",
-    //hailPhoto: createRef(),
+    hailPhoto: "",
     hailTime: "",
     snowAmount: "",
     snowTime: ""
@@ -39,13 +40,9 @@ const UploadDataForm = (props) => {
     })
   }
 
-  /*
-        Console log the form when submitted
-        TODO
-        Send form to the App component
-    */
   const handleSubmit = (event) => {
     event.preventDefault()
+    /* eslint-disable react/prop-types */
     props.handleUploadDataSubmit(formData)
   }
 
@@ -131,17 +128,29 @@ const UploadDataForm = (props) => {
             />
           )
         }
-        {/* 
-                    TODO 
-                    Allow users to upload files for pictures of hail 
-                */}
-        {/* {
-                    formData.isHail &&
-                        <input 
-                            type="file" 
-                            ref={formData.hailPhoto}
-                        />
-                } */}
+        {formData.isHail && (
+          <input
+            type="file"
+            onChange={(event) => {
+              const { files } = event.target
+
+              // Upload the iamge file to Firebase storage
+              const storage = getStorage()
+              const storageRef = ref(storage, `${files[0].name}`)
+              uploadBytes(storageRef, files[0]).then((snapshot) => {
+                getDownloadURL(storageRef).then((url) => {
+                  // Update the state to hold the file image name
+                  setFormData((prevFormData) => {
+                    return {
+                      ...prevFormData,
+                      hailPhoto: url
+                    }
+                  })
+                })
+              })
+            }}
+          />
+        )}
         {
           // If hail selected show rest of form for hail input
           formData.isHail && (
