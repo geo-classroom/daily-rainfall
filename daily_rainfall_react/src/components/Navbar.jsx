@@ -24,6 +24,7 @@ const Navbar = (props) => {
         {
           // If user signed in show logout button else show login button
           user.username ? (
+            /* eslint-disable react/prop-types */
             <button onClick={props.logout}>Logout</button>
           ) : (
             <button onClick={props.signInWithGoogle}>Login</button>

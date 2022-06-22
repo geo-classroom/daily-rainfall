@@ -136,7 +136,10 @@ const UploadDataForm = (props) => {
 
               // Upload the iamge file to Firebase storage
               const storage = getStorage()
-              const storageRef = ref(storage, `${files[0].name}`)
+              const storageRef = ref(
+                storage,
+                `${user.id}/hailPhotos/${files[0].name}`
+              )
               uploadBytes(storageRef, files[0]).then((snapshot) => {
                 getDownloadURL(storageRef).then((url) => {
                   // Update the state to hold the file image name
@@ -190,7 +193,7 @@ const UploadDataForm = (props) => {
             />
           )
         }
-        <input type="submit" value="submit" />
+        <input type="submit" value="submit" disabled={!formData.hailPhoto} />
       </form>
     </div>
   )

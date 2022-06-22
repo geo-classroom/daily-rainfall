@@ -1,5 +1,6 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
+import { UserContext } from "../App"
 
 /*
     Props
@@ -7,6 +8,8 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 */
 
 const UserRegistrationForm = (props) => {
+  const user = useContext(UserContext)
+
   /*
         State to hold the data from the form
     */
@@ -126,7 +129,7 @@ const UserRegistrationForm = (props) => {
 
             // Uplaod the image to Firebase Storage
             const storage = getStorage()
-            const storageRef = ref(storage, `${files[0].name}`)
+            const storageRef = ref(storage, `${user.id}/${files[0].name}`)
             uploadBytes(storageRef, files[0]).then((snapshot) => {
               getDownloadURL(storageRef).then((url) => {
                 // Update the state to hold the file image name
@@ -151,7 +154,11 @@ const UserRegistrationForm = (props) => {
           Add more Data
         </label>
         {/* Wait for location coordinates to load before allowing user to submit */}
-        <input disabled={!formData.latitude} type="submit" value="submit" />
+        <input
+          disabled={!formData.latitude || !formData.raingaugePhoto}
+          type="submit"
+          value="submit"
+        />
       </form>
     </div>
   )
