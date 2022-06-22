@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from "react"
-import {
-  LayersControl,
-  MapContainer,
-  TileLayer,
-  CircleMarker
-} from "react-leaflet"
+import { LayersControl, MapContainer, TileLayer } from "react-leaflet"
 import { getDatabase, ref, onChildAdded } from "firebase/database"
+import Heatmap from "./Heatmap"
 import "../styles.css"
 // Import Leaflet CSS
 import "leaflet/dist/leaflet.css"
-import { circleMarker } from "leaflet"
 
 const Map = () => {
   // State to hold the users data forms
@@ -24,23 +19,12 @@ const Map = () => {
     onChildAdded(dbRef, (childData) => {
       const returnedData = childData.val()
       Object.values(returnedData).map((data) => {
-        setRainfallData((prevRainfallData) => {
+        return setRainfallData((prevRainfallData) => {
           return [...prevRainfallData, data]
         })
       })
     })
   }, [])
-
-  /*
-        Loop through the rainfallData array and create a marker for each form submition
-    */
-  const rainMarker = rainfallData.map((data) => {
-    console.log(data)
-    /*
-            TODO
-            Make a component that renders the data and put component on map
-        */
-  })
 
   return (
     <MapContainer center={[-28.7, 24.5]} zoom={6}>
@@ -71,7 +55,7 @@ const Map = () => {
           />
         </LayersControl.BaseLayer>
       </LayersControl>
-      {rainMarker}
+      <Heatmap rainfallData={rainfallData} />
     </MapContainer>
   )
 }
