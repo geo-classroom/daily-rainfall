@@ -4,6 +4,7 @@ import { UserContext } from "../App"
 /*
     Props:
         signInWithGoogle
+        signInWithFacebook
         logout
         uploadData
 */
@@ -27,7 +28,7 @@ const Navbar = (props) => {
             /* eslint-disable react/prop-types */
             <button onClick={props.logout}>Logout</button>
           ) : (
-            <button onClick={props.signInWithGoogle}>Login</button>
+            <button onClick={props.signInWithFacebook}>Login</button>
           )
         }
         {
