@@ -1,7 +1,6 @@
 import { useMap } from "react-leaflet"
 import "leaflet.heat"
 import L from "leaflet"
-import data from "../data"
 
 /*
   Props
@@ -9,9 +8,8 @@ import data from "../data"
 */
 
 const Heatmap = (props) => {
-  console.log(props.rainfallData)
   const map = useMap()
-  const points = data.map((point) => {
+  const points = props.rainfallData.map((point) => {
     return [point.latitude, point.longitude, point.rainfallAmount]
   })
 
