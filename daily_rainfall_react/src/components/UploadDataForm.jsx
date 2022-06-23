@@ -141,8 +141,8 @@ const UploadDataForm = (props) => {
                 `${user.id}/hailPhotos/${files[0].name}`
               )
               uploadBytes(storageRef, files[0]).then((snapshot) => {
+                // Get the download link and update the state to hold the file image link
                 getDownloadURL(storageRef).then((url) => {
-                  // Update the state to hold the file image name
                   setFormData((prevFormData) => {
                     return {
                       ...prevFormData,
@@ -175,9 +175,9 @@ const UploadDataForm = (props) => {
               onChange={handleChange}
               name="snowAmount"
             >
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
-              <option value="Option 3">Option 3</option>
+              <option value="Light">Light</option>
+              <option value="Moderate">Moderate</option>
+              <option value="Heavy">Heavy</option>
             </select>
           )
         }
@@ -193,7 +193,11 @@ const UploadDataForm = (props) => {
             />
           )
         }
-        <input type="submit" value="submit" disabled={!formData.hailPhoto} />
+        <input
+          type="submit"
+          value="submit"
+          disabled={formData.isHail && !formData.hailPhoto}
+        />
       </form>
     </div>
   )

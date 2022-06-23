@@ -131,8 +131,8 @@ const UserRegistrationForm = (props) => {
             const storage = getStorage()
             const storageRef = ref(storage, `${user.id}/${files[0].name}`)
             uploadBytes(storageRef, files[0]).then((snapshot) => {
+              // Get the download link and update the state to hold the file image link
               getDownloadURL(storageRef).then((url) => {
-                // Update the state to hold the file image name
                 setFormData((prevFormData) => {
                   return {
                     ...prevFormData,
