@@ -8,12 +8,13 @@ import L from "leaflet"
 */
 
 const Heatmap = (props) => {
-  const map = useMap()
-  const points = props.rainfallData.map((point) => {
-    return [point.latitude, point.longitude, point.rainfallAmount]
-  })
+	const map = useMap()
 
-  L.heatLayer(points).addTo(map)
+	const points = props.rainfallData.map((point) => {
+		return [point.latitude, point.longitude, point.rainfallAmount]
+	})
+
+	L.heatLayer(points).addTo(map)
 }
 
 export default Heatmap

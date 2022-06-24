@@ -7,6 +7,7 @@ import {
 	FacebookAuthProvider,
 	getAuth,
 	GoogleAuthProvider,
+	linkWithPopup,
 	signInWithPopup,
 	signOut
 } from "firebase/auth"
@@ -29,6 +30,10 @@ const db = getDatabase()
 export const UserContext = createContext()
 
 const App = () => {
+	// Sign in providers
+	const googleProvider = new GoogleAuthProvider()
+	const facebookProvider = new FacebookAuthProvider()
+
 	// Set state to hold a user object
 	const [user, setUser] = useState({})
 	// Set state for user registration form, upload data from and map
@@ -49,14 +54,19 @@ const App = () => {
 		})
 	}
 
+	// TODO link sign in mehods if user has both facebook and google
+
 	/*
     Sign the user in with Google gmail account
     Call the function getUser and pass in the signed in user
   */
 	const signInWithGoogle = () => {
-		signInWithPopup(auth, new GoogleAuthProvider())
+		signInWithPopup(auth, googleProvider)
 			.then((result) => {
 				getUser(result.user)
+				linkWithPopup(auth.currentUser, facebookProvider).catch((error) => {
+					console.log(error)
+				})
 			})
 			.catch((error) => {
 				console.log(error)
@@ -67,28 +77,16 @@ const App = () => {
     Sign the user in with Facebook account
     Call the function getUser and pass in the signed in user
   */
-	// TODO
 	const signInWithFacebook = () => {
-		signInWithPopup(auth, new FacebookAuthProvider())
+		signInWithPopup(auth, facebookProvider)
 			.then((result) => {
 				getUser(result.user)
+				linkWithPopup(auth.currentUser, googleProvider).catch((error) => {
+					console.log(error)
+				})
 			})
 			.catch((error) => {
 				console.log(error)
-
-				const email = error.email
-				const pendingCred = error.credential
-
-				auth.fetchSignInMethodsForEmail(email).then((providers) => {
-					auth
-						.signInWithCredential(pendingCred)
-						.then((user) => {
-							user.linkWithCredential(error.credential)
-						})
-						.catch((error) => {
-							console.log(error)
-						})
-				})
 			})
 	}
 
