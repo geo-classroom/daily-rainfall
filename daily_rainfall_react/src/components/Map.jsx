@@ -23,12 +23,17 @@ const Map = () => {
 		const date = `${today.getDate()}-${
 			today.getMonth() + 1
 		}-${today.getFullYear()}`
+
+		//
+
 		// Get Data for the current day
 		const dbRef = ref(db, `rainfallData/${date}`)
 		onChildAdded(dbRef, (childData) => {
 			const returnedData = childData.val()
-			setRainfallData((prevRainfallData) => {
-				return [...prevRainfallData, returnedData]
+			Object.values(returnedData).map((data) => {
+				return setRainfallData((prevRainfallData) => {
+					return [...prevRainfallData, data]
+				})
 			})
 		})
 	}, [])
@@ -38,11 +43,11 @@ const Map = () => {
 			{/* Add a layer conroll to the to right of the map */}
 			<LayersControl position="topright">
 				{/* 
-            Add the following basemaps to the layer controller:
-            MapBox Streets
-            Stamen Terrain
-            MapTiler Satellite  
-        */}
+					Add the following basemaps to the layer controller:
+					MapBox Streets
+					Stamen Terrain
+					MapTiler Satellite  
+        		*/}
 				<LayersControl.BaseLayer name="Street" checked="true">
 					<TileLayer
 						attribution='© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'

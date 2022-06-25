@@ -7,7 +7,6 @@ import {
 	FacebookAuthProvider,
 	getAuth,
 	GoogleAuthProvider,
-	linkWithPopup,
 	signInWithPopup,
 	signOut
 } from "firebase/auth"
@@ -44,8 +43,8 @@ const App = () => {
 	})
 
 	/*
-    Hides the forms and shows the map
-  */
+    	Hides the forms and shows the map
+  	*/
 	const hideFormShowMap = () => {
 		setMapFormToggle({
 			showMap: true,
@@ -57,16 +56,13 @@ const App = () => {
 	// TODO link sign in mehods if user has both facebook and google
 
 	/*
-    Sign the user in with Google gmail account
-    Call the function getUser and pass in the signed in user
-  */
+		Sign the user in with Google gmail account
+		Call the function getUser and pass in the signed in user
+  	*/
 	const signInWithGoogle = () => {
 		signInWithPopup(auth, googleProvider)
 			.then((result) => {
 				getUser(result.user)
-				linkWithPopup(auth.currentUser, facebookProvider).catch((error) => {
-					console.log(error)
-				})
 			})
 			.catch((error) => {
 				console.log(error)
@@ -74,16 +70,13 @@ const App = () => {
 	}
 
 	/*
-    Sign the user in with Facebook account
-    Call the function getUser and pass in the signed in user
-  */
+		Sign the user in with Facebook account
+		Call the function getUser and pass in the signed in user
+  	*/
 	const signInWithFacebook = () => {
 		signInWithPopup(auth, facebookProvider)
 			.then((result) => {
 				getUser(result.user)
-				linkWithPopup(auth.currentUser, googleProvider).catch((error) => {
-					console.log(error)
-				})
 			})
 			.catch((error) => {
 				console.log(error)
@@ -91,11 +84,11 @@ const App = () => {
 	}
 
 	/*
-    Function accepts a user as an input
-    Gets all of the users that have added to the database
-    If the signed in user exists then write the user to context
-    Else register the user then write the user to context
-  */
+		Function accepts a user as an input
+		Gets all of the users that have added to the database
+		If the signed in user exists then write the user to context
+		Else register the user then write the user to context
+  	*/
 	const getUser = (user) => {
 		const existingUsers = ref(db, `users/`)
 		onValue(existingUsers, (snapshot) => {
@@ -109,9 +102,9 @@ const App = () => {
 	}
 
 	/*
-    Takes a user as an argument 
-    saves the users data to context
-  */
+		Takes a user as an argument 
+		saves the users data to context
+  	*/
 	const writeUserData = (user) => {
 		// Get user from db
 		const userRef = ref(db, `users/${user.uid}`)
@@ -123,10 +116,10 @@ const App = () => {
 	}
 
 	/*
-    Takes user as an argument
-    Save the user data to the db
-    Wrtie use to context by calling WriteUserData
-  */
+		Takes user as an argument
+		Save the user data to the db
+		Wrtie use to context by calling WriteUserData
+  	*/
 	const saveUserData = (user) => {
 		set(ref(db, `users/${user.uid}`), {
 			id: user.uid,
@@ -139,8 +132,10 @@ const App = () => {
 	}
 
 	/*
-    Logout the user
-  */
+    	Logout the user
+		Set the user state to an empty object
+		Show the map
+  	*/
 	const logout = () => {
 		signOut(auth)
 			.then(() => {
@@ -155,9 +150,9 @@ const App = () => {
 	}
 
 	/*
-    If user is registered show the upload data form and hide map
-    Else show user registration form and hide map
-  */
+		If user is registered show the upload data form and hide map
+		Else show user registration form and hide map
+  	*/
 	const uploadData = () => {
 		user.isRegistered
 			? setMapFormToggle((prevMapFormToggle) => {
@@ -177,11 +172,11 @@ const App = () => {
 	}
 
 	/*
-    User submits user registration form
-    Update user state  
-    hide user registration form show map
-    update the user in the database
-  */
+		User submits user registration form
+		Update user state  
+		hide user registration form show map
+		update the user in the database
+  	*/
 	const handleUserRegistrationSubmit = (formData) => {
 		setUser((prevUser) => {
 			return {
@@ -200,23 +195,26 @@ const App = () => {
 	}
 
 	/*
-    User submits rainfall data
-    Set the data to the rainfall state
-    Hide the upload data form and show the map
-    Send the rainfall data to the db
-  */
+		User submits rainfall data
+		Set the data to the rainfall state
+		Hide the upload data form and show the map
+		Send the rainfall data to the db
+  	*/
 	const handleUploadDataSubmit = (formData) => {
 		hideFormShowMap()
 
 		/* 
-      TODO
-      Check if it is assumed that users can only upload data once daily
-    */
+			TODO
+			Check if it is assumed that users can only upload data once daily
+    	*/
 		const today = new Date()
 		const date = `${today.getDate()}-${
 			today.getMonth() + 1
 		}-${today.getFullYear()}`
-		update(ref(db, `rainfallData/${date}`), {
+
+		const hours = today.getHours()
+
+		update(ref(db, `rainfallData/${date}/${hours}`), {
 			[user.id]: formData
 		})
 	}
