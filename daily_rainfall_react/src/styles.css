@@ -1,54 +1,81 @@
 /* Navbar styling */
 #navbar-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 2vw;
-  padding-right: 2vw;
-  background-color: rgb(0, 91, 165);
-  color: white;
-  height: 5vh;
-  padding-top: 1vh;
-  padding-bottom: 1vh;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-left: 2vw;
+	padding-right: 2vw;
+	background-color: rgb(0, 91, 165);
+	color: white;
+	height: 5vh;
+	padding-top: 1vh;
+	padding-bottom: 1vh;
 }
 
 #navbar-btn-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 1vw;
+	display: flex;
+	justify-content: space-between;
+	gap: 1vw;
 }
 
 /* DateFilter styling */
 #datefilter-container {
-  height: 5vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5vw;
+	height: 5vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 5vw;
 }
 
 /* Map styling */
 .leaflet-container {
-  height: 90vh;
+	height: 90vh;
 }
 
 /* Form components styling */
 #form-container {
-  border: 1px solid black;
-  width: 350px;
-  padding-bottom: 2vh;
+	border: 1px solid black;
+	width: 350px;
+	padding-bottom: 2vh;
 }
 
 #form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5vh;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5vh;
+	align-items: center;
 }
 
 /* Hail Snow Frost checkbox div styling */
 #add-more-data-checkbox-container {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+/* Login page styling */
+#login-container {
+	border: 1px solid black;
+	width: 300px;
+	padding-bottom: 2vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5vh;
+}
+
+#sign-in-google-btn {
+	width: 200px;
+	height: 30px;
+	color: grey;
+	background-color: white;
+	border: solid 1px black;
+}
+
+#sign-in-facebook-btn {
+	width: 200px;
+	height: 30px;
+	color: white;
+	background-color: darkblue;
+	border: solid 1px black;
 }

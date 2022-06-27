@@ -1,11 +1,9 @@
 import React, { useContext } from "react"
 import { UserContext } from "../App"
-// import Login from "./Login"
 
 /*
     Props:
-        signInWithGoogle
-        signInWithFacebook
+		login
         logout
         uploadData
         showLogin
@@ -30,14 +28,7 @@ const Navbar = (props) => {
 						/* eslint-disable react/prop-types */
 						<button onClick={props.logout}>Logout</button>
 					) : (
-						<>
-							<button onClick={props.signInWithGoogle}>
-								Sign in with Google
-							</button>
-							<button onClick={props.signInWithFacebook}>
-								Sign in with Facebook
-							</button>
-						</>
+						<button onClick={props.login}>Login</button>
 					)
 				}
 				{

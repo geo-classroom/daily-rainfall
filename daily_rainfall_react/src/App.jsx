@@ -16,6 +16,7 @@ import Navbar from "./components/Navbar"
 import Map from "./components/Map"
 import UserRegistrationForm from "./components/UserRegistrationForm"
 import UploadDataForm from "./components/UploadDataForm"
+import Login from "./components/Login"
 
 // Initialize the Firebase app
 initializeApp(config.firebaseConfig)
@@ -39,7 +40,8 @@ const App = () => {
 	const [mapFormToggle, setMapFormToggle] = useState({
 		showMap: true,
 		showUploadDataForm: false,
-		showUserRegistrationForm: false
+		showUserRegistrationForm: false,
+		showLogin: false
 	})
 
 	/*
@@ -49,7 +51,23 @@ const App = () => {
 		setMapFormToggle({
 			showMap: true,
 			showUploadDataForm: false,
-			showUserRegistrationForm: false
+			showUserRegistrationForm: false,
+			showLogin: false
+		})
+	}
+
+	/*
+		Login
+		Hide map
+		Show login options
+	*/
+	const login = () => {
+		setMapFormToggle((prevMapFormToggle) => {
+			return {
+				...prevMapFormToggle,
+				showMap: false,
+				showLogin: true
+			}
 		})
 	}
 
@@ -58,10 +76,12 @@ const App = () => {
 	/*
 		Sign the user in with Google gmail account
 		Call the function getUser and pass in the signed in user
+		call hideFormShowMap function
   	*/
 	const signInWithGoogle = () => {
 		signInWithPopup(auth, googleProvider)
 			.then((result) => {
+				hideFormShowMap()
 				getUser(result.user)
 			})
 			.catch((error) => {
@@ -76,6 +96,7 @@ const App = () => {
 	const signInWithFacebook = () => {
 		signInWithPopup(auth, facebookProvider)
 			.then((result) => {
+				hideFormShowMap()
 				getUser(result.user)
 			})
 			.catch((error) => {
@@ -196,17 +217,12 @@ const App = () => {
 
 	/*
 		User submits rainfall data
-		Set the data to the rainfall state
 		Hide the upload data form and show the map
 		Send the rainfall data to the db
   	*/
 	const handleUploadDataSubmit = (formData) => {
 		hideFormShowMap()
 
-		/* 
-			TODO
-			Check if it is assumed that users can only upload data once daily
-    	*/
 		const today = new Date()
 		const date = `${today.getDate()}-${
 			today.getMonth() + 1
@@ -230,8 +246,7 @@ const App = () => {
 		<div>
 			<UserContext.Provider value={user}>
 				<Navbar
-					signInWithGoogle={() => signInWithGoogle()}
-					signInWithFacebook={() => signInWithFacebook()}
+					login={() => login()}
 					logout={() => logout()}
 					uploadData={() => uploadData()}
 				/>
@@ -239,7 +254,8 @@ const App = () => {
 				<div
 					style={
 						mapFormToggle.showUserRegistrationForm ||
-						mapFormToggle.showUploadDataForm
+						mapFormToggle.showUploadDataForm ||
+						mapFormToggle.showLogin
 							? formComponentStyle
 							: {}
 					}
@@ -251,6 +267,12 @@ const App = () => {
 					)}
 					{mapFormToggle.showUploadDataForm && (
 						<UploadDataForm handleUploadDataSubmit={handleUploadDataSubmit} />
+					)}
+					{mapFormToggle.showLogin && (
+						<Login
+							signInWithGoogle={() => signInWithGoogle()}
+							signInWithFacebook={() => signInWithFacebook()}
+						/>
 					)}
 				</div>
 			</UserContext.Provider>

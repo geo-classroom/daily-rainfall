@@ -30,6 +30,7 @@ const Map = () => {
 		const dbRef = ref(db, `rainfallData/${date}`)
 		onChildAdded(dbRef, (childData) => {
 			const returnedData = childData.val()
+			// Loop through the hours to access users data
 			Object.values(returnedData).map((data) => {
 				return setRainfallData((prevRainfallData) => {
 					return [...prevRainfallData, data]
