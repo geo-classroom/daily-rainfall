@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 import { UserContext } from "../App"
-import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet"
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet"
 
 /*
 	Props
@@ -64,28 +64,79 @@ const UserRegistrationForm = (props) => {
 	}
 
 	/*
-		When the map loads place a marker on the map at the users location
+		When the map loads place a marker on the map at the users location and zoom to that location
+		Allow user to drag marker to adjust location
+		submit the location of the marker to the form
 	*/
-	// TODO Fix up loaction getter
+	// TODO style the marker
 	const UserLocationMarker = () => {
 		const [userLocation, setUserLocation] = useState(null)
-		const map = useMapEvents({
-			click() {
-				map.locate()
-			},
-			locationfound(event) {
+		const map = useMap()
+		useEffect(() => {
+			map.locate().on("locationfound", (event) => {
 				setUserLocation(event.latlng)
-				map.flyTo(event.latlng, map.getZoom())
-			}
-		})
+				map.flyTo(event.latlng, map.getMaxZoom())
+			})
+		}, [])
+
+		/*
+			Submit the users location to the form
+			Hide the map
+			Show the form
+		*/
+		const submitLocation = (event) => {
+			event.stopPropagation()
+
+			setFormData((prevFormData) => {
+				return {
+					...prevFormData,
+					latitude: userLocation.lat,
+					longitude: userLocation.lng
+				}
+			})
+
+			setShowMapOrForm({
+				showMap: false,
+				showForm: true
+			})
+		}
 
 		return userLocation === null ? null : (
-			<Marker position={userLocation}></Marker>
+			<Marker
+				// User drags the marker to the location where they want update the users location
+				eventHandlers={{
+					click: (event) => {
+						setUserLocation(event.latlng)
+					}
+				}}
+				draggable="true"
+				position={userLocation}
+			>
+				<Popup>
+					{`Latitude: ${userLocation.lat} Longitude: ${userLocation.lng}`}
+					<button onClick={() => submitLocation(event)}>Submit Location</button>
+				</Popup>
+			</Marker>
 		)
 	}
 
+	const formStyle = {
+		border: "1px",
+		solid: "black",
+		width: "350px",
+		paddingBottom: "2vh"
+	}
+
+	const mapStyle = {
+		width: "500px",
+		height: "500px"
+	}
+
 	return (
-		<div id="form-container">
+		<div
+			id="form-container"
+			style={showMapOrForm.showform ? formStyle : mapStyle}
+		>
 			{showMapOrForm.showForm && (
 				<form id="form" onSubmit={handleSubmit}>
 					<h1>Register</h1>
@@ -158,7 +209,12 @@ const UserRegistrationForm = (props) => {
 				</form>
 			)}
 			{showMapOrForm.showMap && (
-				<MapContainer center={[-28.7, 24.5]} zoom={6}>
+				<MapContainer
+					style={mapStyle}
+					center={[-28.7, 24.5]}
+					zoom={6}
+					maxZoom={18}
+				>
 					<TileLayer
 						attribution='© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'
 						url="https://api.mapbox.com/styles/v1/riley-5/cl3shshxv000515qntejbm29o/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicmlsZXktNSIsImEiOiJjbDNyZzdxeTIwbTAwM2NwZnN1cG41MWkxIn0.0EmF55wuBJY-2FHaRK73kQ"
