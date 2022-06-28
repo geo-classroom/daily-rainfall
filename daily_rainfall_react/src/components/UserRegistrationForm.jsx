@@ -65,7 +65,8 @@ const UserRegistrationForm = (props) => {
 	}
 
 	/*
-		Submit the users location to the form
+		Get the users location from the UserLocationMarker component
+		Set the location in the formdata state
 		Hide the map
 		Show the form
 	*/

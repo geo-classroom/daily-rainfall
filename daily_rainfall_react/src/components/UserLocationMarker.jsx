@@ -3,7 +3,7 @@ import { useMap, Marker, Popup } from "react-leaflet"
 
 /*
     Props
-    submitLocation
+    handleSubmitLocation
 */
 
 // TODO style the marker
@@ -22,6 +22,9 @@ const UserLocationMarker = (props) => {
 		})
 	}, [])
 
+	/*
+        Send the userLocation to the UserRegistrationForm to get handlded
+    */
 	const submitLocation = (event) => {
 		event.stopPropagation()
 		/* eslint-disable react/prop-types */
