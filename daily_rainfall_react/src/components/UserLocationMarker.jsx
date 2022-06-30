@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react"
-import { useMap, Marker, Popup } from "react-leaflet"
+import React, { useEffect, useState, useRef, useMemo } from "react"
+import { useMap, Marker } from "react-leaflet"
 
 /*
     Props
     handleSubmitLocation
+	mapStyle
 */
 
 // TODO style the marker
 const UserLocationMarker = (props) => {
 	/*
 		When the map loads place a marker on the map at the users location and zoom to that location
-		Allow user to drag marker to adjust location
-		submit the location of the marker to the form
 	*/
 	const [userLocation, setUserLocation] = useState(null)
 	const map = useMap()
@@ -23,33 +22,31 @@ const UserLocationMarker = (props) => {
 	}, [])
 
 	/*
-        Send the userLocation to the UserRegistrationForm to get handlded
-    */
-	const submitLocation = (event) => {
-		event.stopPropagation()
-		/* eslint-disable react/prop-types */
-		props.handleSubmitLocation(userLocation)
-	}
+		Event handler for the draggable marker
+	*/
+	const markerRef = useRef(null)
+	const eventHandlers = useMemo(
+		() => ({
+			dragend() {
+				const marker = markerRef.current
+				if (marker != null) {
+					setUserLocation(marker.getLatLng())
+				}
+			}
+		}),
+		[]
+	)
+
+	// TODO Send the uselocation data to the userregsitration form
 
 	return userLocation === null ? null : (
 		<Marker
 			// User drags the marker to the location where they want update the users location
-			eventHandlers={{
-				click: (event) => {
-					setUserLocation(event.latlng)
-				}
-			}}
+			eventHandlers={eventHandlers}
 			draggable="true"
 			position={userLocation}
-		>
-			<Popup>
-				{`Latitude: ${userLocation.lat}`}
-				<br></br>
-				{`Longitude: ${userLocation.lng}`}
-				<br></br>
-				<button onClick={submitLocation}>Submit Location</button>
-			</Popup>
-		</Marker>
+			ref={markerRef}
+		></Marker>
 	)
 }
 
