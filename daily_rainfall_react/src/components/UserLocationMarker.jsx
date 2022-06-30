@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef, useMemo } from "react"
 import { useMap, Marker, Popup } from "react-leaflet"
 
+import "leaflet/dist/leaflet.css"
+
 /*
     Props
     handleSubmitLocation
