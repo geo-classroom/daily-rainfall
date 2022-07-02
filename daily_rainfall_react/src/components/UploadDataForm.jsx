@@ -17,6 +17,7 @@ const UploadDataForm = (props) => {
 		latitude: user.registration.latitude,
 		longitude: user.registration.longitude,
 		rainfallAmount: "",
+		showMore: false,
 		isHail: false,
 		isSnow: false,
 		isFrost: false,
@@ -79,9 +80,20 @@ const UploadDataForm = (props) => {
 					name="rainfallAmount"
 					value={formData.rainfallAmount}
 				/>
+				<label>
+					<input
+						type="checkbox"
+						id="showMore"
+						checked={formData.showMore}
+						onChange={handleChange}
+						name="showMore"
+					/>
+					Show More
+				</label>
+
 				{
 					// Render additional form items if the addMoreData is selected
-					user.registration.addMoreData && (
+					formData.showMore && (
 						<div id="add-more-data-checkbox-container">
 							<label>
 								<input
