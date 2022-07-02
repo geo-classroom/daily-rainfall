@@ -14,7 +14,7 @@ import { getDatabase, onValue, ref, set, update } from "firebase/database"
 // components
 import Navbar from "./components/Navbar"
 import Map from "./components/Map"
-import UserRegistrationForm from "./components/UserRegistrationForm"
+import UserRegistrationForm from "./components/userRegistration/UserRegistrationForm"
 import UploadDataForm from "./components/UploadDataForm"
 import Login from "./components/Login"
 
