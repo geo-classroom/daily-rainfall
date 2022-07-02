@@ -90,6 +90,8 @@ const App = () => {
 				// Sign in with facebook then link account to google
 				signInWithPopup(auth, facebookProvider).then((result) => {
 					linkWithPopup(result.user, googleProvider)
+					hideFormShowMap()
+					getUser(result.user)
 				})
 			})
 	}
@@ -111,6 +113,8 @@ const App = () => {
 				// Sign in with google then link account to facebook
 				signInWithPopup(auth, googleProvider).then((result) => {
 					linkWithPopup(result.user, facebookProvider)
+					hideFormShowMap()
+					getUser(result.user)
 				})
 			})
 	}
