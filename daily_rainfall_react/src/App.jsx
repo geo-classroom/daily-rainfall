@@ -7,6 +7,7 @@ import {
 	FacebookAuthProvider,
 	getAuth,
 	GoogleAuthProvider,
+	linkWithPopup,
 	signInWithPopup,
 	signOut
 } from "firebase/auth"
@@ -71,8 +72,6 @@ const App = () => {
 		})
 	}
 
-	// TODO link sign in mehods if user has both facebook and google
-
 	/*
 		Sign the user in with Google gmail account
 		Call the function getUser and pass in the signed in user
@@ -84,8 +83,14 @@ const App = () => {
 				hideFormShowMap()
 				getUser(result.user)
 			})
-			.catch((error) => {
-				console.log(error)
+			.catch(() => {
+				alert(
+					"In order to link your acccount with Facebook you will be redirected to the Facebook sign in, once you have signed in link your Google account"
+				)
+				// Sign in with facebook then link account to google
+				signInWithPopup(auth, facebookProvider).then((result) => {
+					linkWithPopup(result.user, googleProvider)
+				})
 			})
 	}
 
@@ -99,8 +104,14 @@ const App = () => {
 				hideFormShowMap()
 				getUser(result.user)
 			})
-			.catch((error) => {
-				console.log(error)
+			.catch(() => {
+				alert(
+					"In order to link your acccount with Google you will be redirected to the Google sign in, once you have signed in link your Facebook account"
+				)
+				// Sign in with google then link account to facebook
+				signInWithPopup(auth, googleProvider).then((result) => {
+					linkWithPopup(result.user, facebookProvider)
+				})
 			})
 	}
 
