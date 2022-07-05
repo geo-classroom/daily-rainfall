@@ -11,8 +11,50 @@
 	padding-bottom: 1vh;
 }
 
-#navbar-btn-container {
+#button-menu {
 	display: flex;
 	justify-content: space-between;
 	gap: 1vw;
+}
+
+#drop-menu-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 1vw;
+}
+
+/* Screen width greater than or equal to 700px show the main heading */
+@media (min-width: 700px) {
+	#responsive-heading {
+		display: none;
+	}
+}
+
+/* Screen width less than or equal to 699px show the responsive heading */
+@media (max-width: 699px) {
+	#main-heading {
+		display: none;
+	}
+}
+
+/* Screen width less than or equal to 900px hide the Welcome/Username */
+@media (max-width: 900px) {
+	h2 {
+		display: none;
+	}
+}
+
+/* Screen width less than or equal to 700px change menu to drop down */
+@media (max-width: 700px) {
+	#button-menu {
+		display: none;
+	}
+}
+
+/* Screen width greater than or equal to 701px change menu to drop down */
+@media (min-width: 701px) {
+	#drop-menu {
+		display: none;
+	}
 }
