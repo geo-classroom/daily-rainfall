@@ -3,6 +3,7 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 import { UserContext } from "../../App"
 import UserLocationMarker from "./UserLocationMarker"
 import { MapContainer, TileLayer } from "react-leaflet"
+import "./userRegistration.css"
 
 /*
 	Props

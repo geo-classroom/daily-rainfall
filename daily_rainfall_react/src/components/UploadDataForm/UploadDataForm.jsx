@@ -1,6 +1,7 @@
 import React, { useState, useContext, useId } from "react"
-import { UserContext } from "../App"
+import { UserContext } from "../../App"
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
+import "./uploadDataForm.css"
 
 /*
     Props

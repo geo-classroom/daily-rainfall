@@ -1,5 +1,4 @@
 import React, { createContext, useState } from "react"
-import "./styles.css"
 // Firebase
 import { initializeApp } from "firebase/app"
 import { config } from "./config/config"
@@ -13,11 +12,11 @@ import {
 } from "firebase/auth"
 import { getDatabase, onValue, ref, set, update } from "firebase/database"
 // components
-import Navbar from "./components/Navbar"
-import Map from "./components/Map"
-import UserRegistrationForm from "./components/userRegistration/UserRegistrationForm"
-import UploadDataForm from "./components/UploadDataForm"
-import Login from "./components/Login"
+import Navbar from "./components/Navbar/Navbar"
+import Map from "./components/Map/Map"
+import UserRegistrationForm from "./components/UserRegistration/UserRegistrationForm"
+import UploadDataForm from "./components/UploadDataForm/UploadDataForm"
+import Login from "./components/Login/Login"
 
 // Initialize the Firebase app
 initializeApp(config.firebaseConfig)

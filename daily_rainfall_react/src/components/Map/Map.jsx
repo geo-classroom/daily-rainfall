@@ -6,9 +6,8 @@ import {
 	TileLayer
 } from "react-leaflet"
 import { getDatabase, ref, onChildAdded } from "firebase/database"
-import Heatmap from "./Heatmap"
-import "../styles.css"
-// Import Leaflet CSS
+import Heatmap from "../Heatmap/Heatmap"
+import "./map.css"
 import "leaflet/dist/leaflet.css"
 
 const Map = () => {

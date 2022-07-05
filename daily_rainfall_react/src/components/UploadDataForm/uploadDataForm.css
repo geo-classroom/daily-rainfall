@@ -1,0 +1,18 @@
+#form-container {
+	border: 1px solid black;
+	width: 350px;
+	padding-bottom: 2vh;
+}
+
+#form {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5vh;
+	align-items: center;
+}
+
+#add-more-data-checkbox-container {
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+}

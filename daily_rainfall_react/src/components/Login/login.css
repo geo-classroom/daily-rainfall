@@ -1,0 +1,33 @@
+#login-container {
+	border: 1px solid black;
+	width: 300px;
+	padding-bottom: 2vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5vh;
+}
+
+#sign-in-google-btn {
+	width: 200px;
+	height: 30px;
+	color: white;
+	background-color: rgb(184, 23, 23);
+	border: solid 1px black;
+}
+
+#sign-in-google-btn:hover {
+	cursor: pointer;
+}
+
+#sign-in-facebook-btn {
+	width: 200px;
+	height: 30px;
+	color: white;
+	background-color: darkblue;
+	border: solid 1px black;
+}
+
+#sign-in-facebook-btn:hover {
+	cursor: pointer;
+}
