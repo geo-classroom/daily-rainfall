@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useMemo } from "react"
 import { useMap, Marker, Popup } from "react-leaflet"
-
+import { Button, TextField } from "@mui/material"
+import { Send } from "@mui/icons-material"
 import "leaflet/dist/leaflet.css"
 
 /*
@@ -59,11 +60,30 @@ const UserLocationMarker = (props) => {
 			ref={markerRef}
 		>
 			<Popup>
-				{`Latitude: ${userLocation.lat}`}
-				<br></br>
-				{`Longitude: ${userLocation.lng}`}
-				<br></br>
-				<button onClick={submitLocation}>Submit Location</button>
+				<TextField
+					id="standard-basic"
+					inputProps={{ readOnly: true }}
+					label="Latitude"
+					value={userLocation.lat}
+					variant="standard"
+					size="small"
+				/>
+				<TextField
+					id="standard-basic"
+					inputProps={{ readOnly: true }}
+					label="Longitude"
+					value={userLocation.lng}
+					variant="standard"
+					size="small"
+				/>
+				<Button
+					variant="contained"
+					onClick={submitLocation}
+					size="small"
+					endIcon={<Send />}
+				>
+					Submit Location
+				</Button>
 			</Popup>
 		</Marker>
 	)
