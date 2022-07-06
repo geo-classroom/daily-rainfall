@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import { UserContext } from "../../App"
-import { Button, Menu, MenuItem } from "@mui/material"
+import { Button, Menu, MenuItem, ButtonGroup } from "@mui/material"
 import "./navbar.css"
 
 /*
@@ -54,24 +54,29 @@ const Navbar = (props) => {
 				<h2>{user.username ? user.username : "Welcome"}</h2>
 			}
 			<div id="navbar-btn-container">
-				<div id="button-menu">
-					<button>About Project</button>
+				<ButtonGroup
+					id="button-menu"
+					variant="contained"
+					size="small"
+					aria-label="outlined primary button group"
+				>
+					<Button>About Project</Button>
 					{
 						// If user signed in show logout button else show login button
 						user.username ? (
 							/* eslint-disable react/prop-types */
-							<button onClick={props.logout}>Logout</button>
+							<Button onClick={props.logout}>Logout</Button>
 						) : (
-							<button onClick={props.login}>Login</button>
+							<Button onClick={props.login}>Login</Button>
 						)
 					}
 					{
 						// If user signed in enable button
-						<button disabled={!user.username} onClick={props.uploadData}>
+						<Button disabled={!user.username} onClick={props.uploadData}>
 							Upload Data
-						</button>
+						</Button>
 					}
-				</div>
+				</ButtonGroup>
 				{/* Menu for smaller screens */}
 				<div id="drop-menu">
 					<Button
