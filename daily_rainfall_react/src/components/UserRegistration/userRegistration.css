@@ -1,9 +1,3 @@
-#form-container {
-	border: 1px solid black;
-	width: 350px;
-	padding-bottom: 2vh;
-}
-
 #form {
 	display: flex;
 	flex-direction: column;

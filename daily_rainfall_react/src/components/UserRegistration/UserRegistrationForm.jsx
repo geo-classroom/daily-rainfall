@@ -94,7 +94,7 @@ const UserRegistrationForm = (props) => {
 	}
 
 	const mapStyle = {
-		width: "500px",
+		width: "360px",
 		height: "500px"
 	}
 
