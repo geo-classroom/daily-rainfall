@@ -2,6 +2,21 @@ import React, { useState, useContext, useId } from "react"
 import { UserContext } from "../../App"
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 import "./uploadDataForm.css"
+import {
+	TextField,
+	FormControlLabel,
+	Checkbox,
+	FormGroup,
+	Stack,
+	Button,
+	Input,
+	IconButton,
+	FormControl,
+	InputLabel,
+	Select,
+	MenuItem
+} from "@mui/material"
+import { PhotoCamera, Send } from "@mui/icons-material"
 
 /*
     Props
@@ -48,6 +63,25 @@ const UploadDataForm = (props) => {
 		props.handleUploadDataSubmit(formData)
 	}
 
+	const handleFileSubmit = (event) => {
+		const { files } = event.target
+
+		// Upload the iamge file to Firebase storage
+		const storage = getStorage()
+		const storageRef = ref(storage, `${user.id}/hailPhotos/${files[0].name}`)
+		uploadBytes(storageRef, files[0]).then((snapshot) => {
+			// Get the download link and update the state to hold the file image link
+			getDownloadURL(storageRef).then((url) => {
+				setFormData((prevFormData) => {
+					return {
+						...prevFormData,
+						hailPhoto: url
+					}
+				})
+			})
+		})
+	}
+
 	return (
 		<div id="form-container">
 			<form id="form" onSubmit={handleSubmit}>
@@ -74,143 +108,163 @@ const UploadDataForm = (props) => {
 					name="longitude"
 					value={formData.longitude}
 				/>
-				<input
+				<TextField
+					id="filled-number"
+					label="Amount of rainfall (ml)"
 					type="number"
-					placeholder="Amount of rainfall (ml)"
+					InputLabelProps={{
+						shrink: true
+					}}
+					variant="filled"
 					onChange={handleChange}
 					name="rainfallAmount"
 					value={formData.rainfallAmount}
 				/>
-				<label>
-					<input
-						type="checkbox"
-						id="showMore"
-						checked={formData.showMore}
-						onChange={handleChange}
-						name="showMore"
-					/>
-					Show More
-				</label>
+				<FormControlLabel
+					control={<Checkbox size="medium" />}
+					label="Show More"
+					type="checkbox"
+					id="showMore"
+					checked={formData.showMore}
+					onChange={handleChange}
+					name="showMore"
+				/>
 
 				{
 					// Render additional form items if the addMoreData is selected
 					formData.showMore && (
 						<div id="add-more-data-checkbox-container">
-							<label>
-								<input
-									type="checkbox"
-									id="isHail"
-									checked={formData.isHail}
-									onChange={handleChange}
-									name="isHail"
-								/>
-								Hail
-							</label>
-							<label>
-								<input
-									type="checkbox"
-									id="isSnow"
-									checked={formData.isSnow}
-									onChange={handleChange}
-									name="isSnow"
-								/>
-								Snow
-							</label>
-							<label>
-								<input
-									type="checkbox"
-									id="isFrost"
-									checked={formData.isFrost}
-									onChange={handleChange}
-									name="isFrost"
-								/>
-								Frost
-							</label>
+							<FormControlLabel
+								control={<Checkbox size="medium" />}
+								label="Hail"
+								type="checkbox"
+								id="isHail"
+								checked={formData.isHail}
+								onChange={handleChange}
+								name="isHail"
+							/>
+							<FormControlLabel
+								control={<Checkbox size="medium" />}
+								label="Snow"
+								type="checkbox"
+								id="isSnow"
+								checked={formData.isSnow}
+								onChange={handleChange}
+								name="isSnow"
+							/>
+							<FormControlLabel
+								control={<Checkbox size="medium" />}
+								label="Frost"
+								type="checkbox"
+								id="isFrost"
+								checked={formData.isFrost}
+								onChange={handleChange}
+								name="isFrost"
+							/>
 						</div>
 					)
 				}
 				{
 					// If hail selected show rest of form for hail input
 					formData.isHail && (
-						<input
-							type="text"
-							placeholder="Hail size"
-							onChange={handleChange}
-							name="hailSize"
-							value={formData.hailSize}
-						/>
+						<FormGroup>
+							<TextField
+								id="standard-basic"
+								label="Hail Size (cm)"
+								variant="standard"
+								type="text"
+								onChange={handleChange}
+								name="hailSize"
+								value={formData.hailSize}
+								margin="dense"
+							/>
+							<Stack direction="row" alignItems="center" spacing={2}>
+								<label htmlFor="contained-button-file">
+									<Input
+										style={{ display: "none" }}
+										accept="image/*"
+										id="contained-button-file"
+										multiple
+										type="file"
+										onChange={handleFileSubmit}
+									/>
+									<Button variant="contained" component="span" size="small">
+										Rain Gauge Photo
+									</Button>
+								</label>
+								<label htmlFor="icon-button-file">
+									<Input
+										style={{ display: "none" }}
+										accept="image/*"
+										id="icon-button-file"
+										type="file"
+										onChange={handleFileSubmit}
+									/>
+									<IconButton
+										color="primary"
+										aria-label="upload picture"
+										component="span"
+									>
+										<PhotoCamera />
+									</IconButton>
+								</label>
+							</Stack>
+							<TextField
+								id="filled-basic"
+								variant="filled"
+								type="time"
+								onChange={handleChange}
+								name="hailTime"
+								value={formData.hailTime}
+								margin="dense"
+							/>
+						</FormGroup>
 					)
 				}
-				{formData.isHail && (
-					<input
-						type="file"
-						onChange={(event) => {
-							const { files } = event.target
 
-							// Upload the iamge file to Firebase storage
-							const storage = getStorage()
-							const storageRef = ref(
-								storage,
-								`${user.id}/hailPhotos/${files[0].name}`
-							)
-							uploadBytes(storageRef, files[0]).then((snapshot) => {
-								// Get the download link and update the state to hold the file image link
-								getDownloadURL(storageRef).then((url) => {
-									setFormData((prevFormData) => {
-										return {
-											...prevFormData,
-											hailPhoto: url
-										}
-									})
-								})
-							})
-						}}
-					/>
-				)}
-				{
-					// If hail selected show rest of form for hail input
-					formData.isHail && (
-						<input
-							type="time"
-							placeholder="Time of hail"
-							onChange={handleChange}
-							name="hailTime"
-							value={formData.hailTime}
-						/>
-					)
-				}
 				{
 					// If snow selected show rest of form for snow input
 					formData.isSnow && (
-						<select
-							id="snowAmount"
-							value={formData.snowAmount}
-							onChange={handleChange}
-							name="snowAmount"
-						>
-							<option value="Light">Light</option>
-							<option value="Moderate">Moderate</option>
-							<option value="Heavy">Heavy</option>
-						</select>
+						<FormGroup>
+							<FormControl sx={{ m: 1, minWidth: 245 }}>
+								<InputLabel id="demo-simple-select-helper-label">
+									Amount of Snow
+								</InputLabel>
+								<Select
+									labelId="amount-of-snow"
+									label="Amount of Snow"
+									id="snowAmount"
+									value={formData.snowAmount}
+									onChange={handleChange}
+									name="snowAmount"
+								>
+									<MenuItem value={"Light"}>Light</MenuItem>
+									<MenuItem value={"Moderate"}>Moderate</MenuItem>
+									<MenuItem value={"Heavy"}>Heavy</MenuItem>
+								</Select>
+							</FormControl>
+							<TextField
+								id="filled-basic"
+								variant="filled"
+								type="time"
+								onChange={handleChange}
+								name="snowTime"
+								value={formData.snowTime}
+								margin="dense"
+							/>
+						</FormGroup>
 					)
 				}
-				{
-					// If snow selected show rest of form for snow input
-					formData.isSnow && (
-						<input
-							type="time"
-							placeholder="Time of snow"
-							onChange={handleChange}
-							name="snowTime"
-							value={formData.snowTime}
-						/>
-					)
-				}
-				<input
+				<Button
+					variant="contained"
 					type="submit"
 					value="submit"
 					disabled={formData.isHail && !formData.hailPhoto}
-				/>
+					size="medium"
+					endIcon={<Send />}
+				>
+					Submit
+				</Button>
 			</form>
 		</div>
 	)

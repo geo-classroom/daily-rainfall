@@ -4,7 +4,6 @@ import { UserContext } from "../../App"
 import UserLocationMarker from "./UserLocationMarker"
 import { MapContainer, TileLayer } from "react-leaflet"
 import {
-	FormGroup,
 	FormControlLabel,
 	Checkbox,
 	TextField,
@@ -143,18 +142,16 @@ const UserRegistrationForm = (props) => {
 			{showMapOrForm.showForm && (
 				<form id="form" onSubmit={handleSubmit}>
 					<h1>Register</h1>
-					<FormGroup>
-						<FormControlLabel
-							type="checkbox"
-							id="permissionToShowLocation"
-							checked={formData.permissionToShowLocation}
-							onChange={handleChange}
-							onClick={getLocationMap}
-							name="permissionToShowLocation"
-							control={<Checkbox size="medium" />}
-							label="Permission to show Location"
-						/>
-					</FormGroup>
+					<FormControlLabel
+						type="checkbox"
+						id="permissionToShowLocation"
+						checked={formData.permissionToShowLocation}
+						onChange={handleChange}
+						onClick={getLocationMap}
+						name="permissionToShowLocation"
+						control={<Checkbox size="medium" />}
+						label="Permission to show Location"
+					/>
 					<TextField
 						type="text"
 						placeholder="Latitude"

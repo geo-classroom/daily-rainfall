@@ -67,6 +67,7 @@ const UserLocationMarker = (props) => {
 					value={userLocation.lat}
 					variant="standard"
 					size="small"
+					margin="dense"
 				/>
 				<TextField
 					id="standard-basic"
@@ -75,6 +76,7 @@ const UserLocationMarker = (props) => {
 					value={userLocation.lng}
 					variant="standard"
 					size="small"
+					margin="dense"
 				/>
 				<Button
 					variant="contained"
