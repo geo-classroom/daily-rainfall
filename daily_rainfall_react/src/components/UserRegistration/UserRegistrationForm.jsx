@@ -3,6 +3,21 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 import { UserContext } from "../../App"
 import UserLocationMarker from "./UserLocationMarker"
 import { MapContainer, TileLayer } from "react-leaflet"
+import {
+	FormGroup,
+	FormControlLabel,
+	Checkbox,
+	TextField,
+	FormControl,
+	InputLabel,
+	Select,
+	MenuItem,
+	Input,
+	IconButton,
+	Stack,
+	Button
+} from "@mui/material"
+import { PhotoCamera, Send } from "@mui/icons-material"
 import "./userRegistration.css"
 
 /*
@@ -86,6 +101,28 @@ const UserRegistrationForm = (props) => {
 		})
 	}
 
+	/*
+		Gets the photo of the rain gauge from the user and sends it to storage in Firebase
+	*/
+	const handleFileSubmission = (event) => {
+		const { files } = event.target
+
+		// Uplaod the image to Firebase Storage
+		const storage = getStorage()
+		const storageRef = ref(storage, `${user.id}/${files[0].name}`)
+		uploadBytes(storageRef, files[0]).then((snapshot) => {
+			// Get the download link and update the state to hold the file image link
+			getDownloadURL(storageRef).then((url) => {
+				setFormData((prevFormData) => {
+					return {
+						...prevFormData,
+						raingaugePhoto: url
+					}
+				})
+			})
+		})
+	}
+
 	const formStyle = {
 		border: "1px",
 		solid: "black",
@@ -106,72 +143,102 @@ const UserRegistrationForm = (props) => {
 			{showMapOrForm.showForm && (
 				<form id="form" onSubmit={handleSubmit}>
 					<h1>Register</h1>
-					<label>
-						<input
+					<FormGroup>
+						<FormControlLabel
 							type="checkbox"
 							id="permissionToShowLocation"
 							checked={formData.permissionToShowLocation}
 							onChange={handleChange}
 							onClick={getLocationMap}
 							name="permissionToShowLocation"
+							control={<Checkbox size="medium" />}
+							label="Permission to show Location"
 						/>
-						Permission to show Location
-					</label>
-					<input
+					</FormGroup>
+					<TextField
 						type="text"
 						placeholder="Latitude"
 						onChange={handleChange}
 						name="latitude"
 						value={formData.latitude}
-						disabled
+						id="filled-read-only-input"
+						label="Latitude"
+						InputProps={{
+							readOnly: true
+						}}
+						variant="filled"
 					/>
-					<input
+					<TextField
 						type="text"
 						placeholder="Longitude"
 						onChange={handleChange}
 						name="longitude"
 						value={formData.longitude}
-						disabled
-					/>
-					<label>Rain gauge type</label>
-					<select
-						id="raingaugeType"
-						value={formData.raingaugeType}
-						onChange={handleChange}
-						name="raingaugeType"
-					>
-						<option default value="Manual">
-							Manual
-						</option>
-						<option value="Automatic">Automatic</option>
-					</select>
-					<input
-						type="file"
-						onChange={(event) => {
-							const { files } = event.target
-
-							// Uplaod the image to Firebase Storage
-							const storage = getStorage()
-							const storageRef = ref(storage, `${user.id}/${files[0].name}`)
-							uploadBytes(storageRef, files[0]).then((snapshot) => {
-								// Get the download link and update the state to hold the file image link
-								getDownloadURL(storageRef).then((url) => {
-									setFormData((prevFormData) => {
-										return {
-											...prevFormData,
-											raingaugePhoto: url
-										}
-									})
-								})
-							})
+						id="filled-read-only-input"
+						label="Longitude"
+						InputProps={{
+							readOnly: true
 						}}
+						variant="filled"
 					/>
+					<FormControl sx={{ m: 1, minWidth: 245 }}>
+						<InputLabel id="demo-simple-select-helper-label">
+							Rain Gauge Type
+						</InputLabel>
+						<Select
+							labelId="rain-gauge-type"
+							label="Rain Gauge Type"
+							id="raingaugeType"
+							value={formData.raingaugeType}
+							onChange={handleChange}
+							name="raingaugeType"
+						>
+							<MenuItem value={"Manual"}>Manual</MenuItem>
+							<MenuItem value={"Automatic"}>Automatic</MenuItem>
+						</Select>
+					</FormControl>
+					<Stack direction="row" alignItems="center" spacing={2}>
+						<label htmlFor="contained-button-file">
+							<Input
+								style={{ display: "none" }}
+								accept="image/*"
+								id="contained-button-file"
+								multiple
+								type="file"
+								onChange={handleFileSubmission}
+							/>
+							<Button variant="contained" component="span" size="small">
+								Rain Gauge Photo
+							</Button>
+						</label>
+						<label htmlFor="icon-button-file">
+							<Input
+								style={{ display: "none" }}
+								accept="image/*"
+								id="icon-button-file"
+								type="file"
+								onChange={handleFileSubmission}
+							/>
+							<IconButton
+								color="primary"
+								aria-label="upload picture"
+								component="span"
+							>
+								<PhotoCamera />
+							</IconButton>
+						</label>
+					</Stack>
 					{/* Wait for location coordinates to load before allowing user to submit */}
-					<input
+					<Button
+						variant="contained"
 						disabled={!formData.latitude || !formData.raingaugePhoto}
 						type="submit"
 						value="submit"
-					/>
+						size="medium"
+						endIcon={<Send />}
+					>
+						Submit
+					</Button>
 				</form>
 			)}
 			{showMapOrForm.showMap && (
