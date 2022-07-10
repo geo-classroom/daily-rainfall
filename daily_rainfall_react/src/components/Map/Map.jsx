@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from "react"
-import {
-	LayerGroup,
-	LayersControl,
-	MapContainer,
-	TileLayer
-} from "react-leaflet"
+import React, { useState, useEffect, useRef } from "react"
+import { LayersControl, MapContainer, TileLayer } from "react-leaflet"
 import { getDatabase, ref, onChildAdded } from "firebase/database"
-import Heatmap from "../Heatmap/Heatmap"
+import "leaflet.heat"
+import L from "leaflet"
 import "./map.css"
 import "leaflet/dist/leaflet.css"
 
 const Map = () => {
 	// State to hold the users data forms
 	const [rainfallData, setRainfallData] = useState([])
+	// State to hold the leaflet map
+	const [mapState, setMapState] = useState(null)
+
 	/*
         Listen for any changes to the rainfallData path and append the data to the rainfallData state list
     */
@@ -38,10 +37,41 @@ const Map = () => {
 		})
 	}, [])
 
+	// References to the layer controller to add the overlay heatmap layer
+	const layerControllerRef = useRef(null)
+	/*
+		Create the heatmap layer for the user data
+		Wait till the map state exists
+		Access the layer controller via the reference to it 
+		Add the heatmap as a overlay
+		useEffect depends on the rainfallData so whenever that changes it will update the heatmap layer 
+	*/
+	useEffect(() => {
+		// Create heatmap for the user data
+		const points = rainfallData.map((point) => {
+			return [point.latitude, point.longitude, point.rainfallAmount]
+		})
+
+		const heatmap = L.heatLayer(points)
+
+		/* 
+			When the state of the map existes (When the map loads) 
+			access the layer controller via the layer controller reference and add the overlay
+
+		*/
+		if (mapState) {
+			layerControllerRef.current.addOverlay(heatmap, "User Data")
+		}
+	}, [rainfallData])
+
 	return (
-		<MapContainer center={[-28.7, 24.5]} zoom={6}>
+		<MapContainer
+			center={[-28.7, 24.5]}
+			zoom={6}
+			whenReady={(map) => setMapState(map)}
+		>
 			{/* Add a layer conroll to the to right of the map */}
-			<LayersControl position="topright">
+			<LayersControl position="topright" ref={layerControllerRef}>
 				{/* 
 					Add the following basemaps to the layer controller:
 					MapBox Streets
@@ -66,12 +96,6 @@ const Map = () => {
 						url="https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=yhv0BPGcseqEnvE2HlLY"
 					/>
 				</LayersControl.BaseLayer>
-				{/* TODO Get the layer to appear in the toggle box */}
-				<LayersControl.Overlay checked name="User Data">
-					<LayerGroup>
-						<Heatmap rainfallData={rainfallData} />
-					</LayerGroup>
-				</LayersControl.Overlay>
 			</LayersControl>
 		</MapContainer>
 	)
