@@ -263,7 +263,7 @@ const UploadDataForm = (props) => {
 					size="medium"
 					endIcon={<Send />}
 				>
-					Submit
+					Upload Data
 				</Button>
 			</form>
 		</div>

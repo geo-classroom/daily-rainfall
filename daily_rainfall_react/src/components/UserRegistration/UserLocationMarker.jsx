@@ -9,7 +9,20 @@ import "leaflet/dist/leaflet.css"
     handleSubmitLocation
 */
 
-// TODO style the marker
+/*
+	Necesaary code to style the Marker icon
+*/
+import icon from "leaflet/dist/images/marker-icon.png"
+import iconShadow from "leaflet/dist/images/marker-shadow.png"
+import L from "leaflet"
+
+const DefaultIcon = L.icon({
+	iconUrl: icon,
+	shadowUrl: iconShadow
+})
+
+L.Marker.prototype.options.icon = DefaultIcon
+
 const UserLocationMarker = (props) => {
 	/*
 		When the map loads place a marker on the map at the users location and zoom to that location
