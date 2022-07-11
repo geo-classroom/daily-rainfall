@@ -168,16 +168,31 @@ const UploadDataForm = (props) => {
 					// If hail selected show rest of form for hail input
 					formData.isHail && (
 						<FormGroup>
-							<TextField
-								id="standard-basic"
-								label="Hail Size (cm)"
-								variant="standard"
-								type="text"
-								onChange={handleChange}
-								name="hailSize"
-								value={formData.hailSize}
-								margin="dense"
-							/>
+							<FormControl sx={{ m: 1, minWidth: 245 }}>
+								<InputLabel id="demo-simple-select-helper-label">
+									Hail Size Diameter (cm)
+								</InputLabel>
+								<Select
+									labelId="hail-size"
+									label="Hail Size Diameter (cm)"
+									id="hailSize"
+									value={formData.hailSize}
+									onChange={handleChange}
+									name="hailSize"
+								>
+									<MenuItem value={"0.5 - 0.9"}>0.5 - 0.9</MenuItem>
+									<MenuItem value={"1.0 - 1.5"}>1.0 - 1.5</MenuItem>
+									<MenuItem value={"1.6 - 2.0"}>1.6 - 2.0</MenuItem>
+									<MenuItem value={"2.1 - 3.0"}>2.1 - 3.0</MenuItem>
+									<MenuItem value={"3.1 - 4.0"}>3.1 - 4.0</MenuItem>
+									<MenuItem value={"4.1 - 5.0"}>4.1 - 5.0</MenuItem>
+									<MenuItem value={"5.1 - 6.0"}>5.1 - 6.0</MenuItem>
+									<MenuItem value={"6.1 - 7.5"}>6.1 - 7.5</MenuItem>
+									<MenuItem value={"7.6 - 9.0"}>7.6 - 9.0</MenuItem>
+									<MenuItem value={"9.1 - 10.0"}>9.1 - 10.0</MenuItem>
+									<MenuItem value={"> 10.0"}>&gt; 10.0</MenuItem>
+								</Select>
+							</FormControl>
 							<Stack direction="row" alignItems="center" spacing={2}>
 								<label htmlFor="contained-button-file">
 									<Input
@@ -189,7 +204,7 @@ const UploadDataForm = (props) => {
 										onChange={handleFileSubmit}
 									/>
 									<Button variant="contained" component="span" size="small">
-										Rain Gauge Photo
+										Hail Photo
 									</Button>
 								</label>
 								<label htmlFor="icon-button-file">

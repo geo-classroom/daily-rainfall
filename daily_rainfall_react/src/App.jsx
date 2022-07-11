@@ -244,7 +244,7 @@ const App = () => {
 
 		const hours = today.getHours()
 
-		update(ref(db, `rainfallData/${date}/${hours}`), {
+		update(ref(db, `rainfallData/${date}/${hours}:00`), {
 			[user.id]: formData
 		})
 	}

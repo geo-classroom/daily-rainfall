@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 import { LayersControl, MapContainer, TileLayer } from "react-leaflet"
 import { getDatabase, ref, onChildAdded } from "firebase/database"
+import LastUpdated from "./LastUpdated"
 import "leaflet.heat"
 import L from "leaflet"
 import "./map.css"
@@ -37,8 +38,6 @@ const Map = () => {
 		})
 	}, [])
 
-	// References to the layer controller to add the overlay heatmap layer
-	const layerControllerRef = useRef(null)
 	/*
 		Create the heatmap layer for the user data
 		Wait till the map state exists
@@ -46,6 +45,8 @@ const Map = () => {
 		Add the heatmap as a overlay
 		useEffect depends on the rainfallData so whenever that changes it will update the heatmap layer 
 	*/
+	// References to the layer controller to add the overlay heatmap layer
+	const layerControllerRef = useRef(null)
 	useEffect(() => {
 		// Create heatmap for the user data
 		const points = rainfallData.map((point) => {
@@ -65,11 +66,7 @@ const Map = () => {
 	}, [rainfallData])
 
 	return (
-		<MapContainer
-			center={[-28.7, 24.5]}
-			zoom={6}
-			whenReady={(map) => setMapState(map)}
-		>
+		<MapContainer center={[-28.7, 24.5]} zoom={6} ref={setMapState}>
 			{/* Add a layer conroll to the to right of the map */}
 			<LayersControl position="topright" ref={layerControllerRef}>
 				{/* 
@@ -97,6 +94,7 @@ const Map = () => {
 					/>
 				</LayersControl.BaseLayer>
 			</LayersControl>
+			<LastUpdated mapState={mapState} />
 		</MapContainer>
 	)
 }
