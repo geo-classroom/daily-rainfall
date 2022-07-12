@@ -3,6 +3,7 @@
 	flex-direction: column;
 	justify-content: center;
 	padding-left: 2vw;
+	font-family: "Open Sans", sans-serif;
 }
 
 #back-to-map-btn {
