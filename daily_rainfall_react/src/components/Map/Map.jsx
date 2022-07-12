@@ -70,6 +70,7 @@ const Map = () => {
 			center={[-28.7, 24.5]}
 			zoom={6}
 			zoomControl={false}
+			// Maxzoom limited to not allow users to see exact locations of people that have submitted data
 			maxZoom={12}
 			ref={setMapState}
 		>

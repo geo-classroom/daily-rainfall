@@ -1,0 +1,10 @@
+#instructions-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-left: 2vw;
+}
+
+#back-to-map-btn {
+	width: 20vh;
+}

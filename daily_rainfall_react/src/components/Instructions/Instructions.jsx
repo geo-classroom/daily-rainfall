@@ -9,7 +9,7 @@ import { Button } from "@mui/material"
 
 const Instructions = (props) => {
 	return (
-		<div id="about-project-container">
+		<div id="instructions-container">
 			<h3>Setting up Raingauge</h3>
 			<ul>
 				<li>Open Areas</li>
@@ -62,7 +62,7 @@ const Instructions = (props) => {
 				<li>Upload the measured rainfall amount</li>
 			</ul>
 			{/* eslint-disable react/prop-types */}
-			<Button variant="text" onClick={props.backToMap}>
+			<Button id="back-to-map-btn" variant="text" onClick={props.backToMap}>
 				Back to Map
 			</Button>
 		</div>
