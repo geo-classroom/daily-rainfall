@@ -4,7 +4,8 @@ import {
 	MapContainer,
 	TileLayer,
 	Marker,
-	LayerGroup
+	LayerGroup,
+	Popup
 } from "react-leaflet"
 import { getDatabase, ref, onChildAdded } from "firebase/database"
 import LastUpdated from "./LastUpdated"
@@ -79,16 +80,19 @@ const Map = () => {
 					/>
 				</LayersControl.BaseLayer>
 				<LayersControl.Overlay name="User Data">
+					{/* 
+						Map through the rainfall data and add a point for each user that has uploaded the data
+						Each marker must have a popup with the rainfall amount
+					*/}
 					<LayerGroup>
 						{rainfallData.map((point) => {
-							// eslint-disable-next-line react/jsx-key
 							return (
-								// eslint-disable-next-line react/jsx-key
-
 								<Marker
 									key={point.formId}
 									position={[point.latitude, point.longitude]}
-								/>
+								>
+									<Popup>Rainfall Amount: {point.rainfallAmount}ml</Popup>
+								</Marker>
 							)
 						})}
 					</LayerGroup>
