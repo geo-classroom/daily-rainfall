@@ -66,7 +66,12 @@ const Map = () => {
 	}, [rainfallData])
 
 	return (
-		<MapContainer center={[-28.7, 24.5]} zoom={6} ref={setMapState}>
+		<MapContainer
+			center={[-28.7, 24.5]}
+			zoom={6}
+			zoomControl={false}
+			ref={setMapState}
+		>
 			{/* Add a layer conroll to the to right of the map */}
 			<LayersControl position="topright" ref={layerControllerRef}>
 				{/* 

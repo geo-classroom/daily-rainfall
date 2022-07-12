@@ -7,6 +7,7 @@ import { Button, createTheme, ThemeProvider } from "@mui/material"
     Props
     signInWithGoogle
     signInWithFacebook
+	backToMap
 */
 
 const Login = (props) => {
@@ -54,6 +55,9 @@ const Login = (props) => {
 					onClick={props.signInWithFacebook}
 				>
 					Continue with Facebook
+				</Button>
+				<Button varient="text" onClick={props.backToMap}>
+					Back to Map
 				</Button>
 			</ThemeProvider>
 		</div>

@@ -1,7 +1,13 @@
 import React from "react"
 import "./instructions.css"
+import { Button } from "@mui/material"
 
-const AboutProject = () => {
+/*
+	Props
+	backToMap
+*/
+
+const Instructions = (props) => {
 	return (
 		<div id="about-project-container">
 			<h3>Setting up Raingauge</h3>
@@ -31,7 +37,6 @@ const AboutProject = () => {
 				<li>Ensure the raingauge is as level and vertical as possible</li>
 				<li>Place raingauge in a location that is easily accessible</li>
 			</ul>
-
 			<h3>Reading the Raingauge</h3>
 			<ul>
 				<li>Read te raingauge at approximately the same time every morning</li>
@@ -46,7 +51,6 @@ const AboutProject = () => {
 				</li>
 				<li>If you have not received any rainfall record 0ml</li>
 			</ul>
-
 			<h3>Uploading the Data</h3>
 			<ul>
 				<li>Go to app</li>
@@ -57,8 +61,12 @@ const AboutProject = () => {
 				</li>
 				<li>Upload the measured rainfall amount</li>
 			</ul>
+			{/* eslint-disable react/prop-types */}
+			<Button variant="text" onClick={props.backToMap}>
+				Back to Map
+			</Button>
 		</div>
 	)
 }
 
-export default AboutProject
+export default Instructions

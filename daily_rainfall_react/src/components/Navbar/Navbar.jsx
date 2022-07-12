@@ -5,9 +5,10 @@ import "./navbar.css"
 
 /*
     Props:
-		login
-        logout
-        uploadData
+	instructions
+	login
+	logout
+	uploadData
 */
 
 const Navbar = (props) => {
@@ -60,7 +61,7 @@ const Navbar = (props) => {
 					size="small"
 					aria-label="outlined primary button group"
 				>
-					<Button>About Project</Button>
+					<Button onClick={props.instructions}>Instructions</Button>
 					{
 						// If user signed in show logout button else show login button
 						user.username ? (

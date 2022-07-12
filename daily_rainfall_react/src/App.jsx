@@ -17,7 +17,7 @@ import Map from "./components/Map/Map"
 import UserRegistrationForm from "./components/UserRegistration/UserRegistrationForm"
 import UploadDataForm from "./components/UploadDataForm/UploadDataForm"
 import Login from "./components/Login/Login"
-import AboutProject from "./components/Instructions/Instructions"
+import Instructions from "./components/Instructions/Instructions"
 
 // Initialize the Firebase app
 initializeApp(config.firebaseConfig)
@@ -39,13 +39,11 @@ const App = () => {
 	const [user, setUser] = useState({})
 	// Set state for user registration form, upload data from and map
 	const [mapFormToggle, setMapFormToggle] = useState({
-		// showMap: true,
+		showMap: true,
 		showUploadDataForm: false,
 		showUserRegistrationForm: false,
 		showLogin: false,
-		// TODO -> remove below line once about project is finished
-		showMap: false,
-		showAboutProject: true
+		showInstructions: false
 	})
 
 	/*
@@ -56,7 +54,22 @@ const App = () => {
 			showMap: true,
 			showUploadDataForm: false,
 			showUserRegistrationForm: false,
-			showLogin: false
+			showLogin: false,
+			showInstructions: false
+		})
+	}
+
+	/*
+		Hide the map 
+		Shwo the instructions page
+	*/
+	const instructions = () => {
+		setMapFormToggle((prevMapFormToggle) => {
+			return {
+				...prevMapFormToggle,
+				showMap: false,
+				showInstructions: true
+			}
 		})
 	}
 
@@ -264,6 +277,7 @@ const App = () => {
 		<div>
 			<UserContext.Provider value={user}>
 				<Navbar
+					instructions={() => instructions()}
 					login={() => login()}
 					logout={() => logout()}
 					uploadData={() => uploadData()}
@@ -290,10 +304,13 @@ const App = () => {
 						<Login
 							signInWithGoogle={() => signInWithGoogle()}
 							signInWithFacebook={() => signInWithFacebook()}
+							backToMap={() => hideFormShowMap()}
 						/>
 					)}
 				</div>
-				{mapFormToggle.showAboutProject && <AboutProject />}
+				{mapFormToggle.showInstructions && (
+					<Instructions backToMap={() => hideFormShowMap()} />
+				)}
 			</UserContext.Provider>
 		</div>
 	)
