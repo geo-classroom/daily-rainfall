@@ -94,7 +94,7 @@ const Navbar = (props) => {
 						id="basic-menu"
 						anchorEl={anchorEl}
 						open={open}
-						onClose={() => handleClose(null)}
+						onClose={handleClose}
 						MenuListProps={{
 							"aria-labelledby": "basic-button"
 						}}

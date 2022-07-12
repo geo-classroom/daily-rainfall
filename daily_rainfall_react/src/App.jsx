@@ -17,6 +17,7 @@ import Map from "./components/Map/Map"
 import UserRegistrationForm from "./components/UserRegistration/UserRegistrationForm"
 import UploadDataForm from "./components/UploadDataForm/UploadDataForm"
 import Login from "./components/Login/Login"
+import AboutProject from "./components/Instructions/Instructions"
 
 // Initialize the Firebase app
 initializeApp(config.firebaseConfig)
@@ -38,10 +39,13 @@ const App = () => {
 	const [user, setUser] = useState({})
 	// Set state for user registration form, upload data from and map
 	const [mapFormToggle, setMapFormToggle] = useState({
-		showMap: true,
+		// showMap: true,
 		showUploadDataForm: false,
 		showUserRegistrationForm: false,
-		showLogin: false
+		showLogin: false,
+		// TODO -> remove below line once about project is finished
+		showMap: false,
+		showAboutProject: true
 	})
 
 	/*
@@ -289,6 +293,7 @@ const App = () => {
 						/>
 					)}
 				</div>
+				{mapFormToggle.showAboutProject && <AboutProject />}
 			</UserContext.Provider>
 		</div>
 	)
