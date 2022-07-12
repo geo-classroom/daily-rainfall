@@ -9,7 +9,7 @@ import {
 } from "react-leaflet"
 import { getDatabase, ref, onChildAdded } from "firebase/database"
 import LastUpdated from "./LastUpdated"
-import "leaflet.heat"
+import { FeatureLayer } from "react-esri-leaflet"
 import "./map.css"
 import "leaflet/dist/leaflet.css"
 
@@ -79,6 +79,7 @@ const Map = () => {
 						url="https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=yhv0BPGcseqEnvE2HlLY"
 					/>
 				</LayersControl.BaseLayer>
+				{/* Layercontroll option for the user data */}
 				<LayersControl.Overlay name="User Data">
 					{/* 
 						Map through the rainfall data and add a point for each user that has uploaded the data
@@ -96,6 +97,14 @@ const Map = () => {
 							)
 						})}
 					</LayerGroup>
+				</LayersControl.Overlay>
+				{/* Layer control for the SAWS data */}
+				<LayersControl.Overlay name="SAWS Data">
+					<FeatureLayer
+						url={
+							"https://services8.arcgis.com/ZhTpwEGNVUBxG9VW/ArcGIS/rest/services/saws_rainfall/FeatureServer/0"
+						}
+					/>
 				</LayersControl.Overlay>
 			</LayersControl>
 			<LastUpdated mapState={mapState} />
