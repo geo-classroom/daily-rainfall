@@ -11,6 +11,18 @@
 	padding-bottom: 1vh;
 }
 
+#logo-heading-container {
+	display: flex;
+	gap: 0.5vw;
+	align-items: center;
+}
+
+#up-logo {
+	width: 3vw;
+	height: 6vh;
+	object-fit: cover;
+}
+
 #button-menu {
 	display: flex;
 	justify-content: space-between;

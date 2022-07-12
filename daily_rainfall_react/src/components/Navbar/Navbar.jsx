@@ -47,7 +47,10 @@ const Navbar = (props) => {
 
 	return (
 		<div id="navbar-container">
-			<h1 id="main-heading">UP Daily Rainfall</h1>
+			<div id="logo-heading-container">
+				<img id="up-logo" src="/up_logo.jpg"></img>
+				<h1 id="main-heading">UP Daily Rainfall</h1>
+			</div>
 			{/* Heading for a smaller screen  */}
 			<h3 id="responsive-heading">UP Daily Rainfall</h3>
 			{
