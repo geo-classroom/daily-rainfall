@@ -123,6 +123,13 @@ const Map = () => {
 						ref={sawsRef}
 					/>
 				</LayersControl.Overlay>
+				<LayersControl.Overlay name="EUMETSAT Data">
+					<FeatureLayer
+						url={
+							"https://services8.arcgis.com/ZhTpwEGNVUBxG9VW/ArcGIS/rest/services/eumetsat_grid/FeatureServer/0"
+						}
+					/>
+				</LayersControl.Overlay>
 			</LayersControl>
 			<LastUpdated mapState={mapState} />
 		</MapContainer>
