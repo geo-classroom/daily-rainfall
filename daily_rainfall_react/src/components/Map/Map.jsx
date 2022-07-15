@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import {
 	LayersControl,
 	MapContainer,
@@ -10,6 +10,7 @@ import {
 import { getDatabase, ref, onChildAdded } from "firebase/database"
 import LastUpdated from "./LastUpdated"
 import { FeatureLayer } from "react-esri-leaflet"
+import L from "leaflet"
 import "./map.css"
 import "leaflet/dist/leaflet.css"
 
@@ -43,6 +44,21 @@ const Map = () => {
 			})
 		})
 	}, [])
+
+	/*
+		Add the popup to the SAWS data layer
+	*/
+	const sawsRef = useRef()
+	useEffect(() => {
+		if (mapState) {
+			sawsRef.current.bindPopup((layer) => {
+				return L.Util.template(
+					"Rainfall Amount: {Rainfall}",
+					layer.feature.properties
+				)
+			})
+		}
+	}, [mapState])
 
 	return (
 		<MapContainer
@@ -104,6 +120,7 @@ const Map = () => {
 						url={
 							"https://services8.arcgis.com/ZhTpwEGNVUBxG9VW/ArcGIS/rest/services/saws_rainfall/FeatureServer/0"
 						}
+						ref={sawsRef}
 					/>
 				</LayersControl.Overlay>
 			</LayersControl>

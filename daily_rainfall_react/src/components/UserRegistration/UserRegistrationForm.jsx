@@ -130,8 +130,7 @@ const UserRegistrationForm = (props) => {
 	const formStyle = {
 		border: "1px",
 		solid: "black",
-		width: "350px",
-		paddingBottom: "2vh"
+		width: "350px"
 	}
 
 	const mapStyle = {
