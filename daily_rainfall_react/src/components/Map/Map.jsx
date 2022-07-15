@@ -60,6 +60,20 @@ const Map = () => {
 		}
 	}, [mapState])
 
+	/*
+		Styling for the SAWS data icons
+	*/
+	const sawsIcon = L.icon({
+		iconUrl:
+			"https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
+		shadowUrl:
+			"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+		iconSize: [25, 41],
+		iconAnchor: [12, 41],
+		popupAnchor: [1, -34],
+		shadowSize: [41, 41]
+	})
+
 	return (
 		<MapContainer
 			center={[-28.7, 24.5]}
@@ -121,6 +135,11 @@ const Map = () => {
 							"https://services8.arcgis.com/ZhTpwEGNVUBxG9VW/ArcGIS/rest/services/saws_rainfall/FeatureServer/0"
 						}
 						ref={sawsRef}
+						pointToLayer={(geojson, latLng) => {
+							return L.marker(latLng, {
+								icon: sawsIcon
+							})
+						}}
 					/>
 				</LayersControl.Overlay>
 				<LayersControl.Overlay name="EUMETSAT Data">
