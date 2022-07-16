@@ -248,6 +248,7 @@ const UserRegistrationForm = (props) => {
 						style={mapStyle}
 						center={[-28.7, 24.5]}
 						zoom={6}
+						zoomControl={false}
 						maxZoom={18}
 					>
 						<TileLayer

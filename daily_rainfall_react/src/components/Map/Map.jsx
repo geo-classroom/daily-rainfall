@@ -53,7 +53,7 @@ const Map = () => {
 		if (mapState) {
 			sawsRef.current.bindPopup((layer) => {
 				return L.Util.template(
-					"Rainfall Amount: {Rainfall}",
+					"Rainfall Amount: {Rainfall}ml",
 					layer.feature.properties
 				)
 			})
@@ -112,9 +112,9 @@ const Map = () => {
 				{/* Layercontroll option for the user data */}
 				<LayersControl.Overlay name="User Data">
 					{/* 
-						Map through the rainfall data and add a point for each user that has uploaded the data
-						Each marker must have a popup with the rainfall amount
-					*/}
+							Map through the rainfall data and add a point for each user that has uploaded the data
+							Each marker must have a popup with the rainfall amount
+						*/}
 					<LayerGroup>
 						{rainfallData.map((point) => {
 							return (
@@ -147,6 +147,36 @@ const Map = () => {
 						url={
 							"https://services8.arcgis.com/ZhTpwEGNVUBxG9VW/ArcGIS/rest/services/eumetsat_grid/FeatureServer/0"
 						}
+						style={(feature) => {
+							if (feature.properties.Rainfall <= 0) {
+								return { color: "transparent" }
+							} else if (
+								feature.properties.Rainfall > 0 &&
+								feature.properties.Rainfall <= 4
+							) {
+								return { color: "#c6dbef" }
+							} else if (
+								feature.properties.Rainfall > 4 &&
+								feature.properties.Rainfall <= 8
+							) {
+								return { color: "#9ecae1" }
+							} else if (
+								feature.properties.Rainfall > 8 &&
+								feature.properties.Rainfall <= 12
+							) {
+								return { color: "#6baed6" }
+							} else if (
+								feature.properties.Rainfall > 12 &&
+								feature.properties.Rainfall <= 16
+							) {
+								return { color: "#3182bd" }
+							} else if (
+								feature.properties.Rainfall > 16 &&
+								feature.properties.Rainfall <= 20
+							) {
+								return { color: "#08519c" }
+							}
+						}}
 					/>
 				</LayersControl.Overlay>
 			</LayersControl>
