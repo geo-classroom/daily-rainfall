@@ -48,7 +48,7 @@ const Map = () => {
 	/*
 		Add the popup to the SAWS data layer
 	*/
-	const sawsRef = useRef()
+	const sawsRef = useRef(null)
 	useEffect(() => {
 		if (mapState) {
 			sawsRef.current.bindPopup((layer) => {
