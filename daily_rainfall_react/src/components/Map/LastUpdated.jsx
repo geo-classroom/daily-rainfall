@@ -34,7 +34,7 @@ const LastUpdated = (props) => {
 			const timeArr = Object.keys(data.val())
 			Math.max(
 				timeArr.map((time) => {
-					if (data.key !== date) {
+					if (data.key !== date || time < "10:30") {
 						return setDateTime({
 							date,
 							time: "10:30"
