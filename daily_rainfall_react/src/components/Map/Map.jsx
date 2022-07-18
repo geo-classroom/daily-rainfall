@@ -74,6 +74,62 @@ const Map = () => {
 		shadowSize: [41, 41]
 	})
 
+	/*
+		Adds a legend when the eumetsat layer is toggled on and removes the legend when the layer is toggled off
+	*/
+	useEffect(() => {
+		if (mapState) {
+			const legend = L.control({ position: "bottomright" })
+
+			legend.onAdd = () => {
+				const div = L.DomUtil.create("div", "legend")
+				div.innerHTML = `
+					<table id="eumetsat-legend-table">
+						<tr>
+							<th  colspan="2">Rainfall (ml)</th>
+						</tr>
+						<tr>
+							<td class="color-width" style="background-color: #c6dbef;"></td>
+							<td class="center-text">0 - 4</td>
+						</tr>
+						<tr>
+							<td class="color-width" style="background-color: #9ecae1;"></td>
+							<td class="center-text">5 - 8</td>
+						</tr>
+						<tr>
+							<td class="color-width" style="background-color: #6baed6;"></td>
+							<td class="center-text">9 - 12</td>
+						</tr>
+						<tr>
+							<td class="color-width" style="background-color: #3182bd;"></td>
+							<td class="center-text">13 - 16</td>
+						</tr>
+						<tr>
+							<td class="color-width" style="background-color: #08519c;"></td>
+							<td class="center-text">16 - 20</td>
+						</tr>
+					</table>
+				`
+				return div
+			}
+
+			mapState.on({
+				// If the overlay added is the eumetsat layer add the legend
+				overlayadd: (layer) => {
+					if (layer.name === "EUMETSAT Data") {
+						mapState.addControl(legend)
+					}
+				},
+				// If the overlay removed is the eumetsat layer remove the legend
+				overlayremove: (layer) => {
+					if (layer.name === "EUMETSAT Data") {
+						mapState.removeControl(legend)
+					}
+				}
+			})
+		}
+	}, [mapState])
+
 	return (
 		<MapContainer
 			center={[-28.7, 24.5]}
