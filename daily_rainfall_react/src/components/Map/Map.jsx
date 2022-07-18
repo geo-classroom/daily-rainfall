@@ -24,14 +24,13 @@ const Map = () => {
         Listen for any changes to the rainfallData path and append the data to the rainfallData state list
     */
 	useEffect(() => {
-		const db = getDatabase()
 		const today = new Date()
 		const date = `${today.getDate()}-${
 			today.getMonth() + 1
 		}-${today.getFullYear()}`
 
 		//
-
+		const db = getDatabase()
 		// Get Data for the current day
 		const dbRef = ref(db, `rainfallData/${date}`)
 		onChildAdded(dbRef, (childData) => {
