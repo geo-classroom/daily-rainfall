@@ -15,7 +15,8 @@ import {
 	IconButton,
 	Stack,
 	Button,
-	LinearProgress
+	LinearProgress,
+	CircularProgress
 } from "@mui/material"
 import { PhotoCamera, Send } from "@mui/icons-material"
 import "./userRegistration.css"
@@ -29,7 +30,7 @@ const UserRegistrationForm = (props) => {
 	const user = useContext(UserContext)
 
 	// State to show or hide the spinner over the map when getting the users location
-	const [showLoader, setShowLoader] = useState(true)
+	const [showMapLoader, setShowMapLoader] = useState(true)
 
 	/*
     	State to hold the data from the form
@@ -108,7 +109,29 @@ const UserRegistrationForm = (props) => {
 	/*
 		Gets the photo of the rain gauge from the user and sends it to storage in Firebase
 	*/
+	// const handleFileSubmission = (event) => {
+	// 	const { files } = event.target
+
+	// 	// Uplaod the image to Firebase Storage
+	// 	const storage = getStorage()
+	// 	const storageRef = ref(storage, `${user.id}/${files[0].name}`)
+	// 	uploadBytes(storageRef, files[0]).then((snapshot) => {
+	// 		// Get the download link and update the state to hold the file image link
+	// 		getDownloadURL(storageRef).then((url) => {
+	// 			setFormData((prevFormData) => {
+	// 				return {
+	// 					...prevFormData,
+	// 					raingaugePhoto: url
+	// 				}
+	// 			})
+	// 		})
+	// 	})
+	// }
+
+	// TODO
+	const [showPhotoLoader, setShowPhotoLoader] = useState(false)
 	const handleFileSubmission = (event) => {
+		setShowPhotoLoader(true)
 		const { files } = event.target
 
 		// Uplaod the image to Firebase Storage
@@ -123,6 +146,7 @@ const UserRegistrationForm = (props) => {
 						raingaugePhoto: url
 					}
 				})
+				setShowPhotoLoader(false)
 			})
 		})
 	}
@@ -193,6 +217,7 @@ const UserRegistrationForm = (props) => {
 							value={formData.raingaugeType}
 							onChange={handleChange}
 							name="raingaugeType"
+							defaultValue={"Manual"}
 						>
 							<MenuItem value={"Manual"}>Manual</MenuItem>
 							<MenuItem value={"Automatic"}>Automatic</MenuItem>
@@ -230,16 +255,20 @@ const UserRegistrationForm = (props) => {
 						</label>
 					</Stack>
 					{/* Wait for location coordinates to load before allowing user to submit */}
-					<Button
-						variant="contained"
-						disabled={!formData.latitude || !formData.raingaugePhoto}
-						type="submit"
-						value="submit"
-						size="medium"
-						endIcon={<Send />}
-					>
-						Submit
-					</Button>
+					{showPhotoLoader ? (
+						<CircularProgress />
+					) : (
+						<Button
+							variant="contained"
+							disabled={!formData.latitude || !formData.raingaugePhoto}
+							type="submit"
+							value="submit"
+							size="medium"
+							endIcon={<Send />}
+						>
+							Submit
+						</Button>
+					)}
 				</form>
 			)}
 			{showMapOrForm.showMap && (
@@ -257,11 +286,11 @@ const UserRegistrationForm = (props) => {
 						/>
 
 						<UserLocationMarker
-							loaderState={setShowLoader}
+							mapLoaderState={setShowMapLoader}
 							handleSubmitLocation={handleSubmitLocation}
 						/>
 					</MapContainer>
-					{showLoader && <LinearProgress />}
+					{showMapLoader && <LinearProgress />}
 				</>
 			)}
 		</div>

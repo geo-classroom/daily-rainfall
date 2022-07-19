@@ -7,7 +7,7 @@ import "leaflet/dist/leaflet.css"
 /*
     Props
     handleSubmitLocation
-	loaderState
+	mapLoaderState
 */
 
 /*
@@ -34,7 +34,7 @@ const UserLocationMarker = (props) => {
 		map.locate().on("locationfound", (event) => {
 			// When the location is found hide the spinnder
 			// eslint-disable-next-line react/prop-types
-			props.loaderState(false)
+			props.mapLoaderState(false)
 			setUserLocation(event.latlng)
 			map.flyTo(event.latlng, map.getMaxZoom())
 		})
