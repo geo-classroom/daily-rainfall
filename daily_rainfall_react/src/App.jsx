@@ -226,7 +226,7 @@ const App = () => {
 	/*
 		User submits user registration form
 		Update user state  
-		hide user registration form show map
+		hide user registration form show the uplaod data form
 		update the user in the database
   	*/
 	const handleUserRegistrationSubmit = (formData) => {
@@ -238,7 +238,11 @@ const App = () => {
 			}
 		})
 
-		hideFormShowMap()
+		setMapFormToggle((prevMapFormToggle) => ({
+			...prevMapFormToggle,
+			showUserRegistrationForm: false,
+			showUploadDataForm: true
+		}))
 
 		update(ref(db, `users/${user.id}`), {
 			isRegistered: true,
