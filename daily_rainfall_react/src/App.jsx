@@ -44,6 +44,8 @@ const App = () => {
 		showUserRegistrationForm: false,
 		showLogin: false,
 		showInstructions: false
+
+		// showUserRegistrationForm: true
 	})
 
 	/*

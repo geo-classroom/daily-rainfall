@@ -217,7 +217,6 @@ const UserRegistrationForm = (props) => {
 							value={formData.raingaugeType}
 							onChange={handleChange}
 							name="raingaugeType"
-							defaultValue={"Manual"}
 						>
 							<MenuItem value={"Manual"}>Manual</MenuItem>
 							<MenuItem value={"Automatic"}>Automatic</MenuItem>

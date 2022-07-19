@@ -49,6 +49,13 @@ const LastUpdated = (props) => {
 			)
 		})
 
+		if (dateTime.date || dateTime.time === "") {
+			setDateTime({
+				date,
+				time: "10:30"
+			})
+		}
+
 		if (props.mapState) {
 			const lastUpdated = L.control({ position: "topleft" })
 

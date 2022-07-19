@@ -184,7 +184,7 @@ const Map = () => {
 					</LayerGroup>
 				</LayersControl.Overlay>
 				{/* Layer control for the SAWS data */}
-				<LayersControl.Overlay name="SAWS Data">
+				<LayersControl.Overlay checked={true} name="SAWS Data">
 					<FeatureLayer
 						url={
 							"https://services8.arcgis.com/ZhTpwEGNVUBxG9VW/ArcGIS/rest/services/saws_rainfall/FeatureServer/0"
