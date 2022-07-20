@@ -42,19 +42,12 @@ const LastUpdated = (props) => {
 					} else {
 						return setDateTime({
 							date: data.key,
-							time
+							time: `${time}:00`
 						})
 					}
 				})
 			)
 		})
-
-		if (dateTime.date || dateTime.time === "") {
-			setDateTime({
-				date,
-				time: "10:30"
-			})
-		}
 
 		if (props.mapState) {
 			const lastUpdated = L.control({ position: "topleft" })

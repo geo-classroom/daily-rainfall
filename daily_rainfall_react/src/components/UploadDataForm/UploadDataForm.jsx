@@ -33,7 +33,7 @@ const UploadDataForm = (props) => {
 		latitude: user.registration.latitude,
 		longitude: user.registration.longitude,
 		rainfallAmount: "",
-		showMore: false,
+		reportOtherWeather: false,
 		isHail: false,
 		isSnow: false,
 		isFrost: false,
@@ -110,7 +110,7 @@ const UploadDataForm = (props) => {
 				/>
 				<TextField
 					id="filled-number"
-					label="Amount of rainfall (ml)"
+					label="Amount of rainfall (mm)"
 					type="number"
 					InputLabelProps={{
 						shrink: true
@@ -122,17 +122,17 @@ const UploadDataForm = (props) => {
 				/>
 				<FormControlLabel
 					control={<Checkbox size="medium" />}
-					label="Show More"
+					label="Report Other Types of Weather"
 					type="checkbox"
-					id="showMore"
-					checked={formData.showMore}
+					id="report-other-types-of-weather"
+					checked={formData.reportOtherWeather}
 					onChange={handleChange}
-					name="showMore"
+					name="reportOtherWeather"
 				/>
 
 				{
 					// Render additional form items if the addMoreData is selected
-					formData.showMore && (
+					formData.reportOtherWeather && (
 						<div id="add-more-data-checkbox-container">
 							<FormControlLabel
 								control={<Checkbox size="medium" />}
@@ -229,6 +229,7 @@ const UploadDataForm = (props) => {
 								variant="filled"
 								type="time"
 								onChange={handleChange}
+								helperText="Hail Time"
 								name="hailTime"
 								value={formData.hailTime}
 								margin="dense"
@@ -262,6 +263,7 @@ const UploadDataForm = (props) => {
 								id="filled-basic"
 								variant="filled"
 								type="time"
+								helperText="Snow Time"
 								onChange={handleChange}
 								name="snowTime"
 								value={formData.snowTime}

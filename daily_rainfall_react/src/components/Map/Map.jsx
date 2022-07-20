@@ -52,7 +52,7 @@ const Map = () => {
 		if (mapState) {
 			sawsRef.current.bindPopup((layer) => {
 				return L.Util.template(
-					"Rainfall Amount: {Rainfall}ml",
+					"Rainfall Amount: {Rainfall}mm",
 					layer.feature.properties
 				)
 			})
@@ -85,7 +85,7 @@ const Map = () => {
 				div.innerHTML = `
 					<table id="eumetsat-legend-table">
 						<tr>
-							<th  colspan="2">Rainfall (ml)</th>
+							<th  colspan="2">Rainfall (mm)</th>
 						</tr>
 						<tr>
 							<td class="color-width" style="background-color: #c6dbef;"></td>
@@ -177,7 +177,7 @@ const Map = () => {
 									key={point.formId}
 									position={[point.latitude, point.longitude]}
 								>
-									<Popup>Rainfall Amount: {point.rainfallAmount}ml</Popup>
+									<Popup>Rainfall Amount: {point.rainfallAmount}mm</Popup>
 								</Marker>
 							)
 						})}

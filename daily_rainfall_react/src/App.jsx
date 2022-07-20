@@ -44,8 +44,6 @@ const App = () => {
 		showUserRegistrationForm: false,
 		showLogin: false,
 		showInstructions: false
-
-		// showUserRegistrationForm: true
 	})
 
 	/*
@@ -267,7 +265,7 @@ const App = () => {
 
 		const hours = today.getHours()
 
-		update(ref(db, `rainfallData/${date}/${hours}:00`), {
+		update(ref(db, `rainfallData/${date}/${hours}`), {
 			[user.id]: formData
 		})
 	}
