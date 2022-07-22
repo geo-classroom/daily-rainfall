@@ -259,7 +259,7 @@ const UserRegistrationForm = (props) => {
 					) : (
 						<Button
 							variant="contained"
-							disabled={!formData.latitude || !formData.raingaugePhoto}
+							disabled={!formData.latitude}
 							type="submit"
 							value="submit"
 							size="medium"

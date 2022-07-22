@@ -18,6 +18,7 @@ import UserRegistrationForm from "./components/UserRegistration/UserRegistration
 import UploadDataForm from "./components/UploadDataForm/UploadDataForm"
 import Login from "./components/Login/Login"
 import Instructions from "./components/Instructions/Instructions"
+import AboutProject from "./components/AboutProject/AboutProject"
 
 // Initialize the Firebase app
 initializeApp(config.firebaseConfig)
@@ -43,32 +44,50 @@ const App = () => {
 		showUploadDataForm: false,
 		showUserRegistrationForm: false,
 		showLogin: false,
-		showInstructions: false
+		showInstructions: false,
+		showAboutProject: false
 	})
 
 	/*
     	Hides the forms and shows the map
   	*/
-	const hideFormShowMap = () => {
+	const showMap = () => {
 		setMapFormToggle({
 			showMap: true,
 			showUploadDataForm: false,
 			showUserRegistrationForm: false,
 			showLogin: false,
-			showInstructions: false
+			showInstructions: false,
+			showAboutProject: false
+		})
+	}
+
+	/*
+		Hide map
+		Show the about project page
+	*/
+	const aboutProject = () => {
+		setMapFormToggle((prevMapFormToggle) => {
+			return {
+				...prevMapFormToggle,
+				showMap: false,
+				showAboutProject: true,
+				showInstructions: false
+			}
 		})
 	}
 
 	/*
 		Hide the map 
-		Shwo the instructions page
+		Show the instructions page
 	*/
 	const instructions = () => {
 		setMapFormToggle((prevMapFormToggle) => {
 			return {
 				...prevMapFormToggle,
 				showMap: false,
-				showInstructions: true
+				showInstructions: true,
+				showAboutProject: false
 			}
 		})
 	}
@@ -96,7 +115,7 @@ const App = () => {
 	const signInWithGoogle = () => {
 		signInWithPopup(auth, googleProvider)
 			.then((result) => {
-				hideFormShowMap()
+				showMap()
 				getUser(result.user)
 			})
 			.catch(() => {
@@ -106,7 +125,7 @@ const App = () => {
 				// Sign in with facebook then link account to google
 				signInWithPopup(auth, facebookProvider).then((result) => {
 					linkWithPopup(result.user, googleProvider)
-					hideFormShowMap()
+					showMap()
 					getUser(result.user)
 				})
 			})
@@ -119,7 +138,7 @@ const App = () => {
 	const signInWithFacebook = () => {
 		signInWithPopup(auth, facebookProvider)
 			.then((result) => {
-				hideFormShowMap()
+				showMap()
 				getUser(result.user)
 			})
 			.catch(() => {
@@ -129,7 +148,7 @@ const App = () => {
 				// Sign in with google then link account to facebook
 				signInWithPopup(auth, googleProvider).then((result) => {
 					linkWithPopup(result.user, facebookProvider)
-					hideFormShowMap()
+					showMap()
 					getUser(result.user)
 				})
 			})
@@ -194,7 +213,7 @@ const App = () => {
 				// Set use state to empty object -> clears context
 				setUser({})
 				// Show map
-				hideFormShowMap()
+				showMap()
 			})
 			.catch((error) => {
 				console.log(error)
@@ -256,7 +275,7 @@ const App = () => {
 		Send the rainfall data to the db
   	*/
 	const handleUploadDataSubmit = (formData) => {
-		hideFormShowMap()
+		showMap()
 
 		const today = new Date()
 		const date = `${today.getDate()}-${
@@ -281,10 +300,12 @@ const App = () => {
 		<div>
 			<UserContext.Provider value={user}>
 				<Navbar
+					aboutProject={() => aboutProject()}
 					instructions={() => instructions()}
 					login={() => login()}
 					logout={() => logout()}
 					uploadData={() => uploadData()}
+					showMap={() => showMap()}
 				/>
 				{mapFormToggle.showMap && <Map />}
 				<div
@@ -308,12 +329,15 @@ const App = () => {
 						<Login
 							signInWithGoogle={() => signInWithGoogle()}
 							signInWithFacebook={() => signInWithFacebook()}
-							backToMap={() => hideFormShowMap()}
+							backToMap={() => showMap()}
 						/>
 					)}
 				</div>
 				{mapFormToggle.showInstructions && (
-					<Instructions backToMap={() => hideFormShowMap()} />
+					<Instructions backToMap={() => showMap()} />
+				)}
+				{mapFormToggle.showAboutProject && (
+					<AboutProject backToMap={() => showMap()} />
 				)}
 			</UserContext.Provider>
 		</div>

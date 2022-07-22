@@ -9,6 +9,8 @@ import "./navbar.css"
 	login
 	logout
 	uploadData
+	showMap
+	aboutProject
 */
 
 const Navbar = (props) => {
@@ -30,6 +32,16 @@ const Navbar = (props) => {
 	}
 
 	/* eslint-disable react/prop-types */
+	const handleCloseAboutProject = () => {
+		setAnchorEl(null)
+		props.aboutProject()
+	}
+
+	const handleCloseInstructions = () => {
+		setAnchorEl(null)
+		props.instructions()
+	}
+
 	const handleCloseLogout = () => {
 		setAnchorEl(null)
 		props.logout()
@@ -48,11 +60,15 @@ const Navbar = (props) => {
 	return (
 		<div id="navbar-container">
 			<div id="logo-heading-container">
-				<img id="up-logo" src="/up_logo.jpg"></img>
-				<h1 id="main-heading">UP Daily Rainfall</h1>
+				<img id="up-logo" src="/up_logo.jpg" onClick={props.showMap}></img>
+				<h1 id="main-heading" onClick={props.showMap}>
+					UP Daily Rainfall
+				</h1>
 			</div>
 			{/* Heading for a smaller screen  */}
-			<h3 id="responsive-heading">UP Daily Rainfall</h3>
+			<h3 id="responsive-heading" onClick={props.showMap}>
+				UP Daily Rainfall
+			</h3>
 			{
 				// If user signed in change Welcome to show username
 				<h2>{user.username ? user.username : "Welcome"}</h2>
@@ -64,6 +80,7 @@ const Navbar = (props) => {
 					size="small"
 					aria-label="outlined primary button group"
 				>
+					<Button onClick={props.aboutProject}>About Project</Button>
 					<Button onClick={props.instructions}>Instructions</Button>
 					{
 						// If user signed in show logout button else show login button
@@ -103,7 +120,8 @@ const Navbar = (props) => {
 							"aria-labelledby": "basic-button"
 						}}
 					>
-						<MenuItem onClick={handleClose}>About Project</MenuItem>
+						<MenuItem onClick={handleCloseAboutProject}>About Project</MenuItem>
+						<MenuItem onClick={handleCloseInstructions}>Instructions</MenuItem>
 						{
 							// If user signed in show logout button else show login button
 							user.username ? (

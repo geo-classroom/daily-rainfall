@@ -24,6 +24,18 @@
 	object-fit: cover;
 }
 
+#up-logo:hover {
+	cursor: pointer;
+}
+
+#main-heading:hover {
+	cursor: pointer;
+}
+
+#responsive-heading:hover {
+	cursor: pointer;
+}
+
 #button-menu {
 	display: flex;
 	justify-content: space-between;

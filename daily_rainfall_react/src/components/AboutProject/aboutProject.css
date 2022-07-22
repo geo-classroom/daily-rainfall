@@ -1,0 +1,12 @@
+#about-project-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-left: 2vw;
+	font-family: "Open Sans", sans-serif;
+	max-width: 75vw;
+}
+
+#back-to-map-btn {
+	width: 20vh;
+}

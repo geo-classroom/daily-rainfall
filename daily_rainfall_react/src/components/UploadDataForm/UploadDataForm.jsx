@@ -1,4 +1,4 @@
-import React, { useState, useContext, useId } from "react"
+import React, { useState, useContext, useId, useEffect } from "react"
 import { UserContext } from "../../App"
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage"
 import "./uploadDataForm.css"
@@ -14,7 +14,8 @@ import {
 	FormControl,
 	InputLabel,
 	Select,
-	MenuItem
+	MenuItem,
+	Divider
 } from "@mui/material"
 import { PhotoCamera, Send } from "@mui/icons-material"
 
@@ -26,6 +27,9 @@ import { PhotoCamera, Send } from "@mui/icons-material"
 const UploadDataForm = (props) => {
 	// User context
 	const user = useContext(UserContext)
+	// State to hold an error message and disable the upload data button if there is an error message
+	const [errorMessage, setErrorMessage] = useState("")
+	const [disableUpload, setDisableUpload] = useState(false)
 
 	// State to hold data from the form
 	const [formData, setFormData] = useState({
@@ -82,6 +86,19 @@ const UploadDataForm = (props) => {
 		})
 	}
 
+	/*
+		If the value for rainfall is a negative value show error messsage and disable the upload data button
+	*/
+	useEffect(() => {
+		if (formData.rainfallAmount < 0) {
+			setErrorMessage("Rainfall cannot be negative")
+			setDisableUpload(true)
+		} else {
+			setErrorMessage("")
+			setDisableUpload(false)
+		}
+	}, [formData.rainfallAmount])
+
 	return (
 		<div id="form-container">
 			<form id="form" onSubmit={handleSubmit}>
@@ -119,6 +136,8 @@ const UploadDataForm = (props) => {
 					onChange={handleChange}
 					name="rainfallAmount"
 					value={formData.rainfallAmount}
+					error={formData.rainfallAmount < 0}
+					helperText={errorMessage}
 				/>
 				<FormControlLabel
 					control={<Checkbox size="medium" />}
@@ -133,35 +152,47 @@ const UploadDataForm = (props) => {
 				{
 					// Render additional form items if the addMoreData is selected
 					formData.reportOtherWeather && (
-						<div id="add-more-data-checkbox-container">
-							<FormControlLabel
-								control={<Checkbox size="medium" />}
-								label="Hail"
-								type="checkbox"
-								id="isHail"
-								checked={formData.isHail}
-								onChange={handleChange}
-								name="isHail"
+						<FormGroup>
+							<div id="add-more-data-checkbox-container">
+								<FormControlLabel
+									control={<Checkbox size="medium" />}
+									label="Hail"
+									type="checkbox"
+									id="isHail"
+									checked={formData.isHail}
+									onChange={handleChange}
+									name="isHail"
+								/>
+								<FormControlLabel
+									control={<Checkbox size="medium" />}
+									label="Snow"
+									type="checkbox"
+									id="isSnow"
+									checked={formData.isSnow}
+									onChange={handleChange}
+									name="isSnow"
+								/>
+								<FormControlLabel
+									control={<Checkbox size="medium" />}
+									label="Frost"
+									type="checkbox"
+									id="isFrost"
+									checked={formData.isFrost}
+									onChange={handleChange}
+									name="isFrost"
+								/>
+							</div>
+							<TextField
+								id="filled-helperText"
+								label="Other"
+								helperText="eg: Centurion roads under water"
+								variant="filled"
 							/>
-							<FormControlLabel
-								control={<Checkbox size="medium" />}
-								label="Snow"
-								type="checkbox"
-								id="isSnow"
-								checked={formData.isSnow}
-								onChange={handleChange}
-								name="isSnow"
+							<Divider
+								variant="fullWdith"
+								sx={{ borderWidth: "0.5vh", borderColor: "Gray" }}
 							/>
-							<FormControlLabel
-								control={<Checkbox size="medium" />}
-								label="Frost"
-								type="checkbox"
-								id="isFrost"
-								checked={formData.isFrost}
-								onChange={handleChange}
-								name="isFrost"
-							/>
-						</div>
+						</FormGroup>
 					)
 				}
 				{
@@ -234,6 +265,10 @@ const UploadDataForm = (props) => {
 								value={formData.hailTime}
 								margin="dense"
 							/>
+							<Divider
+								variant="fullWdith"
+								sx={{ borderWidth: "0.5vh", borderColor: "Gray" }}
+							/>
 						</FormGroup>
 					)
 				}
@@ -269,6 +304,10 @@ const UploadDataForm = (props) => {
 								value={formData.snowTime}
 								margin="dense"
 							/>
+							<Divider
+								variant="fullWdith"
+								sx={{ borderWidth: "0.5vh", borderColor: "Gray" }}
+							/>
 						</FormGroup>
 					)
 				}
@@ -276,7 +315,7 @@ const UploadDataForm = (props) => {
 					variant="contained"
 					type="submit"
 					value="submit"
-					disabled={formData.isHail && !formData.hailPhoto}
+					disabled={disableUpload}
 					size="medium"
 					endIcon={<Send />}
 				>

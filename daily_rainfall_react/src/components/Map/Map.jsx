@@ -74,6 +74,21 @@ const Map = () => {
 	})
 
 	/*
+		Add a popup to the EUMETSAT data layer
+	*/
+	const eumetsatRef = useRef()
+	useEffect(() => {
+		if (mapState) {
+			eumetsatRef.current.bindPopup((layer) => {
+				return L.Util.template(
+					"Rainfall Amount: {Rainfall}mm",
+					layer.feature.properties
+				)
+			})
+		}
+	}, [mapState])
+
+	/*
 		Adds a legend when the eumetsat layer is toggled on and removes the legend when the layer is toggled off
 	*/
 	useEffect(() => {
@@ -199,6 +214,7 @@ const Map = () => {
 				</LayersControl.Overlay>
 				<LayersControl.Overlay name="EUMETSAT Data">
 					<FeatureLayer
+						ref={eumetsatRef}
 						url={
 							"https://services8.arcgis.com/ZhTpwEGNVUBxG9VW/ArcGIS/rest/services/eumetsat_grid/FeatureServer/0"
 						}
@@ -209,27 +225,27 @@ const Map = () => {
 								feature.properties.Rainfall > 0 &&
 								feature.properties.Rainfall <= 4
 							) {
-								return { color: "#c6dbef" }
+								return { color: "#c6dbef", weight: 3 }
 							} else if (
 								feature.properties.Rainfall > 4 &&
 								feature.properties.Rainfall <= 8
 							) {
-								return { color: "#9ecae1" }
+								return { color: "#9ecae1", weight: 3 }
 							} else if (
 								feature.properties.Rainfall > 8 &&
 								feature.properties.Rainfall <= 12
 							) {
-								return { color: "#6baed6" }
+								return { color: "#6baed6", weight: 3 }
 							} else if (
 								feature.properties.Rainfall > 12 &&
 								feature.properties.Rainfall <= 16
 							) {
-								return { color: "#3182bd" }
+								return { color: "#3182bd", weight: 3 }
 							} else if (
 								feature.properties.Rainfall > 16 &&
 								feature.properties.Rainfall <= 20
 							) {
-								return { color: "#08519c" }
+								return { color: "#08519c", weight: 3 }
 							}
 						}}
 					/>
