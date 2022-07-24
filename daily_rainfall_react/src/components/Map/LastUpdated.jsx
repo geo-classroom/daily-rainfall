@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import L from "leaflet"
-import { onChildAdded, getDatabase, ref } from "firebase/database"
 
 /*
     Props:
@@ -10,56 +9,61 @@ import { onChildAdded, getDatabase, ref } from "firebase/database"
 const LastUpdated = (props) => {
 	/* eslint-disable react/prop-types */
 	// State to hold the date and time of the most recent date and time in the database
-	const [dateTime, setDateTime] = useState({
-		date: "",
-		time: ""
+	const [date] = useState(new Date())
+
+	const time = date.toLocaleTimeString("en-ZA", {
+		hour: "numeric",
+		minute: "numeric"
 	})
 
-	/*  
-        Add a container on the map 
-        Container holds text to show when the map was last updated
-    */
 	useEffect(() => {
-		// Get todays date
-		const today = new Date()
-		const date = `${today.getDate()}-${
-			today.getMonth() + 1
-		}-${today.getFullYear()}`
+		if (time >= "10:30") {
+			/*  
+				Add a container on the map 
+				Container holds text to show when the map was last updated
+    		*/
+			if (props.mapState) {
+				const lastUpdated = L.control({ position: "topleft" })
 
-		// Get latest date in the database
-		const db = getDatabase()
-		const latestDate = ref(db, `rainfallData/`)
-		onChildAdded(latestDate, (data) => {
-			// Loop through the object to get the latest time in the database for the given date
-			const timeArr = Object.keys(data.val())
-			Math.max(
-				timeArr.map((time) => {
-					if (data.key !== date || time < "10:30") {
-						return setDateTime({
-							date,
-							time: "10:30"
-						})
-					} else {
-						return setDateTime({
-							date: data.key,
-							time: `${time}:00`
-						})
-					}
-				})
-			)
-		})
+				lastUpdated.onAdd = () => {
+					const div = L.DomUtil.create("div", "last-updated")
+					// Formats the date to be day, month, year. eg: 24 July 2022
+					div.innerHTML = `<h2>24-hour rainfall ending at 10h30 on ${date.toLocaleDateString(
+						"en-ZA",
+						{ day: "numeric", month: "long", year: "numeric" }
+					)}</h2>`
+					return div
+				}
 
-		if (props.mapState) {
-			const lastUpdated = L.control({ position: "topleft" })
-
-			lastUpdated.onAdd = () => {
-				const div = L.DomUtil.create("div", "last-updated")
-				div.innerHTML = `<h2>Last Updated: ${dateTime.date} ${dateTime.time}</h2>`
-				return div
+				props.mapState.addControl(lastUpdated)
 			}
-			lastUpdated.addTo(props.mapState)
+		} else {
+			/*
+				If the time is earlier than 10:30 display the previous date 
+			*/
+
+			/*  
+				Add a container on the map 
+				Container holds text to show when the map was last updated
+    		*/
+			if (props.mapState) {
+				const lastUpdated = L.control({ position: "topleft" })
+
+				lastUpdated.onAdd = () => {
+					const div = L.DomUtil.create("div", "last-updated")
+					// Formats the date to be day, month, year. eg: 24 July 2022
+					div.innerHTML = `<h2>24-hour rainfall ending at 10h30 on ${
+						date.getDate() - 1
+					} ${date.toLocaleString("default", {
+						month: "long"
+					})} ${date.getFullYear()}</h2>`
+					return div
+				}
+
+				props.mapState.addControl(lastUpdated)
+			}
 		}
-	}, [dateTime.date, dateTime.time])
+	}, [props.mapState, date])
 	return null
 }
 

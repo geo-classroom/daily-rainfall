@@ -12,52 +12,71 @@ const Instructions = (props) => {
 		<div id="instructions-container">
 			<h3>Setting up Raingauge</h3>
 			<ul>
-				<li>Open Areas</li>
-				<ul>
-					<li>
-						Place raingauge twice as far from obstacles as the obstacle is high.
-						If a nearby tree is 10m tall, place raingauge 20m away from the tree
-					</li>
-					<li>Place raingauge 1m off of the ground</li>
-				</ul>
-				<li>Developed Areas</li>
-				<ul>
-					<li>
-						Place raingauge as far from from obstacles as the obstacle is high.
-						If a tree is 2m tall, place rainguage at least 2m away from the tree
-					</li>
-					<li>Place raingauge 1m off of the ground</li>
-				</ul>
-				<li>Ensure the raingauge is as level and vertical as possible</li>
-				<li>Place raingauge in a location that is easily accessible</li>
+				<li>The raingauge should be placed 1m off the ground.</li>
+				<li>Ensure the rauge is as possible.</li>
+				<li>Place raingauge in a location that is easily accessible.</li>
+				<li>
+					In an <b>open areas</b>, place raingauge twice as far from obstacles
+					as the obstacle is high. For example, if a nearby tree is 10m tall,
+					place the raingauge 20m away from the tree.
+				</li>
+				<li>
+					In a <b>developed areas</b>, place raingauge as far from obstacles as
+					the obstacle is high. For example, if a tree is 2m tall, place the
+					rainguage at least 2m away from the tree.
+				</li>
 			</ul>
 			<h3>Reading the Raingauge</h3>
 			<ul>
-				<li>Read te raingauge at approximately the same time every morning</li>
 				<li>
-					If there has been rain the line where the water level is will have a
-					concave shape (called the meniscus), read the level from the{" "}
-					<b>bottom</b> of the meniscus
+					<b>
+						The raingauge should be read as close as possible to 08h00 everyday
+					</b>
+					. The daily rainfall in South Africa is captured within a 24 hours
+					cycle that runs from 08h00 to 08h00. For example, if there is rain at
+					14h00, submit it at 08h00 <b>the next day</b>.
+				</li>
+				<li>
+					If there has been rain, the line where the water level is will have a
+					concave shape (called the meniscus), read the level from the bottom of
+					the meniscus.
 				</li>
 				<li>
 					If the water level is between two values on the raingauge record the
-					lowest value. Value between 5ml and 5.5mm, record 5mm
+					lowest value. For example, if the value is between 5mm and 5.5mm, it
+					should be recorded as 5mm.
 				</li>
-				<li>If you have not received any rainfall record 0mm</li>
+				<li>
+					If the water level is between two values on the raingauge record the
+					lowest value. For example, if the value is between 5mm and 5.5mm, it
+					should be recorded as 5mm.
+				</li>
 			</ul>
 			<h3>Uploading the Data</h3>
 			<ul>
-				<li>Go to app</li>
-				<li>Login with either your Gmail or Facebook account</li>
-				<li>Click on the upload data button</li>
 				<li>
-					Fill out the registration form, you will only have to do this once
+					Go to app,{" "}
+					<a href="https://uprain.co.za/" target="_blank" rel="noreferrer">
+						UPrain
+					</a>
+					.
 				</li>
 				<li>
-					When registering and providing your location, move the marker to your
-					location, a popup will appear and you can submit the coordinates
+					Login with either your Gmail or Facebook account (apologies, at the
+					moment, we only support login with Gmail or Facebook).
 				</li>
-				<li>Upload the measured rainfall amount</li>
+				<li>
+					Click on the &#8220;UPLOAD DATA&#8221; button in the top right corner.
+				</li>
+				<li>
+					Fill out the registration form by providing your location and the type
+					of raingauge. Once you are done, you will be asked to complete your
+					registration. You will only be required to complete this form once.
+				</li>
+				<li>
+					Once the registration is done, you can upload the measured rainfall
+					amount and additional observations about either hail, frost or snow.
+				</li>
 			</ul>
 			{/* eslint-disable react/prop-types */}
 			<Button id="back-to-map-btn" variant="text" onClick={props.backToMap}>

@@ -63,14 +63,20 @@ const Map = () => {
 		Styling for the SAWS data icons
 	*/
 	const sawsIcon = L.icon({
-		iconUrl:
-			"https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
-		shadowUrl:
-			"https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
-		iconSize: [25, 41],
+		iconUrl: "/saws_marker.png",
+		iconSize: [30, 30],
 		iconAnchor: [12, 41],
-		popupAnchor: [1, -34],
-		shadowSize: [41, 41]
+		popupAnchor: [1, -34]
+	})
+
+	/*
+		Styling for the user data
+	*/
+	const userIcon = L.icon({
+		iconUrl: "/user_marker.png",
+		iconSize: [25, 25],
+		iconAnchor: [12, 41],
+		popupAnchor: [1, -34]
 	})
 
 	/*
@@ -191,6 +197,7 @@ const Map = () => {
 								<Marker
 									key={point.formId}
 									position={[point.latitude, point.longitude]}
+									icon={userIcon}
 								>
 									<Popup>Rainfall Amount: {point.rainfallAmount}mm</Popup>
 								</Marker>
