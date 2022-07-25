@@ -67,12 +67,37 @@ const UploadDataForm = (props) => {
 		props.handleUploadDataSubmit(formData)
 	}
 
-	const handleFileSubmit = (event) => {
+	/*
+		Sends the uploaded hail photo to Firebase storage and places the url link to that photo in Realtime firebase 
+	*/
+	const handleHailFileSubmit = (event) => {
 		const { files } = event.target
 
 		// Upload the iamge file to Firebase storage
 		const storage = getStorage()
 		const storageRef = ref(storage, `${user.id}/hailPhotos/${files[0].name}`)
+		uploadBytes(storageRef, files[0]).then((snapshot) => {
+			// Get the download link and update the state to hold the file image link
+			getDownloadURL(storageRef).then((url) => {
+				setFormData((prevFormData) => {
+					return {
+						...prevFormData,
+						hailPhoto: url
+					}
+				})
+			})
+		})
+	}
+
+	/*
+		Sends the uploaded other weather photo to Firebase storage and places the url link to that photo in Realtime firebase 
+	*/
+	const handleOtherWeatherFileSubmit = (event) => {
+		const { files } = event.target
+
+		// Upload the iamge file to Firebase storage
+		const storage = getStorage()
+		const storageRef = ref(storage, `${user.id}/otherWeather/${files[0].name}`)
 		uploadBytes(storageRef, files[0]).then((snapshot) => {
 			// Get the download link and update the state to hold the file image link
 			getDownloadURL(storageRef).then((url) => {
@@ -182,12 +207,36 @@ const UploadDataForm = (props) => {
 									name="isFrost"
 								/>
 							</div>
-							<TextField
-								id="filled-helperText"
-								label="Other"
-								helperText="eg: Centurion roads under water"
-								variant="filled"
-							/>
+							<Stack
+								direction="row"
+								alignItems="center"
+								justifyContent="center"
+								spacing={2}
+							>
+								<TextField
+									id="filled-helperText"
+									label="Other"
+									helperText="eg: Centurion roads under water"
+									variant="filled"
+								/>
+								<label htmlFor="icon-button-file">
+									<Input
+										style={{ display: "none" }}
+										accept="image/*"
+										id="icon-button-file"
+										type="file"
+										onChange={handleOtherWeatherFileSubmit}
+									/>
+									<IconButton
+										color="primary"
+										aria-label="upload picture"
+										component="span"
+									>
+										<PhotoCamera />
+									</IconButton>
+								</label>
+							</Stack>
+
 							<Divider
 								variant="fullWdith"
 								sx={{ borderWidth: "0.5vh", borderColor: "Gray" }}
@@ -224,7 +273,12 @@ const UploadDataForm = (props) => {
 									<MenuItem value={"> 10.0"}>&gt; 10.0</MenuItem>
 								</Select>
 							</FormControl>
-							<Stack direction="row" alignItems="center" spacing={2}>
+							<Stack
+								direction="row"
+								alignItems="center"
+								justifyContent="center"
+								spacing={2}
+							>
 								<label htmlFor="contained-button-file">
 									<Input
 										style={{ display: "none" }}
@@ -232,7 +286,7 @@ const UploadDataForm = (props) => {
 										id="contained-button-file"
 										multiple
 										type="file"
-										onChange={handleFileSubmit}
+										onChange={handleHailFileSubmit}
 									/>
 									<Button variant="contained" component="span" size="small">
 										Hail Photo
@@ -244,7 +298,7 @@ const UploadDataForm = (props) => {
 										accept="image/*"
 										id="icon-button-file"
 										type="file"
-										onChange={handleFileSubmit}
+										onChange={handleHailFileSubmit}
 									/>
 									<IconButton
 										color="primary"

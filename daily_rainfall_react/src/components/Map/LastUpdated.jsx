@@ -17,7 +17,7 @@ const LastUpdated = (props) => {
 	})
 
 	useEffect(() => {
-		if (time >= "10:30") {
+		if (time >= "08:00") {
 			/*  
 				Add a container on the map 
 				Container holds text to show when the map was last updated
@@ -28,7 +28,7 @@ const LastUpdated = (props) => {
 				lastUpdated.onAdd = () => {
 					const div = L.DomUtil.create("div", "last-updated")
 					// Formats the date to be day, month, year. eg: 24 July 2022
-					div.innerHTML = `<h2>24-hour rainfall ending at 10h30 on ${date.toLocaleDateString(
+					div.innerHTML = `<h2>24-hour rainfall ending at 08h00 on ${date.toLocaleDateString(
 						"en-ZA",
 						{ day: "numeric", month: "long", year: "numeric" }
 					)}</h2>`
@@ -39,7 +39,7 @@ const LastUpdated = (props) => {
 			}
 		} else {
 			/*
-				If the time is earlier than 10:30 display the previous date 
+				If the time is earlier than 10:30 display the previous days date 
 			*/
 
 			/*  
@@ -52,7 +52,7 @@ const LastUpdated = (props) => {
 				lastUpdated.onAdd = () => {
 					const div = L.DomUtil.create("div", "last-updated")
 					// Formats the date to be day, month, year. eg: 24 July 2022
-					div.innerHTML = `<h2>24-hour rainfall ending at 10h30 on ${
+					div.innerHTML = `<h2>24-hour rainfall ending at 08h00 on ${
 						date.getDate() - 1
 					} ${date.toLocaleString("default", {
 						month: "long"

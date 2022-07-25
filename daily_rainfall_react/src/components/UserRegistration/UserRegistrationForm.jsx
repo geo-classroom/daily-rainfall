@@ -32,6 +32,9 @@ const UserRegistrationForm = (props) => {
 	// State to show or hide the spinner over the map when getting the users location
 	const [showMapLoader, setShowMapLoader] = useState(true)
 
+	// State to show a progress spinner when a photo is being uploaded
+	const [showPhotoLoader, setShowPhotoLoader] = useState(false)
+
 	/*
     	State to hold the data from the form
   	*/
@@ -109,27 +112,6 @@ const UserRegistrationForm = (props) => {
 	/*
 		Gets the photo of the rain gauge from the user and sends it to storage in Firebase
 	*/
-	// const handleFileSubmission = (event) => {
-	// 	const { files } = event.target
-
-	// 	// Uplaod the image to Firebase Storage
-	// 	const storage = getStorage()
-	// 	const storageRef = ref(storage, `${user.id}/${files[0].name}`)
-	// 	uploadBytes(storageRef, files[0]).then((snapshot) => {
-	// 		// Get the download link and update the state to hold the file image link
-	// 		getDownloadURL(storageRef).then((url) => {
-	// 			setFormData((prevFormData) => {
-	// 				return {
-	// 					...prevFormData,
-	// 					raingaugePhoto: url
-	// 				}
-	// 			})
-	// 		})
-	// 	})
-	// }
-
-	// TODO
-	const [showPhotoLoader, setShowPhotoLoader] = useState(false)
 	const handleFileSubmission = (event) => {
 		setShowPhotoLoader(true)
 		const { files } = event.target
