@@ -8,6 +8,7 @@ import "leaflet/dist/leaflet.css"
     Props
     handleSubmitLocation
 	mapLoaderState
+	setShowInstructions
 */
 
 /*
@@ -66,6 +67,10 @@ const UserLocationMarker = (props) => {
 		event.stopPropagation()
 		/* eslint-disable react/prop-types */
 		props.handleSubmitLocation(userLocation)
+		props.setShowInstructions({
+			mapInstructions: false,
+			formInstructions: false
+		})
 	}
 
 	return userLocation === null ? null : (

@@ -23,7 +23,7 @@ const LastUpdated = (props) => {
 				Container holds text to show when the map was last updated
     		*/
 			if (props.mapState) {
-				const lastUpdated = L.control({ position: "topleft" })
+				const lastUpdated = L.control({ position: "bottomleft" })
 
 				lastUpdated.onAdd = () => {
 					const div = L.DomUtil.create("div", "last-updated")

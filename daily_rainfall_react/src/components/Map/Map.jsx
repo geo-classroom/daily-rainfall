@@ -109,24 +109,36 @@ const Map = () => {
 							<th  colspan="2">Rainfall (mm)</th>
 						</tr>
 						<tr>
-							<td class="color-width" style="background-color: #c6dbef;"></td>
-							<td class="center-text">0 - 4</td>
+							<td class="color-width" style="background-color: #ffffd9;"></td>
+							<td class="center-text">0 - 5</td>
 						</tr>
 						<tr>
-							<td class="color-width" style="background-color: #9ecae1;"></td>
-							<td class="center-text">5 - 8</td>
+							<td class="color-width" style="background-color: #edf8b1;"></td>
+							<td class="center-text">6 - 10</td>
 						</tr>
 						<tr>
-							<td class="color-width" style="background-color: #6baed6;"></td>
-							<td class="center-text">9 - 12</td>
+							<td class="color-width" style="background-color: #c7e9b4;"></td>
+							<td class="center-text">11 - 15</td>
 						</tr>
 						<tr>
-							<td class="color-width" style="background-color: #3182bd;"></td>
-							<td class="center-text">13 - 16</td>
-						</tr>
-						<tr>
-							<td class="color-width" style="background-color: #08519c;"></td>
+							<td class="color-width" style="background-color: #7fcdbb;"></td>
 							<td class="center-text">16 - 20</td>
+						</tr>
+						<tr>
+							<td class="color-width" style="background-color: #41b6c4;"></td>
+							<td class="center-text">21 - 30</td>
+						</tr>
+						<tr>
+							<td class="color-width" style="background-color: #1d91c0;"></td>
+							<td class="center-text">31 - 40</td>
+						</tr>
+						<tr>
+							<td class="color-width" style="background-color: #225ea8;"></td>
+							<td class="center-text">41 - 50</td>
+						</tr>
+						<tr>
+							<td class="color-width" style="background-color: #0c2c84;"></td>
+							<td class="center-text">&gt; 50</td>
 						</tr>
 					</table>
 				`
@@ -154,9 +166,8 @@ const Map = () => {
 		<MapContainer
 			center={[-28.7, 24.5]}
 			zoom={6}
-			zoomControl={false}
 			// Maxzoom limited to not allow users to see exact locations of people that have submitted data
-			maxZoom={12}
+			maxZoom={15}
 			ref={setMapState}
 		>
 			{/* Add a layer conroll to the to right of the map */}
@@ -230,29 +241,41 @@ const Map = () => {
 								return { color: "transparent" }
 							} else if (
 								feature.properties.Rainfall > 0 &&
-								feature.properties.Rainfall <= 4
+								feature.properties.Rainfall <= 5
 							) {
-								return { color: "#c6dbef", weight: 3 }
+								return { color: "#ffffd9", weight: 3 }
 							} else if (
-								feature.properties.Rainfall > 4 &&
-								feature.properties.Rainfall <= 8
+								feature.properties.Rainfall >= 6 &&
+								feature.properties.Rainfall <= 10
 							) {
-								return { color: "#9ecae1", weight: 3 }
+								return { color: "#edf8b1", weight: 3 }
 							} else if (
-								feature.properties.Rainfall > 8 &&
-								feature.properties.Rainfall <= 12
+								feature.properties.Rainfall >= 11 &&
+								feature.properties.Rainfall <= 15
 							) {
-								return { color: "#6baed6", weight: 3 }
+								return { color: "#c7e9b4", weight: 3 }
 							} else if (
-								feature.properties.Rainfall > 12 &&
-								feature.properties.Rainfall <= 16
-							) {
-								return { color: "#3182bd", weight: 3 }
-							} else if (
-								feature.properties.Rainfall > 16 &&
+								feature.properties.Rainfall >= 16 &&
 								feature.properties.Rainfall <= 20
 							) {
-								return { color: "#08519c", weight: 3 }
+								return { color: "#7fcdbb", weight: 3 }
+							} else if (
+								feature.properties.Rainfall >= 21 &&
+								feature.properties.Rainfall <= 30
+							) {
+								return { color: "#41b6c4", weight: 3 }
+							} else if (
+								feature.properties.Rainfall >= 31 &&
+								feature.properties.Rainfall <= 40
+							) {
+								return { color: "#1d91c0", weight: 3 }
+							} else if (
+								feature.properties.Rainfall >= 41 &&
+								feature.properties.Rainfall <= 50
+							) {
+								return { color: "#225ea8", weight: 3 }
+							} else if (feature.properties.Rainfall > 50) {
+								return { color: "#0c2c84", weight: 3 }
 							}
 						}}
 					/>

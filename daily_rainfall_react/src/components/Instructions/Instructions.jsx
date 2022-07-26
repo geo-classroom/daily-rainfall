@@ -10,27 +10,27 @@ import { Button } from "@mui/material"
 const Instructions = (props) => {
 	return (
 		<div id="instructions-container">
-			<h3>Setting up Raingauge</h3>
+			<h3>Setting up Rain gauge</h3>
 			<ul>
-				<li>The raingauge should be placed 1m off the ground.</li>
-				<li>Ensure the rauge is as possible.</li>
-				<li>Place raingauge in a location that is easily accessible.</li>
+				<li>The rain gauge should be placed 1m off the ground.</li>
+				<li>Ensure the rauge is as level and vertical as possible.</li>
+				<li>Place rain gauge in a location that is easily accessible.</li>
 				<li>
-					In an <b>open areas</b>, place raingauge twice as far from obstacles
+					In an <b>open areas</b>, place rain gauge twice as far from obstacles
 					as the obstacle is high. For example, if a nearby tree is 10m tall,
-					place the raingauge 20m away from the tree.
+					place the rain gauge 20m away from the tree.
 				</li>
 				<li>
-					In a <b>developed areas</b>, place raingauge as far from obstacles as
+					In a <b>developed areas</b>, place rain gauge as far from obstacles as
 					the obstacle is high. For example, if a tree is 2m tall, place the
 					rainguage at least 2m away from the tree.
 				</li>
 			</ul>
-			<h3>Reading the Raingauge</h3>
+			<h3>Reading the Rain gauge</h3>
 			<ul>
 				<li>
 					<b>
-						The raingauge should be read as close as possible to 08h00 everyday
+						The rain gauge should be read as close as possible to 08h00 everyday
 					</b>
 					. The daily rainfall in South Africa is captured within a 24 hours
 					cycle that runs from 08h00 to 08h00. For example, if there is rain at
@@ -42,12 +42,12 @@ const Instructions = (props) => {
 					the meniscus.
 				</li>
 				<li>
-					If the water level is between two values on the raingauge record the
+					If the water level is between two values on the rain gauge record the
 					lowest value. For example, if the value is between 5mm and 5.5mm, it
 					should be recorded as 5mm.
 				</li>
 				<li>
-					If the water level is between two values on the raingauge record the
+					If the water level is between two values on the rain gauge record the
 					lowest value. For example, if the value is between 5mm and 5.5mm, it
 					should be recorded as 5mm.
 				</li>
@@ -70,7 +70,7 @@ const Instructions = (props) => {
 				</li>
 				<li>
 					Fill out the registration form by providing your location and the type
-					of raingauge. Once you are done, you will be asked to complete your
+					of rain gauge. Once you are done, you will be asked to complete your
 					registration. You will only be required to complete this form once.
 				</li>
 				<li>
