@@ -22,3 +22,8 @@ th {
 .center-text {
 	text-align: center;
 }
+
+.saws-marker {
+	background-color: white;
+	border-radius: 5px;
+}

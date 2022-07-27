@@ -62,21 +62,80 @@ const Map = () => {
 	/*
 		Styling for the SAWS data icons
 	*/
-	const sawsIcon = L.icon({
-		iconUrl: "/saws_marker.png",
+	const sawsLevel1 = L.icon({
+		iconUrl: "/saws_level1.png",
 		iconSize: [30, 30],
 		iconAnchor: [12, 41],
-		popupAnchor: [1, -34]
+		popupAnchor: [1, -34],
+		className: "saws-marker"
+	})
+
+	const sawsLevel2 = L.icon({
+		iconUrl: "/saws_level2.png",
+		iconSize: [30, 30],
+		iconAnchor: [12, 41],
+		popupAnchor: [1, -34],
+		className: "saws-marker"
+	})
+
+	const sawsLevel3 = L.icon({
+		iconUrl: "/saws_level3.png",
+		iconSize: [30, 30],
+		iconAnchor: [12, 41],
+		popupAnchor: [1, -34],
+		className: "saws-marker"
+	})
+
+	const sawsLevel4 = L.icon({
+		iconUrl: "/saws_level4.png",
+		iconSize: [30, 30],
+		iconAnchor: [12, 41],
+		popupAnchor: [1, -34],
+		className: "saws-marker"
 	})
 
 	/*
 		Styling for the user data
+		Depending on the rainfall amount render a different icon
 	*/
-	const userIcon = L.icon({
-		iconUrl: "/user_marker.png",
-		iconSize: [25, 25],
+	const getUserIcon = (rainAmount) => {
+		if (rainAmount > 0 && rainAmount <= 10) {
+			return userIconLevel1
+		} else if (rainAmount > 10 && rainAmount <= 20) {
+			return userIconLevel2
+		} else if (rainAmount > 20 && rainAmount <= 50) {
+			return userIconLevel3
+		} else if (rainAmount > 50) {
+			return userIconLevel4
+		}
+	}
+
+	const userIconLevel1 = L.icon({
+		iconUrl: "/user_level1.png",
+		iconSize: [30, 30],
 		iconAnchor: [12, 41],
-		popupAnchor: [1, -34]
+		popupAnchor: [10, -34]
+	})
+
+	const userIconLevel2 = L.icon({
+		iconUrl: "/user_level2.png",
+		iconSize: [30, 30],
+		iconAnchor: [12, 41],
+		popupAnchor: [10, -34]
+	})
+
+	const userIconLevel3 = L.icon({
+		iconUrl: "/user_level3.png",
+		iconSize: [30, 30],
+		iconAnchor: [12, 41],
+		popupAnchor: [10, -34]
+	})
+
+	const userIconLevel4 = L.icon({
+		iconUrl: "/user_level4.png",
+		iconSize: [30, 30],
+		iconAnchor: [12, 41],
+		popupAnchor: [10, -34]
 	})
 
 	/*
@@ -208,7 +267,7 @@ const Map = () => {
 								<Marker
 									key={point.formId}
 									position={[point.latitude, point.longitude]}
-									icon={userIcon}
+									icon={getUserIcon(point.rainfallAmount)}
 								>
 									<Popup>Rainfall Amount: {point.rainfallAmount}mm</Popup>
 								</Marker>
@@ -224,9 +283,32 @@ const Map = () => {
 						}
 						ref={sawsRef}
 						pointToLayer={(geojson, latLng) => {
-							return L.marker(latLng, {
-								icon: sawsIcon
-							})
+							if (
+								geojson.properties.Rainfall > 0 &&
+								geojson.properties.Rainfall <= 10
+							) {
+								return L.marker(latLng, {
+									icon: sawsLevel1
+								})
+							} else if (
+								geojson.properties.Rainfall > 10 &&
+								geojson.properties.Rainfall <= 20
+							) {
+								return L.marker(latLng, {
+									icon: sawsLevel2
+								})
+							} else if (
+								geojson.properties.Rainfall > 20 &&
+								geojson.properties.Rainfall <= 50
+							) {
+								return L.marker(latLng, {
+									icon: sawsLevel3
+								})
+							} else if (geojson.properties.Rainfall > 50) {
+								return L.marker(latLng, {
+									icon: sawsLevel4
+								})
+							}
 						}}
 					/>
 				</LayersControl.Overlay>
