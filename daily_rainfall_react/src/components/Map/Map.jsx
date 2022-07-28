@@ -233,34 +233,34 @@ const Map = () => {
 			<LayersControl position="topright">
 				{/* 
 					Add the following basemaps to the layer controller:
-					MapBox Streets
+					CARTO Positron
 					Stamen Terrain
 					MapTiler Satellite  
         		*/}
 				<LayersControl.BaseLayer name="Street" checked="true">
 					<TileLayer
-						attribution='© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'
-						url="https://api.mapbox.com/styles/v1/riley-5/cl3shshxv000515qntejbm29o/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicmlsZXktNSIsImEiOiJjbDNyZzdxeTIwbTAwM2NwZnN1cG41MWkxIn0.0EmF55wuBJY-2FHaRK73kQ"
+						attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attributions">CARTO</a>'
+						url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
+					/>
+				</LayersControl.BaseLayer>
+				<LayersControl.BaseLayer name="Satellite">
+					<TileLayer
+						attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
+						url="https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=eZCyjSWzBFgck1GSe8n5"
 					/>
 				</LayersControl.BaseLayer>
 				<LayersControl.BaseLayer name="Terrain">
 					<TileLayer
-						attribution='Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>'
+						attribution="Map tiles by <a href='http://stamen.com'>Stamen Design</a>, under <a href='http://creativecommons.org/licenses/by/3.0'>CC BY 3.0</a>. Data by <a href='http://openstreetmap.org'>OpenStreetMap</a>, under <a href='http://www.openstreetmap.org/copyright'>ODbL</a>."
 						url="https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg"
-					/>
-				</LayersControl.BaseLayer>
-				<LayersControl.BaseLayer name="Satellite Hybrid">
-					<TileLayer
-						attribution='<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
-						url="https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=yhv0BPGcseqEnvE2HlLY"
 					/>
 				</LayersControl.BaseLayer>
 				{/* Layercontroll option for the user data */}
 				<LayersControl.Overlay name="User Data">
 					{/* 
-							Map through the rainfall data and add a point for each user that has uploaded the data
-							Each marker must have a popup with the rainfall amount
-						*/}
+						Map through the rainfall data and add a point for each user that has uploaded the data
+						Each marker must have a popup with the rainfall amount
+					*/}
 					<LayerGroup>
 						{rainfallData.map((point) => {
 							return (
@@ -323,32 +323,32 @@ const Map = () => {
 								return { color: "transparent" }
 							} else if (
 								feature.properties.Rainfall > 0 &&
-								feature.properties.Rainfall <= 5
+								feature.properties.Rainfall < 6
 							) {
 								return { color: "#ffffd9", weight: 3 }
 							} else if (
 								feature.properties.Rainfall >= 6 &&
-								feature.properties.Rainfall <= 10
+								feature.properties.Rainfall < 11
 							) {
 								return { color: "#edf8b1", weight: 3 }
 							} else if (
 								feature.properties.Rainfall >= 11 &&
-								feature.properties.Rainfall <= 15
+								feature.properties.Rainfall < 16
 							) {
 								return { color: "#c7e9b4", weight: 3 }
 							} else if (
 								feature.properties.Rainfall >= 16 &&
-								feature.properties.Rainfall <= 20
+								feature.properties.Rainfall < 21
 							) {
 								return { color: "#7fcdbb", weight: 3 }
 							} else if (
 								feature.properties.Rainfall >= 21 &&
-								feature.properties.Rainfall <= 30
+								feature.properties.Rainfall < 31
 							) {
 								return { color: "#41b6c4", weight: 3 }
 							} else if (
 								feature.properties.Rainfall >= 31 &&
-								feature.properties.Rainfall <= 40
+								feature.properties.Rainfall < 41
 							) {
 								return { color: "#1d91c0", weight: 3 }
 							} else if (
