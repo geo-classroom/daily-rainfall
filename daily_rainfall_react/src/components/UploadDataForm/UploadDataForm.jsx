@@ -38,6 +38,8 @@ const UploadDataForm = (props) => {
 		longitude: user.registration.longitude,
 		rainfallAmount: "",
 		reportOtherWeather: false,
+		otherWeather: "",
+		otherWeatherPhoto: "",
 		isHail: false,
 		isSnow: false,
 		isFrost: false,
@@ -104,7 +106,7 @@ const UploadDataForm = (props) => {
 				setFormData((prevFormData) => {
 					return {
 						...prevFormData,
-						hailPhoto: url
+						otherWeatherPhoto: url
 					}
 				})
 			})
@@ -218,6 +220,9 @@ const UploadDataForm = (props) => {
 									label="Other"
 									helperText="eg: Centurion roads under water"
 									variant="filled"
+									onChange={handleChange}
+									name="otherWeather"
+									value={formData.otherWeather}
 								/>
 								<label htmlFor="icon-button-file">
 									<Input
