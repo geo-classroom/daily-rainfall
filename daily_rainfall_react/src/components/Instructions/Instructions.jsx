@@ -1,6 +1,6 @@
+import { Button } from "@mui/material"
 import React from "react"
 import "./instructions.css"
-import { Button } from "@mui/material"
 
 /*
 	Props
@@ -10,6 +10,52 @@ import { Button } from "@mui/material"
 const Instructions = (props) => {
 	return (
 		<div id="instructions-container">
+			<h3>Registration and uploading</h3>
+			<ul>
+				<li>
+					To register, navigate to{" "}
+					<a href="https://uprain.co.za/" target="_blank" rel="noreferrer">
+						UPrain
+					</a>
+					.
+				</li>
+				<li>
+					Login with either your Gmail or Facebook account (at the moment, we
+					only support login with Gmail or Facebook).
+				</li>
+				<li>Click on the “UPLOAD DATA” button in the top right corner.</li>
+				<li>
+					The first time you try to upload data, you will be asked to complete
+					your profile. For this you will be asked to confirm the following (the
+					process is demonstrated{" "}
+					<a
+						href="https://youtu.be/EDd2OocdWdk"
+						target="_blank"
+						rel="noreferrer"
+					>
+						here
+					</a>
+					):
+					<ul>
+						<li>
+							{" "}
+							The location of the rain gauge (once you select the “Permission to
+							show Location”, you will see a map with your current location and
+							you will be able to move the pin around on the map).
+						</li>
+						<li>Type of rain gauge.</li>
+						<li>If available, a photo of the rain gauge.</li>
+					</ul>
+				</li>
+				<li>
+					Once the registration is done, you can upload the measured rainfall
+					amount and additional observations about either hail, frost or snow.
+				</li>
+				<li>
+					If you have any comments or suggestions, please share your thoughts
+					with us at <a href="mailto: uprain@up.ac.za">uprain@up.ac.za</a>
+				</li>
+			</ul>
 			<h3>Setting up Rain gauge</h3>
 			<ul>
 				<li>The rain gauge should be placed 1m off the ground.</li>
@@ -52,34 +98,8 @@ const Instructions = (props) => {
 					should be recorded as 5mm.
 				</li>
 			</ul>
-			<h3>Uploading the Data</h3>
-			<ul>
-				<li>
-					Go to app,{" "}
-					<a href="https://uprain.co.za/" target="_blank" rel="noreferrer">
-						UPrain
-					</a>
-					.
-				</li>
-				<li>
-					Login with either your Gmail or Facebook account (apologies, at the
-					moment, we only support login with Gmail or Facebook).
-				</li>
-				<li>
-					Click on the &#8220;UPLOAD DATA&#8221; button in the top right corner.
-				</li>
-				<li>
-					Fill out the registration form by providing your location and the type
-					of rain gauge. Once you are done, you will be asked to complete your
-					registration. You will only be required to complete this form once.
-				</li>
-				<li>
-					Once the registration is done, you can upload the measured rainfall
-					amount and additional observations about either hail, frost or snow.
-				</li>
-			</ul>
 			{/* eslint-disable react/prop-types */}
-			<Button id="back-to-map-btn" variant="text" onClick={props.backToMap}>
+			<Button id="back-to-map-btn" variant="outlined" onClick={props.backToMap}>
 				Back to Map
 			</Button>
 		</div>

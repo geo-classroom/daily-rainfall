@@ -94,7 +94,7 @@ const AboutProject = (props) => {
 				If you have any comments or suggestions, please share your thoughts with
 				us at <a href="mailto: uprain@up.ac.za">uprain@up.ac.za</a>
 			</p>
-			<Button id="back-to-map-btn" variant="text" onClick={props.backToMap}>
+			<Button id="back-to-map-btn" variant="outlined" onClick={props.backToMap}>
 				Back to Map
 			</Button>
 		</div>
