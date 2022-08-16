@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
+import { Button } from "@mui/material"
 import React from "react"
 import "./aboutProject.css"
-import { Button } from "@mui/material"
 
 /*
 	Props
@@ -87,6 +87,12 @@ const AboutProject = (props) => {
 						app
 					</li>
 				</ul>
+			</p>
+			<p>
+				<strong>Contact us:</strong>
+				<br />
+				If you have any comments or suggestions, please share your thoughts with
+				us at <a href="mailto: uprain@up.ac.za">uprain@up.ac.za</a>
 			</p>
 			<Button id="back-to-map-btn" variant="text" onClick={props.backToMap}>
 				Back to Map
