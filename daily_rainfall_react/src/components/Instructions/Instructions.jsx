@@ -62,12 +62,12 @@ const Instructions = (props) => {
 				<li>Ensure the rauge is as level and vertical as possible.</li>
 				<li>Place rain gauge in a location that is easily accessible.</li>
 				<li>
-					In an <b>open areas</b>, place rain gauge twice as far from obstacles
-					as the obstacle is high. For example, if a nearby tree is 10m tall,
-					place the rain gauge 20m away from the tree.
+					In <b>open areas</b>, place rain gauge twice as far from obstacles as
+					the obstacle is high. For example, if a nearby tree is 10m tall, place
+					the rain gauge 20m away from the tree.
 				</li>
 				<li>
-					In a <b>developed areas</b>, place rain gauge as far from obstacles as
+					In <b>developed areas</b>, place rain gauge as far from obstacles as
 					the obstacle is high. For example, if a tree is 2m tall, place the
 					rainguage at least 2m away from the tree.
 				</li>
@@ -92,12 +92,9 @@ const Instructions = (props) => {
 					lowest value. For example, if the value is between 5mm and 5.5mm, it
 					should be recorded as 5mm.
 				</li>
-				<li>
-					If the water level is between two values on the rain gauge record the
-					lowest value. For example, if the value is between 5mm and 5.5mm, it
-					should be recorded as 5mm.
-				</li>
+				<br />
 			</ul>
+
 			{/* eslint-disable react/prop-types */}
 			<Button id="back-to-map-btn" variant="outlined" onClick={props.backToMap}>
 				Back to Map
