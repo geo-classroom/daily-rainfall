@@ -1,11 +1,11 @@
 export const config = {
-    firebaseConfig: {
-        apiKey: "AIzaSyB5z7idSIvuJinVY4R0-yY3ySU1LEJaBlY",  
-        authDomain: "daily-rainfall.firebaseapp.com",      
-        projectId: "daily-rainfall",     
-        storageBucket: "daily-rainfall.appspot.com",     
-        messagingSenderId: "916245816924",     
-        appId: "1:916245816924:web:e05bce5915f02ac965e899",  
-        measurementId: "G-3VBDW6NHG3"
-    }
+	firebaseConfig: {
+		apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+		authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+		projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+		storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+		messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+		appId: process.env.REACT_APP_FIREBASE_APP_ID,
+		measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+	}
 }
