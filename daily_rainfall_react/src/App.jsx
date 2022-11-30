@@ -1,7 +1,6 @@
 import React, { createContext, useState } from "react"
 // Firebase
 import { initializeApp } from "firebase/app"
-import { config } from "./config/config"
 import {
 	FacebookAuthProvider,
 	getAuth,
@@ -11,14 +10,15 @@ import {
 	signOut
 } from "firebase/auth"
 import { getDatabase, onValue, ref, set, update } from "firebase/database"
+import { config } from "./config/config"
 // components
-import Navbar from "./components/Navbar/Navbar"
-import Map from "./components/Map/Map"
-import UserRegistrationForm from "./components/UserRegistration/UserRegistrationForm"
-import UploadDataForm from "./components/UploadDataForm/UploadDataForm"
-import Login from "./components/Login/Login"
-import Instructions from "./components/Instructions/Instructions"
 import AboutProject from "./components/AboutProject/AboutProject"
+import Instructions from "./components/Instructions/Instructions"
+import Login from "./components/Login/Login"
+import Map from "./components/Map/Map"
+import Navbar from "./components/Navbar/Navbar"
+import UploadDataForm from "./components/UploadDataForm/UploadDataForm"
+import UserRegistrationForm from "./components/UserRegistration/UserRegistrationForm"
 
 // Initialize the Firebase app
 initializeApp(config.firebaseConfig)
